@@ -1,0 +1,316 @@
+.page {
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  padding: 80px 0px 0px;
+  position: relative;
+}
+
+.page .top-bar {
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 6px #0000001f;
+  display: flex;
+  gap: 20px;
+  height: 80px;
+  justify-content: center;
+  left: 0;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  width: 1440px;
+}
+
+.page .rectangle {
+  background-color: #0000001a;
+  border-radius: 100px;
+  height: 40px;
+  position: relative;
+  width: 40px;
+}
+
+.page .title {
+  color: #000000;
+  font-family: "Roboto-Medium", Helvetica;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 36px;
+  position: relative;
+  width: 118px;
+  background-color: rgb(129, 129, 255);
+}
+
+.page .navbar {
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.page .tab {
+  color: #000000;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.page .navigation {
+  background-color: #ffffff;
+  position: relative;
+  width: 653px;
+}
+
+.page .button {
+  all: unset;
+  align-items: flex-start;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: -4px;
+  margin-top: -4px;
+  position: relative;
+}
+
+.page .primary {
+  align-items: center;
+  background-color: #000000;
+  border-radius: 8px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px;
+  position: relative;
+  width: 160px;
+}
+
+.page .text-wrapper {
+  color: #ffffff;
+  font-family: "Roboto-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.page .section {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 60px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  width: 1439px;
+}
+
+.page .container {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 24px;
+  position: relative;
+}
+
+.page .div {
+  color: #000000;
+  font-family: "Roboto-Bold", Helvetica;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 48px;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  width: 520px;
+}
+
+.page .vector {
+  height: 1px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 168px;
+  width: 1439px;
+}
+
+.page .section-2 {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 60px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  width: 1220px;
+}
+
+.page .list {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  padding: 20px 0px;
+  position: relative;
+  width: 100%;
+}
+
+.page .row {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 40px;
+  position: relative;
+  width: 100%;
+}
+
+.page .article {
+  align-items: flex-start;
+  border: 1px solid;
+  border-color: #0000001a;
+  border-radius: 6px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+  position: relative;
+}
+
+.page .image-container {
+  align-items: flex-start;
+  display: flex;
+  height: 100px;
+  position: relative;
+  width: 100px;
+}
+
+.page .image {
+  align-self: stretch;
+  background-color: #d8d8d880;
+  flex: 1;
+  flex-grow: 1;
+  position: relative;
+}
+
+.page .frame {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 8px;
+  position: relative;
+}
+
+.page .title-2 {
+  align-self: stretch;
+  color: #000000;
+  font-family: "Roboto-Medium", Helvetica;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 28px;
+  margin-top: -1px;
+  position: relative;
+}
+
+.page .img {
+  height: 1px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 708px;
+  width: 1220px;
+}
+
+.page .container-wrapper {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 60px;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  width: 100%;
+}
+
+.page .container-2 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 60px;
+  height: 100px;
+  justify-content: center;
+  position: relative;
+}
+
+.page .title-3 {
+  align-self: stretch;
+  color: #000000;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 28px;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  width: 150px;
+}
+
+.page .title-4 {
+  align-self: stretch;
+  color: #000000;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 28px;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  width: 124px;
+}
+
+.page .title-5 {
+  align-self: stretch;
+  color: #000000;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 28px;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  width: 99px;
+}
