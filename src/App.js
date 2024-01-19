@@ -6,7 +6,9 @@ import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home";
-import { PATH_ANY } from "./constants";
+import Login from "./pages/login";
+import Quiz from "./pages/quiz";
+import { PATH_ANY, PATH_LOGIN, PATH_QUIZ } from "./constants";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Routes>
               <Route element={<MainLayout />}>
                 <Route path={PATH_ANY} element={<Home />} />
+                <Route path={PATH_LOGIN} element={<Login />} />
+                <Route path={PATH_QUIZ} element={<Quiz />} />
               </Route>
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>
