@@ -1,0 +1,114 @@
+.top-bar {
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px #0000001f;
+  display: flex;
+  gap: 20px;
+  height: 80px;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  margin: 0 0 10px 0;
+}
+
+.top-bar .devquiz-logo {
+  height: 60px;
+  margin-bottom: -10px;
+  margin-top: -10px;
+  position: relative;
+  width: 60px;
+}
+
+.top-bar .title {
+  color: #000000;
+  font-family: "Roboto-Medium", Helvetica;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 36px;
+  position: relative;
+  width: 130px;
+  border: none;
+  background-color: white;
+}
+
+.top-bar .navbar {
+  align-items: center;
+  background-color: #ffffff;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 20px;
+  justify-content: center;
+  position: relative;
+}
+
+.top-bar .tab {
+  color: #000000;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  padding: 15px;
+  width: fit-content;
+  background-color: #ffffff;
+  border: none;
+}
+.top-bar .tab :focus,
+.top-bar .tab :active {
+  border: none !important;
+  outline: none !important;
+}
+
+.top-bar .text-wrapper {
+  color: #000000;
+  flex: 1;
+  font-family: "Roboto-Medium", Helvetica;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 36px;
+  position: relative;
+}
+
+.top-bar .button {
+  all: unset;
+  align-items: flex-start;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: -4px;
+  margin-top: -4px;
+  position: relative;
+}
+
+.top-bar .primary {
+  align-items: center;
+  background-color: #000000;
+  border-radius: 8px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px;
+  position: relative;
+  width: 100px;
+}
+
+.top-bar .div {
+  color: #ffffff;
+  font-family: "Roboto-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
