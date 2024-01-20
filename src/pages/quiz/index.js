@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-export default function Page () {
+export default function Quiz() {
   return (
     <div className="page">
       <div className="section">
@@ -45,7 +45,6 @@ export default function Page () {
           </div>
         </div>
       </div>
-      
     </div>
   );
-};
+}
