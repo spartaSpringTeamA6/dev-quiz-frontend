@@ -8,7 +8,6 @@ export default function Page () {
         <div className="container">
           <div className="title">Welcome to DevQuiz</div>
         </div>
-        <img className="vector" alt="Vector" src="vector-200.svg" />
       </div>
       <div className="div">
         <div className="avatar" />
@@ -92,22 +91,6 @@ export default function Page () {
           <div className="title-7">About</div>
           <div className="title-8">Privacy Policy</div>
         </div>
-      </div>
-      <div className="top-bar">
-        <img className="devquiz-logo" alt="Devquiz logo" src="devquiz-logo-2.png" />
-        <div className="title-9">DevQuiz</div>
-        <div className="navbar">
-          <div className="tab">Quiz</div>
-          <div className="tab">Rank</div>
-          <div className="tab">Board</div>
-          <div className="tab">Group</div>
-        </div>
-        <div className="title-10">{""}</div>
-        <button className="primary-wrapper">
-          <div className="primary">
-            <div className="title-5">User</div>
-          </div>
-        </button>
       </div>
     </div>
   );

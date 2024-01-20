@@ -12,7 +12,6 @@ export default function Page () {
           <div className="text-wrapper">팀 관리</div>
           <p className="description">팀 상세 정보와 관리 기능을 제공합니다.</p>
         </div>
-        <img className="vector" alt="Vector" src="image.svg" />
       </div>
       <div className="section">
         <div className="container">

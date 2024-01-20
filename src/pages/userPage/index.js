@@ -8,7 +8,6 @@ export default function Page () {
         <div className="container">
           <div className="title">Welcome to DevQuiz</div>
         </div>
-        <img className="vector" alt="Vector" src="vector-200.svg" />
       </div>
       <div className="div">
         <div className="avatar" />
