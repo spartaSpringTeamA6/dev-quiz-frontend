@@ -8,7 +8,8 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Quiz from "./pages/quiz";
-import { PATH_ANY, PATH_LOGIN, PATH_QUIZ } from "./constants";
+import UserPage from "./pages/userPage";
+import { PATH_ANY, PATH_LOGIN, PATH_QUIZ, PATH_USERPAGE } from "./constants";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path={PATH_ANY} element={<Home />} />
                 <Route path={PATH_LOGIN} element={<Login />} />
                 <Route path={PATH_QUIZ} element={<Quiz />} />
+                <Route path={PATH_USERPAGE} element={<UserPage />} />
               </Route>
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>

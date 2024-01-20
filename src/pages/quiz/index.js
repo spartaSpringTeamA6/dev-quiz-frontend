@@ -46,22 +46,7 @@ export default function Page () {
           </div>
         </div>
       </div>
-      <div className="top-bar">
-        <img className="devquiz-logo" alt="Devquiz logo" src="devquiz-logo-2.png" />
-        <div className="title-8">DevQuiz</div>
-        <div className="navbar">
-          <div className="tab">Quiz</div>
-          <div className="tab">Rank</div>
-          <div className="tab">Board</div>
-          <div className="tab">Group</div>
-        </div>
-        <div className="title-9">{""}</div>
-        <button className="primary-wrapper">
-          <div className="title-wrapper">
-            <div className="title-4">Login</div>
-          </div>
-        </button>
-      </div>
+      
     </div>
   );
 };
