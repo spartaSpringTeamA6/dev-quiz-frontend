@@ -1,9 +1,13 @@
-import { CookiesProvider } from "react-cookie";
-import React from "react"; // useState와 useEffect가 사용되지 않으므로 import 제거
+import React, { useState } from "react";
+import axios from "axios";
 import "./App.css";
 import theme from "./styles/themes/default";
+
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+import { useCookies } from "react-cookie";
+
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -14,6 +18,7 @@ import TeamSetup from "./pages/TeamSetup";
 import TeamManagement from "./pages/TeamManagement";
 import UserManagement from "./pages/UserManagement";
 import {
+  API_BASE_URL,
   PATH_ANY,
   PATH_LOGIN,
   PATH_QUIZ,
@@ -25,6 +30,21 @@ import {
 } from "./constants";
 
 function App() {
+  const [connection, setConnection] = useState("");
+
+  const [cookies] = useCookies();
+
+  const connectionTest = () => {
+    axios
+      .get(API_BASE_URL)
+      .then((response) => {
+        setConnection(response.data);
+      })
+      .catch((error) => {
+        setConnection(error.message);
+      });
+  };
+
   return (
     <CookiesProvider>
       <ThemeProvider theme={theme}>
