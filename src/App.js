@@ -9,14 +9,14 @@ import { CookiesProvider } from "react-cookie";
 import { useCookies } from "react-cookie";
 
 import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Quiz from "./pages/Quiz";
-import UserPage from "./pages/UserPage";
-import TeamNameChane from "./pages/TeamNameChange";
-import TeamSetup from "./pages/TeamSetup";
-import TeamManagement from "./pages/TeamManagement";
-import UserManagement from "./pages/UserManagement";
+import Home from "./pages/home";
+import Login from "./pages/login";
+import Quiz from "./pages/quiz";
+import UserPage from "./pages/userPage";
+import TeamNameChane from "./pages/teamNameChange";
+import TeamSetup from "./pages/teamSetup";
+import TeamManagement from "./pages/teamManagement";
+import UserManagement from "./pages/userManagement";
 import {
   API_BASE_URL,
   PATH_ANY,
