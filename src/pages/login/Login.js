@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { PATH_HOME } from "../../constants";
+import { API_BASE_URL, PATH_HOME } from "../../constants";
 
 const Wrap = styled.div`
   width: 600px;
@@ -94,6 +94,12 @@ const NonMemberButton = styled.button`
   }
 `;
 
+const ALink = styled.a`
+  &:hover {
+    text-decoration-line: none;
+  }
+`;
+
 export default function Login() {
   return (
     <>
@@ -102,12 +108,16 @@ export default function Login() {
           <Title>Login</Title>
           <Description>Welcome to our login page!</Description>
           <ButtonContainer>
-            <Button>
-              <ButtonText>Google</ButtonText>
-            </Button>
-            <Button>
-              <ButtonText>Github</ButtonText>
-            </Button>
+            <ALink href={API_BASE_URL + "/oauth2/authorization/github"}>
+              <Button>
+                <ButtonText>Google</ButtonText>
+              </Button>
+            </ALink>
+            <ALink href={API_BASE_URL + "/oauth2/authorization/google"}>
+              <Button>
+                <ButtonText>Github</ButtonText>
+              </Button>
+            </ALink>
           </ButtonContainer>
           <Link to={PATH_HOME}>
             <NonMemberButton>start as a non-member</NonMemberButton>

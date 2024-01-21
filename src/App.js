@@ -16,6 +16,9 @@ import {
   PATH_QUIZ,
   PATH_HOME,
   PATH_QUIZ_QUESTION,
+  PATH_GROUP,
+  PATH_GROUP_DETAIL,
+  PATH_GROUP_SETTING,
 } from "./constants";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home/Home";
@@ -23,6 +26,9 @@ import Login from "./pages/login/Login";
 import QuizCategory from "./pages/quiz/QuizCategory";
 import QuizQuestion from "./pages/quiz/QuizQuestion";
 import MyPageProfile from "./pages/mypage/MypageProfile";
+import GroupDetail from "./pages/group/GroupDetail";
+import GroupList from "./pages/group/GroupList";
+import GroupSetting from "./pages/group/GroupSetting";
 
 function App() {
   const [connection, setConnection] = useState("");
@@ -50,6 +56,7 @@ function App() {
                 {/* Home */}
                 <Route path={PATH_ANY} element={<Home />} />
                 <Route path={PATH_HOME} element={<Home />} />
+
                 {/* User */}
                 <Route path={PATH_LOGIN} element={<Login />} />
                 <Route path={PATH_MYPAGE} element={<MyPageProfile />} />
@@ -57,6 +64,11 @@ function App() {
                 {/* Quiz */}
                 <Route path={PATH_QUIZ} element={<QuizCategory />} />
                 <Route path={PATH_QUIZ_QUESTION} element={<QuizQuestion />} />
+
+                {/* GROUP */}
+                <Route path={PATH_GROUP} element={<GroupList />} />
+                <Route path={PATH_GROUP_DETAIL} element={<GroupDetail />} />
+                <Route path={PATH_GROUP_SETTING} element={<GroupSetting />} />
               </Route>
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>

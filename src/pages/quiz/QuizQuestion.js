@@ -149,7 +149,7 @@ const ButtonText = styled.div`
   word-wrap: break-word;
 `;
 
-export default function Quiz() {
+export default function QuizQuestion() {
   return (
     <Wrap>
       <MainContainer>
@@ -176,6 +176,9 @@ export default function Quiz() {
             <ConfirmationText color="#1400FF">맞았습니다!</ConfirmationText>
           </Confirmation>
           <ButtonContainer>
+            <Button>
+              <ButtonText>Board</ButtonText>
+            </Button>
             <Button>
               <ButtonText>Pass</ButtonText>
             </Button>
