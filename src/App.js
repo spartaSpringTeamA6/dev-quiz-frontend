@@ -12,7 +12,6 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Quiz from "./pages/quiz";
-import UserPage from "./pages/mypage/userPage";
 import UserManagement from "./pages/mypage/userManagement";
 import TeamCreate from "./pages/team/teamCreate";
 import TeamSetup from "./pages/team/teamSetup";
@@ -24,7 +23,7 @@ import {
   PATH_ANY,
   PATH_LOGIN,
   PATH_QUIZ,
-  PATH_USERPAGE,
+  PATH_MYPAGE,
   PATH_TEAMNAMECHANGE,
   PATH_TEAMSETUP,
   PATH_TEAMMANAGEMENT,
@@ -57,8 +56,7 @@ function App() {
                 <Route path={PATH_ANY} element={<Home />} />
                 <Route path={PATH_LOGIN} element={<Login />} />
                 <Route path={PATH_QUIZ} element={<Quiz />} />
-                <Route path={PATH_USERPAGE} element={<UserPage />} />
-                <Route path={PATH_MYPAGE_PROFILE} element={<Profile />} />
+                <Route path={PATH_MYPAGE} element={<Profile />} />
                 <Route path={PATH_TEAMNAMECHANGE} element={<TeamCreate />} />
                 <Route path={PATH_TEAMSETUP} element={<TeamSetup />} />
                 <Route
