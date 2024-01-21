@@ -82,7 +82,7 @@ const TextWrapper = styled.div`
   position: relative;
 `;
 
-const PrimaryButton = styled.div`
+const PrimaryButton = styled.button`
   align-items: center;
   background-color: #000000;
   border-radius: 8px;
@@ -93,9 +93,16 @@ const PrimaryButton = styled.div`
   padding: 12px;
   position: relative;
   width: 100px;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 `;
 
-const PrimaryButtonText = styled.div`
+const PrimaryButtonText = styled.text`
   color: #ffffff;
   font-family: "Roboto-Medium", Helvetica;
   font-size: 16px;
@@ -120,11 +127,9 @@ export default function Header() {
         <Tab>Group</Tab>
       </NavBar>
       <TextWrapper>{""}</TextWrapper>
-      <button className="button">
-        <PrimaryButton>
-          <PrimaryButtonText>Login</PrimaryButtonText>
-        </PrimaryButton>
-      </button>
+      <PrimaryButton>
+        <PrimaryButtonText>Login</PrimaryButtonText>
+      </PrimaryButton>
     </TopBar>
   );
 }
