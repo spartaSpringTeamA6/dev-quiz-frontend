@@ -122,33 +122,39 @@ const PrimaryButtonText = styled.text`
   width: fit-content;
 `;
 
+const ToLink = styled(Link)`
+  &:hover {
+    text-decoration-line: none;
+  }
+`;
+
 export default function Header() {
   return (
     <TopBar>
       <DevQuizLogo alt="Devquiz logo" src={logo_devquiz} />
-      <Link to={PATH_HOME}>
+      <ToLink to={PATH_HOME}>
         <TitleButton>DevQuiz</TitleButton>
-      </Link>
+      </ToLink>
       <NavBar>
-        <Link to={PATH_QUIZ}>
+        <ToLink to={PATH_QUIZ}>
           <Tab>Quiz</Tab>
-        </Link>
+        </ToLink>
         {/* <Link to={}>
           <Tab>Rank</Tab>
         </Link> */}
-        <Link to={PATH_QUIZ}>
+        <ToLink to={PATH_QUIZ}>
           <Tab>Board</Tab>
-        </Link>
-        <Link to={PATH_GROUP_MANAGEMENT}>
+        </ToLink>
+        <ToLink to={PATH_GROUP_MANAGEMENT}>
           <Tab>Group</Tab>
-        </Link>
+        </ToLink>
       </NavBar>
       <TextWrapper></TextWrapper>
-      <Link to={PATH_LOGIN}>
+      <ToLink to={PATH_LOGIN}>
         <PrimaryButton>
           <PrimaryButtonText>Login</PrimaryButtonText>
         </PrimaryButton>
-      </Link>
+      </ToLink>
     </TopBar>
   );
 }
