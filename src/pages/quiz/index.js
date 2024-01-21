@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+const Wrap = styled.div`
+  padding: 80px 0 0 0;
+`;
+
 const MainContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -43,6 +47,7 @@ const Description = styled.div`
   font-weight: 400;
   line-height: 24px;
   word-wrap: break-word;
+  color: rgba(0, 0, 0, 0.5);
 `;
 
 const AnswerContainer = styled.div`
@@ -146,38 +151,40 @@ const ButtonText = styled.div`
 
 export default function Quiz() {
   return (
-    <MainContainer>
-      <ContentContainer>
-        <Title>My Question</Title>
-        <Description>Choose the correct answer</Description>
-        <AnswerContainer>
-          <Answer>
-            <AnswerText>1. Clearness</AnswerText>
-          </Answer>
-          <Answer>
-            <AnswerText color="#1400FF" fontWeight="700">
-              2. Clearness
-            </AnswerText>
-          </Answer>
-          <Answer>
-            <AnswerText>3. Cloudiness</AnswerText>
-          </Answer>
-          <Answer>
-            <AnswerText>4. Rain</AnswerText>
-          </Answer>
-        </AnswerContainer>
-        <Confirmation>
-          <ConfirmationText color="#1400FF">맞았습니다!</ConfirmationText>
-        </Confirmation>
-        <ButtonContainer>
-          <Button>
-            <ButtonText>Pass</ButtonText>
-          </Button>
-          <Button background="black">
-            <ButtonText color="white">Solve</ButtonText>
-          </Button>
-        </ButtonContainer>
-      </ContentContainer>
-    </MainContainer>
+    <Wrap>
+      <MainContainer>
+        <ContentContainer>
+          <Title>My Question</Title>
+          <Description>Choose the correct answer</Description>
+          <AnswerContainer>
+            <Answer>
+              <AnswerText>1. Clearness</AnswerText>
+            </Answer>
+            <Answer>
+              <AnswerText color="#1400FF" fontWeight="700">
+                2. Clearness
+              </AnswerText>
+            </Answer>
+            <Answer>
+              <AnswerText>3. Cloudiness</AnswerText>
+            </Answer>
+            <Answer>
+              <AnswerText>4. Rain</AnswerText>
+            </Answer>
+          </AnswerContainer>
+          <Confirmation>
+            <ConfirmationText color="#1400FF">맞았습니다!</ConfirmationText>
+          </Confirmation>
+          <ButtonContainer>
+            <Button>
+              <ButtonText>Pass</ButtonText>
+            </Button>
+            <Button background="black">
+              <ButtonText color="white">Solve</ButtonText>
+            </Button>
+          </ButtonContainer>
+        </ContentContainer>
+      </MainContainer>
+    </Wrap>
   );
 }

@@ -13,22 +13,22 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Quiz from "./pages/quiz";
 import UserManagement from "./pages/mypage/userManagement";
-import TeamCreate from "./pages/team/teamCreate";
-import TeamSetup from "./pages/team/teamSetup";
-import TeamManagement from "./pages/team/teamManagement";
 import Profile from "./pages/mypage/profile";
 
 import {
   API_BASE_URL,
   PATH_ANY,
   PATH_LOGIN,
-  PATH_QUIZ,
   PATH_MYPAGE,
-  PATH_TEAMNAMECHANGE,
-  PATH_TEAMSETUP,
-  PATH_TEAMMANAGEMENT,
-  PATH_USERMANAGEMENT,
+  PATH_MYPAGE_MANAGEMENT,
+  PATH_QUIZ,
+  PATH_GROUP_CREATE,
+  PATH_GROUP_SETTING,
+  PATH_GROUP_MANAGEMENT,
 } from "./constants";
+import GroupCreate from "./pages/group/groupCreate";
+import GroupSetup from "./pages/group/groupSetup";
+import GroupManagement from "./pages/group/groupManagement";
 
 function App() {
   const [connection, setConnection] = useState("");
@@ -57,15 +57,15 @@ function App() {
                 <Route path={PATH_LOGIN} element={<Login />} />
                 <Route path={PATH_QUIZ} element={<Quiz />} />
                 <Route path={PATH_MYPAGE} element={<Profile />} />
-                <Route path={PATH_TEAMNAMECHANGE} element={<TeamCreate />} />
-                <Route path={PATH_TEAMSETUP} element={<TeamSetup />} />
                 <Route
-                  path={PATH_TEAMMANAGEMENT}
-                  element={<TeamManagement />}
-                />
-                <Route
-                  path={PATH_USERMANAGEMENT}
+                  path={PATH_MYPAGE_MANAGEMENT}
                   element={<UserManagement />}
+                />
+                <Route path={PATH_GROUP_CREATE} element={<GroupCreate />} />
+                <Route path={PATH_GROUP_SETTING} element={<GroupSetup />} />
+                <Route
+                  path={PATH_GROUP_MANAGEMENT}
+                  element={<GroupManagement />}
                 />
               </Route>
               {/* Admin 관련 라우트도 이곳에 추가 */}

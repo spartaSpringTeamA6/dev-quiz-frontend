@@ -1,5 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { PATH_HOME } from "../../constants";
+
+const Wrap = styled.div`
+  width: 600px;
+  margin: 0 auto;
+  padding: 80px 0 0 0;
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -98,22 +106,26 @@ const NonMemberButton = styled.button`
 export default function Login() {
   return (
     <>
-      <Container>
-        <StyledTitle>Welcome to DevQuiz</StyledTitle>
-      </Container>
-      <Container>
-        <Title>Login</Title>
-        <Description>Welcome to our login page!</Description>
-        <ButtonContainer>
-          <Button>
-            <ButtonText>Google</ButtonText>
-          </Button>
-          <Button>
-            <ButtonText>Github</ButtonText>
-          </Button>
-        </ButtonContainer>
-        <NonMemberButton>start as a non-member</NonMemberButton>
-      </Container>
+      <Wrap>
+        {/* <Container>
+          <StyledTitle>Welcome to DevQuiz</StyledTitle>
+        </Container> */}
+        <Container>
+          <Title>Login</Title>
+          <Description>Welcome to our login page!</Description>
+          <ButtonContainer>
+            <Button>
+              <ButtonText>Google</ButtonText>
+            </Button>
+            <Button>
+              <ButtonText>Github</ButtonText>
+            </Button>
+          </ButtonContainer>
+          <Link to={PATH_HOME}>
+            <NonMemberButton>start as a non-member</NonMemberButton>
+          </Link>
+        </Container>
+      </Wrap>
     </>
   );
 }

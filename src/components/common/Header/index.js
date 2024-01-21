@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { logo_devquiz } from "../../../assets/images";
+import { Link } from "react-router-dom";
+import {
+  PATH_GROUP_MANAGEMENT,
+  PATH_HOME,
+  PATH_LOGIN,
+  PATH_QUIZ,
+} from "../../../constants";
 
 const TopBar = styled.div`
   align-items: center;
@@ -119,17 +126,29 @@ export default function Header() {
   return (
     <TopBar>
       <DevQuizLogo alt="Devquiz logo" src={logo_devquiz} />
-      <TitleButton>DevQuiz</TitleButton>
+      <Link to={PATH_HOME}>
+        <TitleButton>DevQuiz</TitleButton>
+      </Link>
       <NavBar>
-        <Tab>Quiz</Tab>
-        <Tab>Rank</Tab>
-        <Tab>Board</Tab>
-        <Tab>Group</Tab>
+        <Link to={PATH_QUIZ}>
+          <Tab>Quiz</Tab>
+        </Link>
+        {/* <Link to={}>
+          <Tab>Rank</Tab>
+        </Link> */}
+        <Link to={PATH_QUIZ}>
+          <Tab>Board</Tab>
+        </Link>
+        <Link to={PATH_GROUP_MANAGEMENT}>
+          <Tab>Group</Tab>
+        </Link>
       </NavBar>
-      <TextWrapper>{""}</TextWrapper>
-      <PrimaryButton>
-        <PrimaryButtonText>Login</PrimaryButtonText>
-      </PrimaryButton>
+      <TextWrapper></TextWrapper>
+      <Link to={PATH_LOGIN}>
+        <PrimaryButton>
+          <PrimaryButtonText>Login</PrimaryButtonText>
+        </PrimaryButton>
+      </Link>
     </TopBar>
   );
 }

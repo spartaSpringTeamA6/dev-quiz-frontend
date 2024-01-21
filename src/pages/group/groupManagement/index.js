@@ -194,7 +194,7 @@ const Text = styled.div`
   width: fit-content;
 `;
 
-export default function TeamManagement() {
+export default function GroupManagement() {
   return (
     <StyledPage>
       <Section>
