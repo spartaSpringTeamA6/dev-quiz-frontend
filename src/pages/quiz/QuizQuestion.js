@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { PATH_BOARD } from "../../constants";
 
 const Wrap = styled.div`
   padding: 80px 0 0 0;
@@ -149,6 +151,34 @@ const ButtonText = styled.div`
   word-wrap: break-word;
 `;
 
+const BoardTextButton = styled.button`
+  width: 520px;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  font-family: "Roboto";
+  font-weight: 400;
+  line-height: 24px;
+  word-wrap: break-word;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    border: none;
+    color: black;
+  }
+`;
+
+const ToLink = styled(Link)`
+  &:hover {
+    text-decoration-line: none;
+  }
+`;
+
 export default function QuizQuestion() {
   return (
     <Wrap>
@@ -177,15 +207,15 @@ export default function QuizQuestion() {
           </Confirmation>
           <ButtonContainer>
             <Button>
-              <ButtonText>Board</ButtonText>
-            </Button>
-            <Button>
               <ButtonText>Pass</ButtonText>
             </Button>
             <Button background="black">
               <ButtonText color="white">Solve</ButtonText>
             </Button>
           </ButtonContainer>
+          <ToLink to={PATH_BOARD}>
+            <BoardTextButton>Ask on the Board</BoardTextButton>
+          </ToLink>
         </ContentContainer>
       </MainContainer>
     </Wrap>

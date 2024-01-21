@@ -9,6 +9,8 @@ import {
   img_jpa,
   img_spring,
 } from "../../assets/images";
+import { PATH_QUIZ_QUESTION } from "../../constants";
+import { Link } from "react-router-dom";
 
 const Page = styled.div`
   align-items: center;
@@ -78,7 +80,7 @@ const Row = styled.div`
 `;
 
 const Article = styled.button`
-  align-items: flex-start;
+  align-items: center;
   border: 1px solid;
   border-color: #0000001a;
   border-radius: 6px;
@@ -163,6 +165,17 @@ const ImageContainer2 = styled.div`
   width: 100px;
 `;
 
+const ToLink = styled(Link)`
+  display: flex;
+  align-self: stretch;
+  flex: 1;
+  flex-grow: 1;
+  gap: 16px;
+  &:hover {
+    text-decoration-line: none;
+  }
+`;
+
 export default function QuizCategory() {
   return (
     <Page>
@@ -171,76 +184,88 @@ export default function QuizCategory() {
           <TextWrapper>Categories</TextWrapper>
           <List>
             <Row>
-              <Article>
-                <ImageContainer>
-                  <Image>
-                    <Img alt="Computer Science" src={img_computer_science} />
-                  </Image>
-                </ImageContainer>
-                <Frame>
-                  <Title2>Computer Science</Title2>
-                  <Subtitle>Test your Computer Science knowledge</Subtitle>
-                </Frame>
-              </Article>
-              <Article>
-                <ImageContainer>
-                  <Image>
-                    <Img alt="Design Pattern" src={img_design_pattern} />
-                  </Image>
-                </ImageContainer>
-                <Frame>
-                  <Title2>Design Pattern</Title2>
-                  <Subtitle>Test your Design Pattern knowledge</Subtitle>
-                </Frame>
-              </Article>
+              <ToLink to={PATH_QUIZ_QUESTION}>
+                <Article>
+                  <ImageContainer>
+                    <Image>
+                      <Img alt="Computer Science" src={img_computer_science} />
+                    </Image>
+                  </ImageContainer>
+                  <Frame>
+                    <Title2>Computer Science</Title2>
+                    <Subtitle>Test your Computer Science knowledge</Subtitle>
+                  </Frame>
+                </Article>
+              </ToLink>
+              <ToLink to={PATH_QUIZ_QUESTION}>
+                <Article>
+                  <ImageContainer>
+                    <Image>
+                      <Img alt="Design Pattern" src={img_design_pattern} />
+                    </Image>
+                  </ImageContainer>
+                  <Frame>
+                    <Title2>Design Pattern</Title2>
+                    <Subtitle>Test your Design Pattern knowledge</Subtitle>
+                  </Frame>
+                </Article>
+              </ToLink>
             </Row>
             <Row>
-              <Article>
-                <ImageContainer>
-                  <Image>
-                    <Img alt="Database" src={img_database} />
-                  </Image>
-                </ImageContainer>
-                <Frame>
-                  <Title2>Database</Title2>
-                  <Subtitle>Test your Database knowledge</Subtitle>
-                </Frame>
-              </Article>
-              <Article>
-                <ImageContainer>
-                  <Image>
-                    <Img alt="Java" src={img_java} />
-                  </Image>
-                </ImageContainer>
-                <Frame>
-                  <Title2>Java</Title2>
-                  <Subtitle>Test your Java knowledge</Subtitle>
-                </Frame>
-              </Article>
+              <ToLink to={PATH_QUIZ_QUESTION}>
+                <Article>
+                  <ImageContainer>
+                    <Image>
+                      <Img alt="Database" src={img_database} />
+                    </Image>
+                  </ImageContainer>
+                  <Frame>
+                    <Title2>Database</Title2>
+                    <Subtitle>Test your Database knowledge</Subtitle>
+                  </Frame>
+                </Article>
+              </ToLink>
+              <ToLink to={PATH_QUIZ_QUESTION}>
+                <Article>
+                  <ImageContainer>
+                    <Image>
+                      <Img alt="Java" src={img_java} />
+                    </Image>
+                  </ImageContainer>
+                  <Frame>
+                    <Title2>Java</Title2>
+                    <Subtitle>Test your Java knowledge</Subtitle>
+                  </Frame>
+                </Article>
+              </ToLink>
             </Row>
             <Row>
-              <Article>
-                <ImageContainer>
-                  <Image>
-                    <Img alt="Spring" src={img_spring} />
-                  </Image>
-                </ImageContainer>
-                <Frame>
-                  <Title2>Spring</Title2>
-                  <Subtitle>Test your Spring knowledge</Subtitle>
-                </Frame>
-              </Article>
-              <Article>
-                <ImageContainer2>
-                  <Image>
-                    <Img alt="JPA" src={img_jpa} />
-                  </Image>
-                </ImageContainer2>
-                <Frame>
-                  <Title2>JPA</Title2>
-                  <Subtitle>Test your JPA knowledge</Subtitle>
-                </Frame>
-              </Article>
+              <ToLink to={PATH_QUIZ_QUESTION}>
+                <Article>
+                  <ImageContainer>
+                    <Image>
+                      <Img alt="Spring" src={img_spring} />
+                    </Image>
+                  </ImageContainer>
+                  <Frame>
+                    <Title2>Spring</Title2>
+                    <Subtitle>Test your Spring knowledge</Subtitle>
+                  </Frame>
+                </Article>
+              </ToLink>
+              <ToLink to={PATH_QUIZ_QUESTION}>
+                <Article>
+                  <ImageContainer2>
+                    <Image>
+                      <Img alt="JPA" src={img_jpa} />
+                    </Image>
+                  </ImageContainer2>
+                  <Frame>
+                    <Title2>JPA</Title2>
+                    <Subtitle>Test your JPA knowledge</Subtitle>
+                  </Frame>
+                </Article>
+              </ToLink>
             </Row>
           </List>
         </Container>

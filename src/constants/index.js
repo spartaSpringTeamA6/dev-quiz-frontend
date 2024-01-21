@@ -14,6 +14,10 @@ export const PATH_MYPAGE = "/mypage";
 export const PATH_QUIZ = "/quiz";
 export const PATH_QUIZ_QUESTION = "/quiz/question";
 
+export const PATH_BOARD = "/board";
+
 export const PATH_GROUP = "/group";
 export const PATH_GROUP_DETAIL = "/group/detail";
 export const PATH_GROUP_SETTING = "/group/setting";
+
+
