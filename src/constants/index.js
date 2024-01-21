@@ -6,12 +6,11 @@ export const ACCESS_TOKEN = "accessToken";
 /* PATH ROOT */
 export const PATH_HOME = "/";
 export const PATH_ANY = "/*";
+
 export const PATH_LOGIN = "/login";
 export const PATH_MYPAGE = "/mypage";
-export const PATH_MYPAGE_MANAGEMENT = "/mypage/management";
 
 export const PATH_QUIZ = "/quiz";
+export const PATH_QUIZ_QUESTION = "/quiz/question";
 
-export const PATH_GROUP_CREATE = "/group/create";
-export const PATH_GROUP_SETTING = "/group/setting";
-export const PATH_GROUP_MANAGEMENT = "/group/management";
+export const PATH_GROUP = "/group";

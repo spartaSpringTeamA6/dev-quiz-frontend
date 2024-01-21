@@ -163,7 +163,7 @@ const ImageContainer2 = styled.div`
   width: 100px;
 `;
 
-export default function Home() {
+export default function QuizCategory() {
   return (
     <Page>
       <Div>

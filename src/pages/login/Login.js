@@ -20,15 +20,6 @@ const Container = styled.div`
   display: inline-flex;
 `;
 
-const StyledTitle = styled.div`
-  color: #000000;
-  font-family: "Roboto-Bold", Helvetica;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 36px;
-  text-align: center;
-`;
-
 const Title = styled.div`
   width: 520px;
   text-align: center;
@@ -107,9 +98,6 @@ export default function Login() {
   return (
     <>
       <Wrap>
-        {/* <Container>
-          <StyledTitle>Welcome to DevQuiz</StyledTitle>
-        </Container> */}
         <Container>
           <Title>Login</Title>
           <Description>Welcome to our login page!</Description>

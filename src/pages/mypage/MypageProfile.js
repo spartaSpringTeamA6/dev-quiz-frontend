@@ -405,7 +405,7 @@ const Container5 = styled.div`
   width: 600px;
 `;
 
-export default function Profile() {
+export default function MyPageProfile() {
   return (
     <Index>
       <Section>
