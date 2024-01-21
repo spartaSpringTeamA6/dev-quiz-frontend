@@ -90,6 +90,12 @@ const Article = styled.button`
   padding: 16px;
   position: relative;
   background-color: white;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    border-color: black;
+  }
 `;
 
 const ImageContainer = styled.div`

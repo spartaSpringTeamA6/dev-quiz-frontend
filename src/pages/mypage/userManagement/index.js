@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-export default function Page () {
+export default function UserManagement() {
   return (
     <div className="page">
       <div className="section">
@@ -94,4 +94,4 @@ export default function Page () {
       </div>
     </div>
   );
-};
+}

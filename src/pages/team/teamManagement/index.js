@@ -1,46 +1,12 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledPage = styled.div`
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   padding: 80px 0px 0px;
-  position: relative;
-`;
-
-const TopBar = styled.div`
-  align-items: center;
-  background-color: #FFFFFF;
-  box-shadow: 0px 0px 6px #0000001f;
-  display: flex;
-  gap: 20px;
-  height: 80px;
-  justify-content: center;
-  left: 0;
-  padding: 20px;
-  position: absolute;
-  top: 0;
-  width: 1440px;
-`;
-
-const Rectangle = styled.div`
-  background-color: #0000001a;
-  border-radius: 100px;
-  height: 40px;
-  position: relative;
-  width: 40px;
-`;
-
-const StyledTitle = styled.div`
-  color: #000000;
-  flex: 1;
-  font-family: "Roboto-Medium", Helvetica;
-  font-size: 28px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 36px;
   position: relative;
 `;
 
@@ -117,7 +83,7 @@ const Div = styled.div`
 
 const TextField = styled.div`
   align-self: stretch;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid;
   border-color: #0000001a;
   border-radius: 6px;
@@ -149,7 +115,7 @@ const Primary = styled.div`
 `;
 
 const Title2 = styled.div`
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Roboto-Medium", Helvetica;
   font-size: 16px;
   font-weight: 500;
@@ -228,7 +194,7 @@ const Text = styled.div`
   width: fit-content;
 `;
 
-export default function PageComponent() {
+export default function TeamManagement() {
   return (
     <StyledPage>
       <Section>
@@ -263,7 +229,6 @@ export default function PageComponent() {
               <Title2>변경</Title2>
             </TitleWrapper>
           </PrimaryWrapper>
-          <Image alt="Vector" src="vector-200-2.svg" />
         </Container>
       </Section>
       <Section>
@@ -274,7 +239,6 @@ export default function PageComponent() {
               <Title2>변경</Title2>
             </TitleWrapper>
           </PrimaryWrapper>
-          <Vector2 alt="Vector" src="vector-200-3.svg" />
         </Container>
       </Section>
       <Section>

@@ -37,7 +37,7 @@ const Rectangle = styled.div`
 const StyledTitle = styled.div`
   color: #000000;
   flex: 1;
-  font-family: 'Roboto-Medium', Helvetica;
+  font-family: "Roboto-Medium", Helvetica;
   font-size: 28px;
   font-weight: 500;
   letter-spacing: 0;
@@ -57,7 +57,7 @@ const Navigation = styled.div`
 
 const Tab = styled.div`
   color: #000000;
-  font-family: 'Roboto-Regular', Helvetica;
+  font-family: "Roboto-Regular", Helvetica;
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0;
@@ -94,7 +94,7 @@ const Container = styled.div`
 const TextWrapper = styled.div`
   align-self: stretch;
   color: #000000;
-  font-family: 'Roboto-Bold', Helvetica;
+  font-family: "Roboto-Bold", Helvetica;
   font-size: 40px;
   font-weight: 700;
   letter-spacing: 0;
@@ -118,7 +118,7 @@ const Primary = styled.div`
 
 const Div = styled.div`
   color: #ffffff;
-  font-family: 'Roboto-Medium', Helvetica;
+  font-family: "Roboto-Medium", Helvetica;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0;
@@ -194,7 +194,7 @@ const Frame = styled.div`
 const Title2 = styled.div`
   align-self: stretch;
   color: #000000;
-  font-family: 'Roboto-Medium', Helvetica;
+  font-family: "Roboto-Medium", Helvetica;
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 0;
@@ -206,7 +206,7 @@ const Title2 = styled.div`
 const Subtitle = styled.div`
   align-self: stretch;
   color: #000000;
-  font-family: 'Roboto-Regular', Helvetica;
+  font-family: "Roboto-Regular", Helvetica;
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0;
@@ -248,7 +248,7 @@ const Container2 = styled.div`
 const Title3 = styled.div`
   align-self: stretch;
   color: #000000;
-  font-family: 'Roboto-Regular', Helvetica;
+  font-family: "Roboto-Regular", Helvetica;
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 0;
@@ -262,7 +262,7 @@ const Title3 = styled.div`
 const Title4 = styled.div`
   align-self: stretch;
   color: #000000;
-  font-family: 'Roboto-Regular', Helvetica;
+  font-family: "Roboto-Regular", Helvetica;
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 0;
@@ -273,7 +273,7 @@ const Title4 = styled.div`
   width: 166px;
 `;
 
-export default function teamSetup() {
+export default function TeamSetup() {
   return (
     <Page>
       <Section>

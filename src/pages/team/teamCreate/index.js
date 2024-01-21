@@ -1,9 +1,9 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledPage = styled.div`
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   padding: 80px 0px 0px;
@@ -12,7 +12,7 @@ const StyledPage = styled.div`
 
 const TopBar = styled.div`
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   box-shadow: 0px 0px 6px #0000001f;
   display: flex;
   gap: 20px;
@@ -46,7 +46,7 @@ const StyledTitle = styled.div`
 
 const Navigation = styled.div`
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: inline-flex;
   flex: 0 0 auto;
   gap: 40px;
@@ -160,7 +160,7 @@ const Div = styled.div`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   align-self: stretch;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid;
   border-color: #0000001a;
   border-radius: 6px;
@@ -207,7 +207,7 @@ const Primary = styled.div`
 `;
 
 const Title2 = styled.div`
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Roboto-Medium", Helvetica;
   font-size: 16px;
   font-weight: 500;
@@ -264,10 +264,9 @@ const P = styled.p`
   width: 362px;
 `;
 
-export default function Page () {
+export default function TeamCreate() {
   return (
     <div className="page">
-    
       <div className="section">
         <div className="container">
           <div className="text-wrapper">Create a New Team</div>
@@ -285,4 +284,4 @@ export default function Page () {
       </div>
     </div>
   );
-};
+}
