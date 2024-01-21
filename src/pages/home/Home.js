@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { PATH_QUIZ } from "../../constants";
 import { Link } from "react-router-dom";
+import { img_dogzip } from "../../assets/images";
 
 const IndexWrapper = styled.div`
   align-items: center;
@@ -102,13 +103,15 @@ const ImageContainer = styled.div`
   width: 470px;
 `;
 
-const Image = styled.div`
-  align-self: stretch;
+const Image = styled.img`
+  /* align-self: stretch; */
   background-color: #d8d8d880;
   border-radius: 6px;
   flex: 1;
   flex-grow: 1;
   position: relative;
+  width: 380px;
+  height: 380px;
 `;
 
 const ToLink = styled(Link)`
@@ -133,7 +136,7 @@ export default function Home() {
           </ButtonGroup>
         </Container>
         <ImageContainer>
-          <Image />
+          <Image alt="Dog Foot Zip" src={img_dogzip} />
         </ImageContainer>
       </Section>
     </IndexWrapper>

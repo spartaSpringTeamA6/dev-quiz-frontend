@@ -5,13 +5,15 @@ import img_design_pattern from "./img_design_pattern.png";
 import img_java from "./img_java.png";
 import img_jpa from "./img_jpa.png";
 import img_spring from "./img_spring.png";
+import img_dogzip from "./img_dogzip.png";
 
 export {
-    logo_devquiz,
-    img_computer_science,
-    img_database,
-    img_design_pattern,
-    img_java,
-    img_jpa,
-    img_spring
-}
+  logo_devquiz,
+  img_computer_science,
+  img_database,
+  img_design_pattern,
+  img_java,
+  img_jpa,
+  img_spring,
+  img_dogzip,
+};
