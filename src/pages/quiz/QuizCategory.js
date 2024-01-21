@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import {
@@ -10,7 +10,10 @@ import {
   img_spring,
 } from "../../assets/images";
 import { PATH_QUIZ_QUESTION } from "../../constants";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useUserStore } from "../../stores/user.store";
+import { quizGetListApi } from "../../apis/quizApis";
 
 const Page = styled.div`
   align-items: center;
@@ -177,6 +180,23 @@ const ToLink = styled(Link)`
 `;
 
 export default function QuizCategory() {
+  const [quizzes, setQuizzes] = useState([]);
+  const navigate = useNavigate();
+
+  const getQuizHandler = async (category) => {
+    const data = {
+      category: category,
+    };
+    const quizList = await quizGetListApi(data);
+    setQuizzes(quizList.data);
+  };
+
+  useEffect(() => {
+    if (quizzes && quizzes.length > 0) {
+      navigate(PATH_QUIZ_QUESTION, { state: { quizzes } });
+    }
+  }, [quizzes]);
+
   return (
     <Page>
       <Div>
@@ -184,88 +204,77 @@ export default function QuizCategory() {
           <TextWrapper>Categories</TextWrapper>
           <List>
             <Row>
-              <ToLink to={PATH_QUIZ_QUESTION}>
-                <Article>
-                  <ImageContainer>
-                    <Image>
-                      <Img alt="Computer Science" src={img_computer_science} />
-                    </Image>
-                  </ImageContainer>
-                  <Frame>
-                    <Title2>Computer Science</Title2>
-                    <Subtitle>Test your Computer Science knowledge</Subtitle>
-                  </Frame>
-                </Article>
-              </ToLink>
-              <ToLink to={PATH_QUIZ_QUESTION}>
-                <Article>
-                  <ImageContainer>
-                    <Image>
-                      <Img alt="Design Pattern" src={img_design_pattern} />
-                    </Image>
-                  </ImageContainer>
-                  <Frame>
-                    <Title2>Design Pattern</Title2>
-                    <Subtitle>Test your Design Pattern knowledge</Subtitle>
-                  </Frame>
-                </Article>
-              </ToLink>
+              <Article onClick={() => getQuizHandler("COMPUTER_SCIENCE")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Computer Science" src={img_computer_science} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Computer Science</Title2>
+                  <Subtitle>Test your Computer Science knowledge</Subtitle>
+                </Frame>
+              </Article>
+              <Article onClick={() => getQuizHandler("DESIGN_PATTERN")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Design Pattern" src={img_design_pattern} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Design Pattern</Title2>
+                  <Subtitle>Test your Design Pattern knowledge</Subtitle>
+                </Frame>
+              </Article>
             </Row>
             <Row>
-              <ToLink to={PATH_QUIZ_QUESTION}>
-                <Article>
-                  <ImageContainer>
-                    <Image>
-                      <Img alt="Database" src={img_database} />
-                    </Image>
-                  </ImageContainer>
-                  <Frame>
-                    <Title2>Database</Title2>
-                    <Subtitle>Test your Database knowledge</Subtitle>
-                  </Frame>
-                </Article>
-              </ToLink>
-              <ToLink to={PATH_QUIZ_QUESTION}>
-                <Article>
-                  <ImageContainer>
-                    <Image>
-                      <Img alt="Java" src={img_java} />
-                    </Image>
-                  </ImageContainer>
-                  <Frame>
-                    <Title2>Java</Title2>
-                    <Subtitle>Test your Java knowledge</Subtitle>
-                  </Frame>
-                </Article>
-              </ToLink>
+              <Article onClick={() => getQuizHandler("DATABASE")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Database" src={img_database} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Database</Title2>
+                  <Subtitle>Test your Database knowledge</Subtitle>
+                </Frame>
+              </Article>
+
+              <Article onClick={() => getQuizHandler("JAVA")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Java" src={img_java} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Java</Title2>
+                  <Subtitle>Test your Java knowledge</Subtitle>
+                </Frame>
+              </Article>
             </Row>
             <Row>
-              <ToLink to={PATH_QUIZ_QUESTION}>
-                <Article>
-                  <ImageContainer>
-                    <Image>
-                      <Img alt="Spring" src={img_spring} />
-                    </Image>
-                  </ImageContainer>
-                  <Frame>
-                    <Title2>Spring</Title2>
-                    <Subtitle>Test your Spring knowledge</Subtitle>
-                  </Frame>
-                </Article>
-              </ToLink>
-              <ToLink to={PATH_QUIZ_QUESTION}>
-                <Article>
-                  <ImageContainer2>
-                    <Image>
-                      <Img alt="JPA" src={img_jpa} />
-                    </Image>
-                  </ImageContainer2>
-                  <Frame>
-                    <Title2>JPA</Title2>
-                    <Subtitle>Test your JPA knowledge</Subtitle>
-                  </Frame>
-                </Article>
-              </ToLink>
+              <Article onClick={() => getQuizHandler("SPRING")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Spring" src={img_spring} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Spring</Title2>
+                  <Subtitle>Test your Spring knowledge</Subtitle>
+                </Frame>
+              </Article>
+              <Article onClick={() => getQuizHandler("JPA")}>
+                <ImageContainer2>
+                  <Image>
+                    <Img alt="JPA" src={img_jpa} />
+                  </Image>
+                </ImageContainer2>
+                <Frame>
+                  <Title2>JPA</Title2>
+                  <Subtitle>Test your JPA knowledge</Subtitle>
+                </Frame>
+              </Article>
             </Row>
           </List>
         </Container>

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PATH_BOARD } from "../../constants";
-import { useCookies } from "react-cookie";
-import useUserStore from "../../stores/user.store";
 
 const Wrap = styled.div`
   padding: 80px 0 0 0;
@@ -32,9 +30,10 @@ const ContentContainer = styled.div`
 `;
 
 const Title = styled.div`
+  width: 520px;
   text-align: center;
   color: black;
-  font-size: 30px;
+  font-size: 40px;
   font-family: "Roboto";
   font-weight: 700;
   line-height: 48px;
@@ -42,6 +41,7 @@ const Title = styled.div`
 `;
 
 const Description = styled.div`
+  width: 520px;
   text-align: center;
   color: black;
   font-size: 16px;
@@ -62,7 +62,6 @@ const AnswerContainer = styled.div`
   align-items: center;
   gap: 40px;
   display: flex;
-  flex-wrap: nowrap;
 `;
 
 const Answer = styled.div`
@@ -180,86 +179,45 @@ const ToLink = styled(Link)`
   }
 `;
 
-export default function QuizQuestion(props) {
-  const [cookies] = useCookies();
-  const { user } = useUserStore();
-  const [userToken, setUserToken] = useState("");
-
-  const location = useLocation();
-  const quizzes = location.state?.quizzes;
-  const [isSolved, setIsSolved] = useState();
-  const [selectAnswer, setSelectAnswer] = useState("");
-
-  useEffect(() => {
-    const token = cookies.userToken;
-    if (token) {
-      setUserToken(token);
-    }
-  }, [user]);
-
+export default function QuizQuestion() {
   return (
-    <>
-      {quizzes.length > 0 ? (
-        <Wrap>
-          <MainContainer>
-            <ContentContainer>
-              <Title>{quizzes[0].question}</Title>
-              <Description>Choose the correct answer</Description>
-              <AnswerContainer>
-                <Answer>
-                  <AnswerText
-                    onClick={() => {
-                      setSelectAnswer("1");
-                    }}
-                  >
-                    1. {quizzes[0].example[0]}
-                  </AnswerText>
-                </Answer>
-                <Answer>
-                  <AnswerText
-                    onClick={() => {
-                      setSelectAnswer("2");
-                    }}
-                  >
-                    2. {quizzes[0].example[1]}
-                  </AnswerText>
-                </Answer>
-                <Answer>
-                  <AnswerText
-                    onClick={() => {
-                      setSelectAnswer("3");
-                    }}
-                  >
-                    3. {quizzes[0].example[2]}
-                  </AnswerText>
-                </Answer>
-                <Answer>
-                  <AnswerText
-                    onClick={() => {
-                      setSelectAnswer("4");
-                    }}
-                  >
-                    4. {quizzes[0].example[3]}
-                  </AnswerText>
-                </Answer>
-              </AnswerContainer>
-              <ButtonContainer>
-                <Button>
-                  <ButtonText>Pass</ButtonText>
-                </Button>
-                <Button background="black">
-                  <ButtonText color="white">Solve</ButtonText>
-                </Button>
-              </ButtonContainer>
-              <ToLink to={PATH_BOARD}>
-                <BoardTextButton>Ask on the Board</BoardTextButton>
-              </ToLink>
-            </ContentContainer>
-          </MainContainer>
-        </Wrap>
-      ) : (
-        <></>
-      )}
-    </>
+    <Wrap>
+      <MainContainer>
+        <ContentContainer>
+          <Title>My Question</Title>
+          <Description>Choose the correct answer</Description>
+          <AnswerContainer>
+            <Answer>
+              <AnswerText>1. Clearness</AnswerText>
+            </Answer>
+            <Answer>
+              <AnswerText color="#1400FF" fontWeight="700">
+                2. Clearness
+              </AnswerText>
+            </Answer>
+            <Answer>
+              <AnswerText>3. Cloudiness</AnswerText>
+            </Answer>
+            <Answer>
+              <AnswerText>4. Rain</AnswerText>
+            </Answer>
+          </AnswerContainer>
+          <Confirmation>
+            <ConfirmationText color="#1400FF">맞았습니다!</ConfirmationText>
+          </Confirmation>
+          <ButtonContainer>
+            <Button>
+              <ButtonText>Pass</ButtonText>
+            </Button>
+            <Button background="black">
+              <ButtonText color="white">Solve</ButtonText>
+            </Button>
+          </ButtonContainer>
+          <ToLink to={PATH_BOARD}>
+            <BoardTextButton>Ask on the Board</BoardTextButton>
+          </ToLink>
+        </ContentContainer>
+      </MainContainer>
+    </Wrap>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import theme from "./styles/themes/default";
@@ -29,11 +29,13 @@ import MyPageProfile from "./pages/mypage/MypageProfile";
 import GroupDetail from "./pages/group/GroupDetail";
 import GroupList from "./pages/group/GroupList";
 import GroupSetting from "./pages/group/GroupSetting";
+import { useUserStore } from "./stores/user.store";
 
 function App() {
   const [connection, setConnection] = useState("");
-
   const [cookies] = useCookies();
+  const { user } = useUserStore();
+  const [userToken, setUserToken] = useState("");
 
   const connectionTest = () => {
     axios
@@ -45,6 +47,15 @@ function App() {
         setConnection(error.message);
       });
   };
+
+  useEffect(() => {
+    connectionTest(); //맨처음한번만
+
+    const token = cookies.userToken;
+    if (token) {
+      setUserToken(token);
+    }
+  }, [user]);
 
   return (
     <CookiesProvider>
