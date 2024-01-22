@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PATH_BOARD, PATH_HOME, PATH_QUIZ_QUESTION } from "../../constants";
+import {
+  PATH_BOARD,
+  PATH_HOME,
+  PATH_QUIZ_QUESTION,
+  PATH_QUIZ_RESULT,
+} from "../../constants";
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
 import { quizSubmitApi } from "../../apis/quizApis";
@@ -98,6 +103,19 @@ const AnswerText = styled.button`
   }
 `;
 
+const SubmitAnswerText = styled.text`
+  align-self: stretch;
+  text-align: center;
+  color: ${(props) => props.color || "black"};
+  font-size: 20px;
+  font-family: "Roboto";
+  font-weight: ${(props) => props.fontWeight || "400"};
+  line-height: 28px;
+  word-wrap: break-word;
+  background-color: transparent;
+  border: none;
+`;
+
 const Confirmation = styled.div`
   height: 48px;
   padding: 12px;
@@ -191,6 +209,10 @@ export default function QuizQuestion(props) {
 
   const index = location.state?.index;
   const quizzes = location.state?.quizzes;
+  const correct = location.state?.correct;
+  const pass = location.state?.pass;
+  // const [correct, setCorrect] = useState();
+  // const [pass, setPass] = useState();
   const [submitAnswer, setSubmitAnswer] = useState(false);
   const [selectAnswer, setSelectAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -200,8 +222,8 @@ export default function QuizQuestion(props) {
     const data = {
       answer: "0",
     };
-    const result = await quizSubmitApi(quizzes[index].id, data);
-    setCorrectAnswer(result.data.correctAnswer);
+    const response = await quizSubmitApi(quizzes[index].id, data);
+    setCorrectAnswer(response.data.correctAnswer);
     setSubmitAnswer(true);
   };
 
@@ -209,22 +231,59 @@ export default function QuizQuestion(props) {
     const data = {
       answer: answer,
     };
-    const result = await quizSubmitApi(quizzes[index].id, data);
-    setCorrectAnswer(result.data.correctAnswer);
+    const response = await quizSubmitApi(quizzes[index].id, data);
+    setCorrectAnswer(response.data.correctAnswer);
     setSubmitAnswer(true);
   };
 
   const clickNextHandler = async () => {
-    if (index + 1 >= 10) {
-      navigate(PATH_HOME);
-      return;
-    }
     setSubmitAnswer(false);
+    if (selectAnswer == "0") {
+      moveNextPageHandler(correct, pass + 1);
+    } else if (correctAnswer == selectAnswer) {
+      moveNextPageHandler(correct + 1, pass);
+    } else {
+      moveNextPageHandler(correct, pass);
+    }
+  };
+
+  const moveNextPageHandler = (c, p) => {
     setSelectAnswer("");
     setCorrectAnswer("");
-    navigate(PATH_QUIZ_QUESTION, {
-      state: { quizzes, index: index + 1 },
-    });
+    if (index + 1 >= 10) {
+      navigate(PATH_QUIZ_RESULT, { state: { correct: c, pass: p } });
+    } else {
+      navigate(PATH_QUIZ_QUESTION, {
+        state: { quizzes, index: index + 1, correct: c, pass: p },
+      });
+      return;
+    }
+  };
+
+  const customColor = (click) => {
+    if (selectAnswer == click && selectAnswer == correctAnswer) {
+      return "blue";
+    } else {
+      if (correctAnswer == click) {
+        return "blue";
+      }
+      if (selectAnswer == click) {
+        return "red";
+      }
+    }
+  };
+
+  const customFontWeight = (click) => {
+    if (selectAnswer == click && selectAnswer == correctAnswer) {
+      return "600";
+    } else {
+      if (correctAnswer == click) {
+        return "600";
+      }
+      if (selectAnswer == click) {
+        return "600";
+      }
+    }
   };
 
   useEffect(() => {
@@ -244,49 +303,101 @@ export default function QuizQuestion(props) {
               <Description>Choose the correct answer</Description>
               <AnswerContainer>
                 <Answer>
-                  <AnswerText
-                    onClick={() => setSelectAnswer("1")}
-                    color={
-                      !submitAnswer
-                        ? selectAnswer == "1"
-                          ? "blue"
-                          : "black"
-                        : correctAnswer == "1" &&
-                          (selectAnswer == "1" ? "blue" : "red")
-                    }
-                    fontWeight={selectAnswer == "1" ? "600" : "400"}
-                  >
-                    {quizzes[index].example[0]}
-                  </AnswerText>
+                  {!submitAnswer ? (
+                    <AnswerText
+                      onClick={() => setSelectAnswer("1")}
+                      color={selectAnswer == "1" && "blue"}
+                      fontWeight={selectAnswer == "1" && "600"}
+                    >
+                      {quizzes[index].example[0]}
+                    </AnswerText>
+                  ) : (
+                    <SubmitAnswerText
+                      color={() => customColor("1")}
+                      fontWeight={() => customFontWeight("1")}
+                    >
+                      {quizzes[index].example[0]}
+                    </SubmitAnswerText>
+                  )}
                 </Answer>
                 <Answer>
-                  <AnswerText
-                    onClick={() => setSelectAnswer("2")}
-                    color={selectAnswer == "2" ? "blue" : "black"}
-                    fontWeight={selectAnswer == "2" ? "600" : "400"}
-                  >
-                    {quizzes[index].example[1]}
-                  </AnswerText>
+                  {!submitAnswer ? (
+                    <AnswerText
+                      onClick={() => setSelectAnswer("2")}
+                      color={selectAnswer == "2" && "blue"}
+                      fontWeight={selectAnswer == "2" && "600"}
+                    >
+                      {quizzes[index].example[1]}
+                    </AnswerText>
+                  ) : (
+                    <SubmitAnswerText
+                      color={() => customColor("2")}
+                      fontWeight={() => customFontWeight("2")}
+                    >
+                      {quizzes[index].example[1]}
+                    </SubmitAnswerText>
+                  )}
                 </Answer>
                 <Answer>
-                  <AnswerText
-                    onClick={() => setSelectAnswer("3")}
-                    color={selectAnswer == "3" ? "blue" : "black"}
-                    fontWeight={selectAnswer == "3" ? "600" : "400"}
-                  >
-                    {quizzes[index].example[2]}
-                  </AnswerText>
+                  {!submitAnswer ? (
+                    <AnswerText
+                      onClick={() => setSelectAnswer("3")}
+                      color={selectAnswer == "3" && "blue"}
+                      fontWeight={selectAnswer == "3" && "600"}
+                    >
+                      {quizzes[index].example[2]}
+                    </AnswerText>
+                  ) : (
+                    <SubmitAnswerText
+                      color={() => customColor("3")}
+                      fontWeight={() => customFontWeight("3")}
+                    >
+                      {quizzes[index].example[2]}
+                    </SubmitAnswerText>
+                  )}
                 </Answer>
                 <Answer>
-                  <AnswerText
-                    onClick={() => setSelectAnswer("4")}
-                    color={selectAnswer == "4" ? "blue" : "black"}
-                    fontWeight={selectAnswer == "4" ? "600" : "400"}
-                  >
-                    {quizzes[index].example[3]}
-                  </AnswerText>
+                  {!submitAnswer ? (
+                    <AnswerText
+                      onClick={() => setSelectAnswer("4")}
+                      color={selectAnswer == "4" && "blue"}
+                      fontWeight={selectAnswer == "4" && "600"}
+                    >
+                      {quizzes[index].example[3]}
+                    </AnswerText>
+                  ) : (
+                    <SubmitAnswerText
+                      color={() => customColor("4")}
+                      fontWeight={() => customFontWeight("4")}
+                    >
+                      {quizzes[index].example[3]}
+                    </SubmitAnswerText>
+                  )}
                 </Answer>
               </AnswerContainer>
+              <Confirmation>
+                {submitAnswer && (
+                  <>
+                    {selectAnswer == "0" ? (
+                      <ConfirmationText color="blue">
+                        넘어갑니다!
+                      </ConfirmationText>
+                    ) : (
+                      <>
+                        {selectAnswer == correctAnswer ? (
+                          <ConfirmationText color="blue">
+                            맞았습니다!
+                          </ConfirmationText>
+                        ) : (
+                          <ConfirmationText color="red">
+                            틀렸습니다!
+                          </ConfirmationText>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+              </Confirmation>
               <ButtonContainer>
                 {!submitAnswer ? (
                   <>

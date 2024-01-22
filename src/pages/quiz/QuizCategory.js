@@ -193,7 +193,9 @@ export default function QuizCategory() {
 
   useEffect(() => {
     if (quizzes && quizzes.length > 0) {
-      navigate(PATH_QUIZ_QUESTION, { state: { quizzes, index: 0 } });
+      navigate(PATH_QUIZ_QUESTION, {
+        state: { quizzes, index: 0, correct: 0, pass: 0 },
+      });
     }
   }, [quizzes]);
 
