@@ -194,9 +194,9 @@ export default function QuizResult(props) {
                 </Item>
                 <Item>
                   <Frame>
-                    <TextWrapper color={"dartgray"}>pass</TextWrapper>
+                    <TextWrapper color={"green"}>pass</TextWrapper>
                   </Frame>
-                  <Score color={"dartgray"}>{pass}</Score>
+                  <Score color={"green"}>{pass}</Score>
                 </Item>
               </List>
               <ToLink to={PATH_QUIZ}>

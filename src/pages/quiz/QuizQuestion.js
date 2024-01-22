@@ -379,7 +379,7 @@ export default function QuizQuestion(props) {
                 {submitAnswer && (
                   <>
                     {selectAnswer == "0" ? (
-                      <ConfirmationText color="blue">
+                      <ConfirmationText color="green">
                         넘어갑니다!
                       </ConfirmationText>
                     ) : (
