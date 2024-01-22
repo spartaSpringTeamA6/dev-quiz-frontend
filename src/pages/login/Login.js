@@ -113,7 +113,12 @@ export default function Login() {
                 <ButtonText>Google</ButtonText>
               </Button>
             </ALink> */}
-            <ALink href={API_BASE_URL + "/oauth2/authorization/github"}>
+            <ALink
+              href={
+                API_BASE_URL +
+                "/oauth2/authorization/github?redirect_uri=http://devquiz.pro"
+              }
+            >
               <Button>
                 <ButtonText>Github</ButtonText>
               </Button>
