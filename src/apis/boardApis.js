@@ -3,14 +3,14 @@ import { API_BASE_URL } from "../constants/index";
 
 export const boardGetListApi = async (quizId) => {
   const response = await axios
-    .get(API_BASE_URL + "/api/quizzes/${quizId}/boards")
+    .get(`${API_BASE_URL}/api/quizzes/${quizId}/boards`)
     .catch((error) => null);
   return !response ? null : response.data;
 };
 
 export const boardCreateApi = async (quizId, data) => {
   const response = await axios
-    .post(API_BASE_URL + "/api/quizzes/${quizId}/boards", data, {
+    .post(`${API_BASE_URL}/api/quizzes/${quizId}/boards`, data, {
       withCredentials: true,
     })
     .catch((error) => null);
@@ -19,21 +19,21 @@ export const boardCreateApi = async (quizId, data) => {
 
 export const boardGetApi = async (boardId) => {
   const response = await axios
-    .get(API_BASE_URL + "/api/boards/${boardId}")
+    .get(`${API_BASE_URL}/api/boards/${boardId}`)
     .catch((error) => null);
   return !response ? null : response.data;
 };
 
 export const boardDeleteApi = async (boardId) => {
   const response = await axios
-    .delete(API_BASE_URL + "/api/boards/${boardId}", { withCredentials: true })
+    .delete(`${API_BASE_URL}/api/boards/${boardId}`, { withCredentials: true })
     .catch((error) => null);
   return !response ? null : response.data;
 };
 
 export const boardUpdateApi = async (boardId, data) => {
   const response = await axios
-    .patch(API_BASE_URL + "/api/boards/${boardId}", data, {
+    .patch(`${API_BASE_URL}/api/boards/${boardId}`, data, {
       withCredentials: true,
     })
     .catch((error) => null);

@@ -108,12 +108,12 @@ export default function Login() {
           <Title>Login</Title>
           <Description>Welcome to our login page!</Description>
           <ButtonContainer>
-            <ALink href={API_BASE_URL + "/oauth2/authorization/github"}>
+            {/* <ALink href={API_BASE_URL + "/oauth2/authorization/google"}>
               <Button>
                 <ButtonText>Google</ButtonText>
               </Button>
-            </ALink>
-            <ALink href={API_BASE_URL + "/oauth2/authorization/google"}>
+            </ALink> */}
+            <ALink href={API_BASE_URL + "/oauth2/authorization/github"}>
               <Button>
                 <ButtonText>Github</ButtonText>
               </Button>
