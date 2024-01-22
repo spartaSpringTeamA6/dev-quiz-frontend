@@ -201,7 +201,7 @@ export default function QuizResult(props) {
               </List>
               <ToLink to={PATH_QUIZ}>
                 <Primary>
-                  <Title2>return;</Title2>
+                  <Title2>return ;</Title2>
                 </Primary>
               </ToLink>
             </Container>
