@@ -10,9 +10,7 @@ import {
   img_spring,
 } from "../../assets/images";
 import { PATH_QUIZ_QUESTION } from "../../constants";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import { useUserStore } from "../../stores/user.store";
+import { useNavigate } from "react-router-dom";
 import { quizGetListApi } from "../../apis/quizApis";
 
 const Page = styled.div`
@@ -166,17 +164,6 @@ const ImageContainer2 = styled.div`
   overflow: hidden;
   position: relative;
   width: 100px;
-`;
-
-const ToLink = styled(Link)`
-  display: flex;
-  align-self: stretch;
-  flex: 1;
-  flex-grow: 1;
-  gap: 16px;
-  &:hover {
-    text-decoration-line: none;
-  }
 `;
 
 export default function QuizCategory() {

@@ -166,7 +166,7 @@ export default function QuizResult(props) {
 
   return (
     <>
-      {correct != undefined && pass != undefined && (
+      {correct !== undefined && pass !== undefined && (
         <StyledPage>
           <Section>
             <Container>

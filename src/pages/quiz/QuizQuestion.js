@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   PATH_BOARD,
-  PATH_HOME,
   PATH_QUIZ_QUESTION,
   PATH_QUIZ_RESULT,
 } from "../../constants";
@@ -220,8 +219,6 @@ export default function QuizQuestion(props) {
   const quizzes = location.state?.quizzes;
   const correct = location.state?.correct;
   const pass = location.state?.pass;
-  // const [correct, setCorrect] = useState();
-  // const [pass, setPass] = useState();
   const [submitAnswer, setSubmitAnswer] = useState(false);
   const [selectAnswer, setSelectAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -247,9 +244,9 @@ export default function QuizQuestion(props) {
 
   const clickNextHandler = async () => {
     setSubmitAnswer(false);
-    if (selectAnswer == "0") {
+    if (selectAnswer === "0") {
       moveNextPageHandler(correct, pass + 1);
-    } else if (correctAnswer == selectAnswer) {
+    } else if (correctAnswer === selectAnswer) {
       moveNextPageHandler(correct + 1, pass);
     } else {
       moveNextPageHandler(correct, pass);
@@ -270,26 +267,26 @@ export default function QuizQuestion(props) {
   };
 
   const customColor = (click) => {
-    if (selectAnswer == click && selectAnswer == correctAnswer) {
+    if (selectAnswer === click && selectAnswer === correctAnswer) {
       return "blue";
     } else {
-      if (correctAnswer == click) {
+      if (correctAnswer === click) {
         return "blue";
       }
-      if (selectAnswer == click) {
+      if (selectAnswer === click) {
         return "red";
       }
     }
   };
 
   const customFontWeight = (click) => {
-    if (selectAnswer == click && selectAnswer == correctAnswer) {
+    if (selectAnswer === click && selectAnswer === correctAnswer) {
       return "600";
     } else {
-      if (correctAnswer == click) {
+      if (correctAnswer === click) {
         return "600";
       }
-      if (selectAnswer == click) {
+      if (selectAnswer === click) {
         return "600";
       }
     }
@@ -316,8 +313,8 @@ export default function QuizQuestion(props) {
                   {!submitAnswer ? (
                     <AnswerText
                       onClick={() => setSelectAnswer("1")}
-                      color={selectAnswer == "1" && "blue"}
-                      fontWeight={selectAnswer == "1" && "600"}
+                      color={selectAnswer === "1" && "blue"}
+                      fontWeight={selectAnswer === "1" && "600"}
                     >
                       {quizzes[index].example[0]}
                     </AnswerText>
@@ -334,8 +331,8 @@ export default function QuizQuestion(props) {
                   {!submitAnswer ? (
                     <AnswerText
                       onClick={() => setSelectAnswer("2")}
-                      color={selectAnswer == "2" && "blue"}
-                      fontWeight={selectAnswer == "2" && "600"}
+                      color={selectAnswer === "2" && "blue"}
+                      fontWeight={selectAnswer === "2" && "600"}
                     >
                       {quizzes[index].example[1]}
                     </AnswerText>
@@ -352,8 +349,8 @@ export default function QuizQuestion(props) {
                   {!submitAnswer ? (
                     <AnswerText
                       onClick={() => setSelectAnswer("3")}
-                      color={selectAnswer == "3" && "blue"}
-                      fontWeight={selectAnswer == "3" && "600"}
+                      color={selectAnswer === "3" && "blue"}
+                      fontWeight={selectAnswer === "3" && "600"}
                     >
                       {quizzes[index].example[2]}
                     </AnswerText>
@@ -370,8 +367,8 @@ export default function QuizQuestion(props) {
                   {!submitAnswer ? (
                     <AnswerText
                       onClick={() => setSelectAnswer("4")}
-                      color={selectAnswer == "4" && "blue"}
-                      fontWeight={selectAnswer == "4" && "600"}
+                      color={selectAnswer === "4" && "blue"}
+                      fontWeight={selectAnswer === "4" && "600"}
                     >
                       {quizzes[index].example[3]}
                     </AnswerText>
@@ -388,13 +385,13 @@ export default function QuizQuestion(props) {
               <Confirmation>
                 {submitAnswer && (
                   <>
-                    {selectAnswer == "0" ? (
+                    {selectAnswer === "0" ? (
                       <ConfirmationText color="green">
                         넘어갑니다!
                       </ConfirmationText>
                     ) : (
                       <>
-                        {selectAnswer == correctAnswer ? (
+                        {selectAnswer === correctAnswer ? (
                           <ConfirmationText color="blue">
                             맞았습니다!
                           </ConfirmationText>
