@@ -4,14 +4,14 @@ import styled from "styled-components";
 import {
   img_computer_science,
   img_database,
-  img_design_pattern,
   img_java,
+  img_javascript,
   img_jpa,
   img_spring,
 } from "../../assets/images";
-import { PATH_QUIZ_QUESTION } from "../../constants";
+import { PATH_QUIZ_GET_QUIZZES } from "../../constants";
 import { useNavigate } from "react-router-dom";
-import { quizGetListApi } from "../../apis/quizApis";
+import { quizGetQuizzesApi } from "../../apis/quizApis";
 
 const Page = styled.div`
   align-items: center;
@@ -174,13 +174,13 @@ export default function QuizCategory() {
     const data = {
       category: category,
     };
-    const quizList = await quizGetListApi(data);
+    const quizList = await quizGetQuizzesApi(data);
     setQuizzes(quizList.data);
   };
 
   useEffect(() => {
     if (quizzes && quizzes.length > 0) {
-      navigate(PATH_QUIZ_QUESTION, {
+      navigate(PATH_QUIZ_GET_QUIZZES, {
         state: { quizzes, index: 0, correct: 0, pass: 0 },
       });
     }
@@ -204,15 +204,15 @@ export default function QuizCategory() {
                   <Subtitle>Test your Computer Science knowledge</Subtitle>
                 </Frame>
               </Article>
-              <Article onClick={() => getQuizHandler("DESIGN_PATTERN")}>
+              <Article onClick={() => getQuizHandler("JAVA_SCRIPT")}>
                 <ImageContainer>
                   <Image>
-                    <Img alt="Design Pattern" src={img_design_pattern} />
+                    <Img alt="JavaScript" src={img_javascript} />
                   </Image>
                 </ImageContainer>
                 <Frame>
-                  <Title2>Design Pattern</Title2>
-                  <Subtitle>Test your Design Pattern knowledge</Subtitle>
+                  <Title2>JavaScript</Title2>
+                  <Subtitle>Test your JavaScript knowledge</Subtitle>
                 </Frame>
               </Article>
             </Row>
@@ -228,7 +228,6 @@ export default function QuizCategory() {
                   <Subtitle>Test your Database knowledge</Subtitle>
                 </Frame>
               </Article>
-
               <Article onClick={() => getQuizHandler("JAVA")}>
                 <ImageContainer>
                   <Image>

@@ -12,11 +12,16 @@ export const PATH_LOGIN = "/login";
 export const PATH_MYPAGE = "/mypage";
 
 export const PATH_QUIZ = "/quiz";
-export const PATH_QUIZ_QUESTION = "/quiz/question";
+export const PATH_QUIZ_GET_QUIZ = "/quiz/:quizId";
+export const PATH_QUIZ_GET_QUIZZES = "/quiz/quizzes";
 export const PATH_QUIZ_RESULT = "/quiz/result";
 
-export const PATH_BOARD = "/board";
+export const PATH_QUIZ_BOARD = "/quiz/:quizId/board";
+export const PATH_QUIZ_BOARD_POST = "/quiz/:quizId/board/:boardId";
 
-export const PATH_GROUP = "/group";
-export const PATH_GROUP_DETAIL = "/group/detail";
-export const PATH_GROUP_SETTING = "/group/setting";
+export const PATH_BOARD = "/board";
+export const PATH_BOARD_POST = "/board/:boardId";
+
+export const PATH_TEAM = "/team";
+export const PATH_TEAM_INFO = "/team/:teamId";
+export const PATH_TEAM_SETTING = "/team/:teamId/setting";

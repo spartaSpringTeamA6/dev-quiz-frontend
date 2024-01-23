@@ -244,7 +244,7 @@ const Title3 = styled.div`
   width: fit-content;
 `;
 
-export default function GroupList() {
+export default function TeamList() {
   return (
     <IndexWrapper>
       <Sidebar>
@@ -252,20 +252,14 @@ export default function GroupList() {
           <Frame>
             <Icon>🐶</Icon>
           </Frame>
-          <Title>Groups</Title>
-        </Item>
-        <Item>
-          <Frame>
-            <Icon>🎉</Icon>
-          </Frame>
-          <Title>Create Group</Title>
+          <Title>Teams</Title>
         </Item>
       </Sidebar>
       <Wrap>
         <Section>
           <Container>
-            <TextWrapper>My Groups</TextWrapper>
-            <Description>List of groups you are part of</Description>
+            <TextWrapper>My Teams</TextWrapper>
+            <Description>List of teams you are part of</Description>
             <List>
               <Div>
                 <Item2>
@@ -273,7 +267,7 @@ export default function GroupList() {
                     <Icon2>🐶</Icon2>
                   </IconWrapper>
                   <TitleWrapper>
-                    <Title2>Group 1</Title2>
+                    <Title2>Team 1</Title2>
                   </TitleWrapper>
                 </Item2>
                 <Item2>
@@ -281,7 +275,7 @@ export default function GroupList() {
                     <Icon2>🐶</Icon2>
                   </IconWrapper>
                   <TitleWrapper>
-                    <Title2>Group 2</Title2>
+                    <Title2>Team 2</Title2>
                   </TitleWrapper>
                 </Item2>
                 <Item2>
@@ -289,7 +283,7 @@ export default function GroupList() {
                     <Icon2>🐶</Icon2>
                   </IconWrapper>
                   <TitleWrapper>
-                    <Title2>Group 3</Title2>
+                    <Title2>Team 3</Title2>
                   </TitleWrapper>
                 </Item2>
               </Div>
@@ -298,11 +292,11 @@ export default function GroupList() {
         </Section>
         <Section>
           <Container>
-            <TextWrapper>Create New Group</TextWrapper>
+            <TextWrapper>Create New Team</TextWrapper>
             <Input>
               <Textfield
                 className="textfield"
-                placeholder="group name"
+                placeholder="team name"
                 type="text"
               />
             </Input>

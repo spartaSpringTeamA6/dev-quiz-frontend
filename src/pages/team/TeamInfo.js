@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { teamGetTeamInfo } from "../../apis/teamApis";
 
 const Wrap = styled.div`
   padding: 0px 0 80px 0;
@@ -299,115 +301,127 @@ const Vector2 = styled.img`
   width: 1220px;
 `;
 
-export default function GroupDetail() {
+export default function TeamInfo() {
+  const { teamId } = useParams();
+
+  const [team, setTeam] = useState();
+
+  useEffect(() => {
+    setTeam(teamGetTeamInfo(teamId).data);
+  }, []);
+
   return (
-    <IndexWrapper>
-      <Sidebar>
-        <Item>
-          <Frame>
-            <Icon>😃</Icon>
-          </Frame>
-          <Title>Groups</Title>
-        </Item>
-        <Item>
-          <Frame>
-            <Icon>👥</Icon>
-          </Frame>
-          <Title>Members</Title>
-        </Item>
-        <div />
-        <Item>
-          <Frame>
-            <Icon>⚙️</Icon>
-          </Frame>
-          <Title>Settings</Title>
-        </Item>
-      </Sidebar>
-      <Wrap>
-        <Section>
-          <Container>
-            <TextWrapper>Group Name</TextWrapper>
-          </Container>
-        </Section>
-        <Section>
-          <Container>
-            <Title2>Group Information</Title2>
-            <List>
-              <Item2>
-                <IconWrapper>
-                  <Icon2>💼</Icon2>
-                </IconWrapper>
-                <Frame2>
-                  <Title3>Team Name</Title3>
-                  <Subtitle>Amazing Team</Subtitle>
-                </Frame2>
-              </Item2>
-              <Item2>
-                <IconWrapper>
-                  <Icon2>👨‍💼</Icon2>
-                </IconWrapper>
-                <Frame2>
-                  <Title3>Admin</Title3>
-                  <Subtitle>John</Subtitle>
-                </Frame2>
-              </Item2>
-              <Item2>
-                <IconWrapper>
-                  <Icon2>🧑‍💻</Icon2>
-                </IconWrapper>
-                <Frame2>
-                  <Title3>Team Members</Title3>
-                  <Subtitle2>3</Subtitle2>
-                </Frame2>
-              </Item2>
-            </List>
-          </Container>
-        </Section>
-        <Section2>
-          <Container2>
-            <Title4>Team Members</Title4>
-            <Description>View details about each team member</Description>
-          </Container2>
-          <List2>
-            <Item3>
-              <IconWrapper>
-                <Icon2>🧑🏻‍💻</Icon2>
-              </IconWrapper>
-              <Frame2>
-                <Title3>Name</Title3>
-                <Subtitle>score: 90</Subtitle>
-              </Frame2>
-            </Item3>
-            <Item3>
-              <IconWrapper>
-                <Icon2>🧑🏻‍💻</Icon2>
-              </IconWrapper>
-              <Frame2>
-                <Title3>Name</Title3>
-                <Subtitle>score: 90</Subtitle>
-              </Frame2>
-            </Item3>
-            <Item3>
-              <IconWrapper>
-                <Icon2>🧑🏻‍💻</Icon2>
-              </IconWrapper>
-              <Frame2>
-                <Title3>Name</Title3>
-                <Subtitle>score: 90</Subtitle>
-              </Frame2>
-            </Item3>
-            <Item3>
-              <IconWrapper>
-                <Icon2>🧑🏻‍💻</Icon2>
-              </IconWrapper>
-              <Frame2>
-                <Title3>Name</Title3>
-                <Subtitle>score: 90</Subtitle>
-              </Frame2>
-            </Item3>
-          </List2>
-        </Section2>
-      </Wrap>
-    </IndexWrapper>
+    <>
+      {team && (
+        <IndexWrapper>
+          <Sidebar>
+            <Item>
+              <Frame>
+                <Icon>😃</Icon>
+              </Frame>
+              <Title>Teams</Title>
+            </Item>
+            <Item>
+              <Frame>
+                <Icon>👥</Icon>
+              </Frame>
+              <Title>Members</Title>
+            </Item>
+            <div />
+            <Item>
+              <Frame>
+                <Icon>⚙️</Icon>
+              </Frame>
+              <Title>Settings</Title>
+            </Item>
+          </Sidebar>
+          <Wrap>
+            <Section>
+              <Container>
+                <TextWrapper>Team Name</TextWrapper>
+              </Container>
+            </Section>
+            <Section>
+              <Container>
+                <Title2>Team Information</Title2>
+                <List>
+                  <Item2>
+                    <IconWrapper>
+                      <Icon2>💼</Icon2>
+                    </IconWrapper>
+                    <Frame2>
+                      <Title3>Team Name</Title3>
+                      <Subtitle>Amazing Team</Subtitle>
+                    </Frame2>
+                  </Item2>
+                  <Item2>
+                    <IconWrapper>
+                      <Icon2>👨‍💼</Icon2>
+                    </IconWrapper>
+                    <Frame2>
+                      <Title3>Admin</Title3>
+                      <Subtitle>John</Subtitle>
+                    </Frame2>
+                  </Item2>
+                  <Item2>
+                    <IconWrapper>
+                      <Icon2>🧑‍💻</Icon2>
+                    </IconWrapper>
+                    <Frame2>
+                      <Title3>Team Members</Title3>
+                      <Subtitle2>3</Subtitle2>
+                    </Frame2>
+                  </Item2>
+                </List>
+              </Container>
+            </Section>
+            <Section2>
+              <Container2>
+                <Title4>Team Members</Title4>
+                <Description>View details about each team member</Description>
+              </Container2>
+              <List2>
+                <Item3>
+                  <IconWrapper>
+                    <Icon2>🧑🏻‍💻</Icon2>
+                  </IconWrapper>
+                  <Frame2>
+                    <Title3>Name</Title3>
+                    <Subtitle>score: 90</Subtitle>
+                  </Frame2>
+                </Item3>
+                <Item3>
+                  <IconWrapper>
+                    <Icon2>🧑🏻‍💻</Icon2>
+                  </IconWrapper>
+                  <Frame2>
+                    <Title3>Name</Title3>
+                    <Subtitle>score: 90</Subtitle>
+                  </Frame2>
+                </Item3>
+                <Item3>
+                  <IconWrapper>
+                    <Icon2>🧑🏻‍💻</Icon2>
+                  </IconWrapper>
+                  <Frame2>
+                    <Title3>Name</Title3>
+                    <Subtitle>score: 90</Subtitle>
+                  </Frame2>
+                </Item3>
+                <Item3>
+                  <IconWrapper>
+                    <Icon2>🧑🏻‍💻</Icon2>
+                  </IconWrapper>
+                  <Frame2>
+                    <Title3>Name</Title3>
+                    <Subtitle>score: 90</Subtitle>
+                  </Frame2>
+                </Item3>
+              </List2>
+            </Section2>
+          </Wrap>
+        </IndexWrapper>
+      )}
+    </>
   );
 }

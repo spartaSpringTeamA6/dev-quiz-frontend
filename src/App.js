@@ -15,23 +15,25 @@ import {
   PATH_MYPAGE,
   PATH_QUIZ,
   PATH_HOME,
-  PATH_QUIZ_QUESTION,
-  PATH_GROUP,
-  PATH_GROUP_DETAIL,
-  PATH_GROUP_SETTING,
+  PATH_TEAM,
+  PATH_TEAM_INFO,
+  PATH_TEAM_SETTING,
   PATH_QUIZ_RESULT,
+  PATH_QUIZ_GET_QUIZ,
+  PATH_QUIZ_GET_QUIZZES,
 } from "./constants";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import QuizCategory from "./pages/quiz/QuizCategory";
-import QuizQuestion from "./pages/quiz/QuizQuestion";
+import QuizGetQuizzes from "./pages/quiz/QuizGetQuizzes";
 import MyPageProfile from "./pages/mypage/MypageProfile";
-import GroupDetail from "./pages/group/GroupDetail";
-import GroupList from "./pages/group/GroupList";
-import GroupSetting from "./pages/group/GroupSetting";
+import TeamList from "./pages/team/TeamList";
+import TeamInfo from "./pages/team/TeamInfo";
+import TeamSetting from "./pages/team/TeamSetting";
 import { useUserStore } from "./stores/user.store";
 import QuizResult from "./pages/quiz/QuizResult";
+import QuizGetQuiz from "./pages/quiz/QuizGetQuiz";
 
 function App() {
   const [connection, setConnection] = useState("");
@@ -76,12 +78,16 @@ function App() {
 
                 {/* Quiz */}
                 <Route path={PATH_QUIZ} element={<QuizCategory />} />
-                <Route path={PATH_QUIZ_QUESTION} element={<QuizQuestion />} />
+                <Route path={PATH_QUIZ_GET_QUIZ} element={<QuizGetQuiz />} />
+                <Route
+                  path={PATH_QUIZ_GET_QUIZZES}
+                  element={<QuizGetQuizzes />}
+                />
                 <Route path={PATH_QUIZ_RESULT} element={<QuizResult />} />
-                {/* GROUP */}
-                <Route path={PATH_GROUP} element={<GroupList />} />
-                <Route path={PATH_GROUP_DETAIL} element={<GroupDetail />} />
-                <Route path={PATH_GROUP_SETTING} element={<GroupSetting />} />
+                {/* Team */}
+                <Route path={PATH_TEAM} element={<TeamList />} />
+                <Route path={PATH_TEAM_INFO} element={<TeamInfo />} />
+                <Route path={PATH_TEAM_SETTING} element={<TeamSetting />} />
               </Route>
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>

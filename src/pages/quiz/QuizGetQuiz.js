@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   PATH_BOARD,
-  PATH_QUIZ_QUESTION,
+  PATH_QUIZ_GET_QUIZZES,
   PATH_QUIZ_RESULT,
 } from "../../constants";
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
-import { quizSubmitApi } from "../../apis/quizApis";
+import { quizGetQuizApi, quizSubmitAnswerApi } from "../../apis/quizApis";
 
 const Wrap = styled.div`
   padding: 80px 0 0 0;
@@ -207,14 +207,16 @@ const ToLink = styled(Link)`
   }
 `;
 
-export default function QuizQuestion(props) {
+export default function QuizGetQuiz(props) {
   const [cookies] = useCookies();
   const { user } = useUserStore();
   const [userToken, setUserToken] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
+  const { quizId } = useParams();
 
+  const [quiz, setQuiz] = useState();
   const index = location.state?.index;
   const quizzes = location.state?.quizzes;
   const correct = location.state?.correct;
@@ -228,7 +230,7 @@ export default function QuizQuestion(props) {
     const data = {
       answer: "0",
     };
-    const response = await quizSubmitApi(quizzes[index].id, data);
+    const response = await quizSubmitAnswerApi(quizzes[index].id, data);
     setCorrectAnswer(response.data.correctAnswer);
     setSubmitAnswer(true);
   };
@@ -237,7 +239,7 @@ export default function QuizQuestion(props) {
     const data = {
       answer: answer,
     };
-    const response = await quizSubmitApi(quizzes[index].id, data);
+    const response = await quizSubmitAnswerApi(quizzes[index].id, data);
     setCorrectAnswer(response.data.correctAnswer);
     setSubmitAnswer(true);
   };
@@ -259,7 +261,7 @@ export default function QuizQuestion(props) {
     if (index + 1 >= 10) {
       navigate(PATH_QUIZ_RESULT, { state: { correct: c, pass: p } });
     } else {
-      navigate(PATH_QUIZ_QUESTION, {
+      navigate(PATH_QUIZ_GET_QUIZZES, {
         state: { quizzes, index: index + 1, correct: c, pass: p },
       });
       return;
@@ -299,9 +301,13 @@ export default function QuizQuestion(props) {
     }
   }, [user]);
 
+  useEffect(() => {
+    setQuiz(quizGetQuizApi(quizId).data);
+  }, []);
+
   return (
     <>
-      {quizzes.length > 0 && (
+      {quizzes.length > 0 && quiz && (
         <Wrap>
           <MainContainer>
             <ContentContainer>
@@ -316,14 +322,14 @@ export default function QuizQuestion(props) {
                       color={selectAnswer === "1" && "blue"}
                       fontWeight={selectAnswer === "1" && "600"}
                     >
-                      {quizzes[index].example[0]}
+                      {quiz.example[0]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("1")}
                       fontWeight={() => customFontWeight("1")}
                     >
-                      {quizzes[index].example[0]}
+                      {quiz.example[0]}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -334,14 +340,14 @@ export default function QuizQuestion(props) {
                       color={selectAnswer === "2" && "blue"}
                       fontWeight={selectAnswer === "2" && "600"}
                     >
-                      {quizzes[index].example[1]}
+                      {quiz.example[1]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("2")}
                       fontWeight={() => customFontWeight("2")}
                     >
-                      {quizzes[index].example[1]}
+                      {quiz.example[1]}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -352,14 +358,14 @@ export default function QuizQuestion(props) {
                       color={selectAnswer === "3" && "blue"}
                       fontWeight={selectAnswer === "3" && "600"}
                     >
-                      {quizzes[index].example[2]}
+                      {quiz.example[2]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("3")}
                       fontWeight={() => customFontWeight("3")}
                     >
-                      {quizzes[index].example[2]}
+                      {quiz.example[2]}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -370,14 +376,14 @@ export default function QuizQuestion(props) {
                       color={selectAnswer === "4" && "blue"}
                       fontWeight={selectAnswer === "4" && "600"}
                     >
-                      {quizzes[index].example[3]}
+                      {quiz.example[3]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("4")}
                       fontWeight={() => customFontWeight("4")}
                     >
-                      {quizzes[index].example[3]}
+                      {quiz.example[3]}
                     </SubmitAnswerText>
                   )}
                 </Answer>

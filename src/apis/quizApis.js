@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "../constants/index";
 
-export const quizGetListApi = async (data) => {
+export const quizGetQuizzesApi = async (data) => {
   const response = await axios
     .get(API_BASE_URL + "/api/quizzes", {
       params: data,
@@ -11,14 +11,14 @@ export const quizGetListApi = async (data) => {
   return !response ? null : response.data;
 };
 
-export const quizGetApi = async (quizId) => {
+export const quizGetQuizApi = async (quizId) => {
   const response = await axios
     .get(`${API_BASE_URL}/api/quizzes/${quizId}`)
     .catch((error) => null);
   return !response ? null : response.data;
 };
 
-export const quizSubmitApi = async (quizId, data) => {
+export const quizSubmitAnswerApi = async (quizId, data) => {
   const response = await axios
     .post(`${API_BASE_URL}/api/quizzes/${quizId}`, data, {
       withCredentials: true,

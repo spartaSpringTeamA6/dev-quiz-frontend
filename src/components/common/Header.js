@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { logo_devquiz } from "../../assets/images";
 import { Link } from "react-router-dom";
-import { PATH_GROUP, PATH_HOME, PATH_LOGIN, PATH_QUIZ } from "../../constants";
+import { PATH_HOME, PATH_LOGIN, PATH_QUIZ, PATH_TEAM } from "../../constants";
 
 const TopBar = styled.div`
   align-items: center;
@@ -140,8 +140,8 @@ export default function Header() {
         {/* <ToLink to={PATH_QUIZ}>
           <Tab>Board</Tab>
         </ToLink> */}
-        <ToLink to={PATH_GROUP}>
-          <Tab>Group</Tab>
+        <ToLink to={PATH_TEAM}>
+          <Tab>Team</Tab>
         </ToLink>
       </NavBar>
       <TextWrapper></TextWrapper>
