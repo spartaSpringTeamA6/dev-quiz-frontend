@@ -37,6 +37,16 @@ const ContentContainer = styled.div`
   display: inline-flex;
 `;
 
+const SubTitle = styled.div`
+  text-align: center;
+  color: black;
+  font-size: 20px;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 20px;
+  word-wrap: break-word;
+`;
+
 const Title = styled.div`
   text-align: center;
   color: black;
@@ -49,7 +59,6 @@ const Title = styled.div`
 
 const Description = styled.div`
   text-align: center;
-  color: black;
   font-size: 16px;
   font-family: "Roboto";
   font-weight: 400;
@@ -299,6 +308,7 @@ export default function QuizQuestion(props) {
         <Wrap>
           <MainContainer>
             <ContentContainer>
+              <SubTitle>문제 {quizzes[index].id}번</SubTitle>
               <Title>{quizzes[index].question}</Title>
               <Description>Choose the correct answer</Description>
               <AnswerContainer>
