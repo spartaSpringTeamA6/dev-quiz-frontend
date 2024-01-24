@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import styled from "styled-components";
+import useUserStore from "../../stores/user.store";
+import { useParams } from "react-router-dom";
+import { teamGetTeamsApi } from "../../apis/teamApis";
 
 const Wrap = styled.div`
   padding: 80px 0;
@@ -245,69 +249,82 @@ const Title3 = styled.div`
 `;
 
 export default function TeamList() {
+  const [cookies] = useCookies();
+  const { user } = useUserStore();
+  // const [userToken, setUserToken] = useState("");
+
+  const { teamId } = useParams();
+
+  const [teams, setTeams] = useState();
+
+  useEffect(() => {
+    console.log("teams ", teams);
+  }, [teams]);
+
+  useEffect(() => {
+    const getTeamsHandler = async () => {
+      const getTeams = await teamGetTeamsApi(user.userId);
+      setTeams(getTeams.data.teamInfoList);
+    };
+
+    getTeamsHandler();
+  }, []);
+
   return (
-    <IndexWrapper>
-      <Sidebar>
-        <Item>
-          <Frame>
-            <Icon>🐶</Icon>
-          </Frame>
-          <Title>Teams</Title>
-        </Item>
-      </Sidebar>
-      <Wrap>
-        <Section>
-          <Container>
-            <TextWrapper>My Teams</TextWrapper>
-            <Description>List of teams you are part of</Description>
-            <List>
-              <Div>
-                <Item2>
-                  <IconWrapper>
-                    <Icon2>🐶</Icon2>
-                  </IconWrapper>
-                  <TitleWrapper>
-                    <Title2>Team 1</Title2>
-                  </TitleWrapper>
-                </Item2>
-                <Item2>
-                  <IconWrapper>
-                    <Icon2>🐶</Icon2>
-                  </IconWrapper>
-                  <TitleWrapper>
-                    <Title2>Team 2</Title2>
-                  </TitleWrapper>
-                </Item2>
-                <Item2>
-                  <IconWrapper>
-                    <Icon2>🐶</Icon2>
-                  </IconWrapper>
-                  <TitleWrapper>
-                    <Title2>Team 3</Title2>
-                  </TitleWrapper>
-                </Item2>
-              </Div>
-            </List>
-          </Container>
-        </Section>
-        <Section>
-          <Container>
-            <TextWrapper>Create New Team</TextWrapper>
-            <Input>
-              <Textfield
-                className="textfield"
-                placeholder="team name"
-                type="text"
-              />
-            </Input>
-            <Button>
-              <Primary>
-                <Title3>Create</Title3>
-              </Primary>
-            </Button>
-          </Container>
-        </Section>
-      </Wrap>
-    </IndexWrapper>
+    <>
+      {user !== null && (
+        <IndexWrapper>
+          <Sidebar>
+            <Item>
+              <Frame>
+                <Icon>🐶</Icon>
+              </Frame>
+              <Title>Teams</Title>
+            </Item>
+          </Sidebar>
+          <Wrap>
+            <Section>
+              <Container>
+                <TextWrapper>My Teams</TextWrapper>
+                <Description>List of teams you are part of</Description>
+
+                <List>
+                  {teams !== undefined &&
+                    teams.map((team, index) => (
+                      <Div key={index}>
+                        <Item2>
+                          <IconWrapper>
+                            <Icon2>🐶</Icon2>
+                          </IconWrapper>
+                          <TitleWrapper>
+                            <Title2>{team.name}</Title2>
+                          </TitleWrapper>
+                        </Item2>
+                      </Div>
+                    ))}
+                </List>
+              </Container>
+            </Section>
+            <Section>
+              <Container>
+                <TextWrapper>Create New Team</TextWrapper>
+                <Input>
+                  <Textfield
+                    className="textfield"
+                    placeholder="team name"
+                    type="text"
+                  />
+                </Input>
+                <Button>
+                  <Primary>
+                    <Title3>Create</Title3>
+                  </Primary>
+                </Button>
+              </Container>
+            </Section>
+          </Wrap>
+        </IndexWrapper>
+      )}
+    </>
   );
 }

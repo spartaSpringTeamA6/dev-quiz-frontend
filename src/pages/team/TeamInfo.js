@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { teamGetTeamInfo } from "../../apis/teamApis";
+import { teamGetTeamInfoApi } from "../../apis/teamApis";
+import { useCookies } from "react-cookie";
+import useUserStore from "../../stores/user.store";
 
 const Wrap = styled.div`
   padding: 0px 0 80px 0;
@@ -302,12 +304,23 @@ const Vector2 = styled.img`
 `;
 
 export default function TeamInfo() {
+  const [cookies] = useCookies();
+  const { user } = useUserStore();
+  const [userToken, setUserToken] = useState("");
+
   const { teamId } = useParams();
 
   const [team, setTeam] = useState();
 
   useEffect(() => {
-    setTeam(teamGetTeamInfo(teamId).data);
+    const token = cookies.access_token;
+    if (token) {
+      setUserToken(token);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    setTeam(teamGetTeamInfoApi(teamId).data);
   }, []);
 
   return (

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   PATH_BOARD,
+  PATH_QUIZ_BOARD,
   PATH_QUIZ_GET_QUIZZES,
   PATH_QUIZ_RESULT,
 } from "../../constants";
@@ -266,6 +267,10 @@ export default function QuizGetQuizzes(props) {
     }
   };
 
+  const moveBoardHandler = (id) => {
+    navigate(PATH_QUIZ_BOARD.replace(":quizId", id));
+  };
+
   const customColor = (click) => {
     if (selectAnswer === click && selectAnswer === correctAnswer) {
       return "blue";
@@ -293,7 +298,7 @@ export default function QuizGetQuizzes(props) {
   };
 
   useEffect(() => {
-    const token = cookies.userToken;
+    const token = cookies.access_token;
     if (token) {
       setUserToken(token);
     }
@@ -429,9 +434,11 @@ export default function QuizGetQuizzes(props) {
                   </>
                 )}
               </ButtonContainer>
-              <ToLink to={PATH_BOARD}>
-                <BoardTextButton>Ask on the Board</BoardTextButton>
-              </ToLink>
+              <BoardTextButton
+                onClick={() => moveBoardHandler(quizzes[index].id)}
+              >
+                Ask on the Board
+              </BoardTextButton>
             </ContentContainer>
           </MainContainer>
         </Wrap>

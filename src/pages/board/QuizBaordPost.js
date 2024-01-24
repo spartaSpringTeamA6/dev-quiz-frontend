@@ -284,7 +284,7 @@ const Img = styled.img`
   width: 800px;
 `;
 
-export default function BoardPost() {
+export default function QuizBoardPost() {
   return (
     <IndexWrapper>
       <Section>

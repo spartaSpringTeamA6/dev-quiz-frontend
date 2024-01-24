@@ -295,7 +295,7 @@ export default function QuizGetQuiz(props) {
   };
 
   useEffect(() => {
-    const token = cookies.userToken;
+    const token = cookies.access_token;
     if (token) {
       setUserToken(token);
     }

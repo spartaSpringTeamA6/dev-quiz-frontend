@@ -1,4 +1,4 @@
-//export const API_BASE_URL = 'http://localhost:8080';
+// export const API_BASE_URL = "http://localhost:8080";
 // export const API_BASE_URL = "http://54.180.39.240:8080";
 // export const API_BASE_URL = "https://devquiz.pro";
 export const API_BASE_URL = "http://devquiz.pro";

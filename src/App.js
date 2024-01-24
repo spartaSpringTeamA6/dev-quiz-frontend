@@ -21,6 +21,8 @@ import {
   PATH_QUIZ_RESULT,
   PATH_QUIZ_GET_QUIZ,
   PATH_QUIZ_GET_QUIZZES,
+  PATH_QUIZ_BOARD,
+  PATH_QUIZ_BOARD_POST,
 } from "./constants";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home/Home";
@@ -34,12 +36,15 @@ import TeamSetting from "./pages/team/TeamSetting";
 import { useUserStore } from "./stores/user.store";
 import QuizResult from "./pages/quiz/QuizResult";
 import QuizGetQuiz from "./pages/quiz/QuizGetQuiz";
+import QuizBoardList from "./pages/board/QuizBoardList";
+import QuizBoardPost from "./pages/board/QuizBaordPost";
+import { userGetMyInfoApi } from "./apis/userApis";
 
 function App() {
   const [connection, setConnection] = useState("");
   const [cookies] = useCookies();
-  const { user } = useUserStore();
-  const [userToken, setUserToken] = useState("");
+  const { user, setUser, setAccessToken, removeUser } = useUserStore();
+  const [loginUser, setLoginUser] = useState("");
 
   const connectionTest = () => {
     axios
@@ -53,13 +58,28 @@ function App() {
   };
 
   useEffect(() => {
-    connectionTest(); //맨처음한번만
-
-    const token = cookies.userToken;
-    if (token) {
-      setUserToken(token);
-    }
+    setLoginUser(user);
   }, [user]);
+
+  useEffect(() => {
+    const getUserInfoHandler = async () => {
+      const userInfo = await userGetMyInfoApi();
+      setUser(userInfo.data);
+      setAccessToken(cookies.access_token);
+      console.log(userInfo);
+    };
+    console.log(cookies);
+    console.log(cookies.access_token);
+    if (cookies.access_token) {
+      getUserInfoHandler();
+    } else {
+      removeUser();
+    }
+  }, [cookies]);
+
+  useEffect(() => {
+    connectionTest();
+  }, []);
 
   return (
     <CookiesProvider>
@@ -84,11 +104,20 @@ function App() {
                   element={<QuizGetQuizzes />}
                 />
                 <Route path={PATH_QUIZ_RESULT} element={<QuizResult />} />
+
+                {/* Board */}
+                <Route path={PATH_QUIZ_BOARD} element={<QuizBoardList />} />
+                <Route
+                  path={PATH_QUIZ_BOARD_POST}
+                  element={<QuizBoardPost />}
+                />
+
                 {/* Team */}
                 <Route path={PATH_TEAM} element={<TeamList />} />
                 <Route path={PATH_TEAM_INFO} element={<TeamInfo />} />
                 <Route path={PATH_TEAM_SETTING} element={<TeamSetting />} />
               </Route>
+
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>
           </div>

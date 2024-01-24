@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { quizGetQuizApi } from "../../apis/quizApis";
+import { boardGetListApi } from "../../apis/boardApis";
 
 const IndexWrapper = styled.div`
   align-items: center;
@@ -308,76 +312,99 @@ const Img = styled.img`
   width: 1440px;
 `;
 
-export default function BoardList() {
+export default function QuizBoardList() {
+  const navigate = useNavigate();
+  const { quizId } = useParams();
+
+  const [quiz, setQuiz] = useState();
+  const [boards, setBoards] = useState();
+
+  const getQuizHandler = async () => {
+    return await quizGetQuizApi(quizId).data;
+  };
+
+  const getBoardsHandler = async () => {
+    return await boardGetListApi(quizId).data;
+  };
+
+  useEffect(() => {
+    setQuiz(getQuizHandler);
+    setBoards(getBoardsHandler);
+  }, []);
+
   return (
-    <IndexWrapper>
-      <Section>
-        <Container>
-          <Title>문제 N번</Title>
-          <Description>문제 내용</Description>
-          <Div>
-            <TextWrapper>문항</TextWrapper>
-            <Description>문항</Description>
-            <Description>문항</Description>
-            <Description>문항</Description>
-          </Div>
-          <Button>
-            <Primary>
-              <Title2>게시글 생성</Title2>
-            </Primary>
-          </Button>
-        </Container>
-      </Section>
-      <Section>
-        <ListWrapper>
-          <List>
-            <Row>
-              <Article>
-                <Frame>
-                  <Frame2>
-                    <Subtitle>1231</Subtitle>
-                    <Title3>
-                      ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                    </Title3>
-                    <User />
-                    <Subtitle2>김철수</Subtitle2>
-                    <User2>
-                      <IconButtons>
-                        <Icon>👍</Icon>
-                        <Icon2>111</Icon2>
-                      </IconButtons>
-                      <IconButtons>
-                        <Icon>💬</Icon>
-                        <Icon2>111</Icon2>
-                      </IconButtons>
-                    </User2>
-                  </Frame2>
-                </Frame>
-                <Frame>
-                  <Frame2>
-                    <Subtitle>1231</Subtitle>
-                    <Title3>
-                      ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                    </Title3>
-                    <User />
-                    <Subtitle2>김철수</Subtitle2>
-                    <User2>
-                      <IconButtons>
-                        <Icon>👍</Icon>
-                        <Icon2>111</Icon2>
-                      </IconButtons>
-                      <IconButtons>
-                        <Icon>💬</Icon>
-                        <Icon2>111</Icon2>
-                      </IconButtons>
-                    </User2>
-                  </Frame2>
-                </Frame>
-              </Article>
-            </Row>
-          </List>
-        </ListWrapper>
-      </Section>
-    </IndexWrapper>
+    <>
+      {quiz && boards && (
+        <IndexWrapper>
+          <Section>
+            <Container>
+              <Title>문제 {quiz.id}번</Title>
+              <Description>문제 내용</Description>
+              <Div>
+                <TextWrapper>문항</TextWrapper>
+                <Description>문항</Description>
+                <Description>문항</Description>
+                <Description>문항</Description>
+              </Div>
+              <Button>
+                <Primary>
+                  <Title2>게시글 생성</Title2>
+                </Primary>
+              </Button>
+            </Container>
+          </Section>
+          <Section>
+            <ListWrapper>
+              <List>
+                <Row>
+                  <Article>
+                    <Frame>
+                      <Frame2>
+                        <Subtitle>1231</Subtitle>
+                        <Title3>
+                          ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                        </Title3>
+                        <User />
+                        <Subtitle2>김철수</Subtitle2>
+                        <User2>
+                          <IconButtons>
+                            <Icon>👍</Icon>
+                            <Icon2>111</Icon2>
+                          </IconButtons>
+                          <IconButtons>
+                            <Icon>💬</Icon>
+                            <Icon2>111</Icon2>
+                          </IconButtons>
+                        </User2>
+                      </Frame2>
+                    </Frame>
+                    <Frame>
+                      <Frame2>
+                        <Subtitle>1231</Subtitle>
+                        <Title3>
+                          ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+                        </Title3>
+                        <User />
+                        <Subtitle2>김철수</Subtitle2>
+                        <User2>
+                          <IconButtons>
+                            <Icon>👍</Icon>
+                            <Icon2>111</Icon2>
+                          </IconButtons>
+                          <IconButtons>
+                            <Icon>💬</Icon>
+                            <Icon2>111</Icon2>
+                          </IconButtons>
+                        </User2>
+                      </Frame2>
+                    </Frame>
+                  </Article>
+                </Row>
+              </List>
+            </ListWrapper>
+          </Section>
+        </IndexWrapper>
+      )}
+    </>
   );
 }
