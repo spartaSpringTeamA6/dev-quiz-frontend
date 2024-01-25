@@ -7,6 +7,8 @@ import { teamGetTeamsApi } from "../../apis/teamApis";
 
 const Wrap = styled.div`
   padding: 80px 0;
+  display: flex;
+  flex-direction: column;
 `;
 const IndexWrapper = styled.div`
   align-items: center;
@@ -75,7 +77,6 @@ const Section = styled.div`
   display: flex;
   flex: 0 0 auto;
   gap: 60px;
-  justify-content: center;
   overflow: hidden;
   padding: 60px;
   position: relative;
@@ -90,6 +91,7 @@ const Container = styled.div`
   flex-grow: 1;
   gap: 24px;
   position: relative;
+  width: 520px;
 `;
 
 const TextWrapper = styled.div`
@@ -118,17 +120,20 @@ const Description = styled.p`
 const List = styled.div`
   align-items: flex-start;
   align-self: stretch;
+  text-align: center;
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
   gap: 40px 40px;
-  padding: 20px 0px;
   position: relative;
-  width: 100%;
+  width: 500px;
+  justify-content: center;
+  margin: auto;
 `;
 
 const Div = styled.div`
   align-items: flex-start;
+  justify-content: flex-start;
   display: flex;
   flex-wrap: wrap;
   gap: 40px 40px;
@@ -146,7 +151,7 @@ const Item2 = styled.div`
   justify-content: center;
   padding: 12px 0px;
   position: relative;
-  width: 200px;
+  width: 140px;
 `;
 
 const IconWrapper = styled.div`
@@ -212,30 +217,36 @@ const Textfield = styled.input`
   height: 20px;
   padding: 8px 12px;
   width: 100%;
+  &:focus {
+    outline: none;
+    border-color: black;
+    color: black;
+  }
+  &:hover {
+    border-color: black;
+  }
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button`
   all: unset;
-  align-items: flex-start;
-  box-sizing: border-box;
-  display: inline-flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-`;
-
-const Primary = styled.div`
   align-items: center;
-  background-color: #000000;
-  border-radius: 8px;
+  box-sizing: border-box;
   display: flex;
   flex: 0 0 auto;
+  border-radius: 8px;
   flex-direction: column;
-  justify-content: center;
-  padding: 12px;
+  background-color: #000000;
+  gap: 12px;
   position: relative;
+  padding: 12px;
   width: 160px;
+  justify-content: center;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const Title3 = styled.div`
@@ -256,6 +267,8 @@ export default function TeamList() {
   const { teamId } = useParams();
 
   const [teams, setTeams] = useState();
+
+  const createTeamHandler = async () => {};
 
   useEffect(() => {
     console.log("teams ", teams);
@@ -287,12 +300,11 @@ export default function TeamList() {
               <Container>
                 <TextWrapper>My Teams</TextWrapper>
                 <Description>List of teams you are part of</Description>
-
                 <List>
-                  {teams !== undefined &&
-                    teams.map((team, index) => (
-                      <Div key={index}>
-                        <Item2>
+                  <Div>
+                    {teams !== undefined &&
+                      teams.map((team, index) => (
+                        <Item2 key={index}>
                           <IconWrapper>
                             <Icon2>🐶</Icon2>
                           </IconWrapper>
@@ -300,8 +312,8 @@ export default function TeamList() {
                             <Title2>{team.name}</Title2>
                           </TitleWrapper>
                         </Item2>
-                      </Div>
-                    ))}
+                      ))}
+                  </Div>
                 </List>
               </Container>
             </Section>
@@ -315,11 +327,9 @@ export default function TeamList() {
                     type="text"
                   />
                 </Input>
-                <Button>
-                  <Primary>
-                    <Title3>Create</Title3>
-                  </Primary>
-                </Button>
+                <StyledButton>
+                  <Title3>Create</Title3>
+                </StyledButton>
               </Container>
             </Section>
           </Wrap>

@@ -39,23 +39,14 @@ import QuizGetQuiz from "./pages/quiz/QuizGetQuiz";
 import QuizBoardList from "./pages/board/QuizBoardList";
 import QuizBoardPost from "./pages/board/QuizBaordPost";
 import { userGetMyInfoApi } from "./apis/userApis";
+import { authReissueApi } from "./apis/authApis";
 
 function App() {
-  const [connection, setConnection] = useState("");
+  // const [connection, setConnection] = useState("");
   const [cookies] = useCookies();
-  const { user, setUser, setAccessToken, removeUser } = useUserStore();
+  const { user, setUser, setAccessToken, removeUser, removeAccessToken } =
+    useUserStore();
   const [loginUser, setLoginUser] = useState("");
-
-  const connectionTest = () => {
-    axios
-      .get(API_BASE_URL)
-      .then((response) => {
-        setConnection(response.data);
-      })
-      .catch((error) => {
-        setConnection(error.message);
-      });
-  };
 
   useEffect(() => {
     setLoginUser(user);
@@ -66,20 +57,40 @@ function App() {
       const userInfo = await userGetMyInfoApi();
       setUser(userInfo.data);
       setAccessToken(cookies.access_token);
-      console.log(userInfo);
     };
-    console.log(cookies);
-    console.log(cookies.access_token);
+
+    const postAuthReissueHandler = async () => {
+      const reissue = await authReissueApi();
+      console.log("issue", reissue);
+      if (cookies.access_token) {
+        setAccessToken(cookies.access_token);
+      } else {
+        removeUser();
+      }
+    };
+
     if (cookies.access_token) {
       getUserInfoHandler();
     } else {
-      removeUser();
+      console.log("cookies change");
+      postAuthReissueHandler();
     }
   }, [cookies]);
 
-  useEffect(() => {
-    connectionTest();
-  }, []);
+  // useEffect(() => {
+  //   const connectionTest = () => {
+  //     axios
+  //       .get(API_BASE_URL)
+  //       .then((response) => {
+  //         setConnection(response.data);
+  //       })
+  //       .catch((error) => {
+  //         setConnection(error.message);
+  //       });
+  //   };
+
+  //   connectionTest();
+  // }, []);
 
   return (
     <CookiesProvider>
