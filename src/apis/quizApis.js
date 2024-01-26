@@ -1,26 +1,24 @@
-import axios from "axios";
 import { API_BASE_URL } from "../constants/index";
+import api from "../helper/jwtInterceptor";
 
-axios.defaults.withCredentials = true;
-
-export const quizGetQuizzesApi = async (data) => {
-  const response = await axios
+export const quizGetQuizzesApi = async (param) => {
+  const response = await api
     .get(API_BASE_URL + "/api/quizzes", {
-      params: data,
+      params: param,
     })
     .catch((error) => console.error(error));
   return !response ? null : response.data;
 };
 
 export const quizGetQuizApi = async (quizId) => {
-  const response = await axios
+  const response = await api
     .get(`${API_BASE_URL}/api/quizzes/${quizId}`)
     .catch((error) => null);
   return !response ? null : response.data;
 };
 
 export const quizSubmitAnswerApi = async (quizId, data) => {
-  const response = await axios
+  const response = await api
     .post(`${API_BASE_URL}/api/quizzes/${quizId}`, data)
     .catch((error) => null);
   return !response ? null : response.data;

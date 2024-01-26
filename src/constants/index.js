@@ -12,8 +12,8 @@ export const PATH_LOGIN = "/login";
 export const PATH_MYPAGE = "/mypage";
 
 export const PATH_QUIZ = "/quiz";
-export const PATH_QUIZ_GET_QUIZ = "/quiz/:quizId";
-export const PATH_QUIZ_GET_QUIZZES = "/quiz/quizzes";
+export const PATH_QUIZ_GET = "/quiz/:quizId";
+export const PATH_QUIZ_LIST = "/quiz/quizzes";
 export const PATH_QUIZ_RESULT = "/quiz/result";
 
 export const PATH_QUIZ_BOARD = "/quiz/:quizId/board";

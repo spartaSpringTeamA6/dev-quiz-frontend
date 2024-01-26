@@ -9,7 +9,7 @@ import {
   img_jpa,
   img_spring,
 } from "../../assets/images";
-import { PATH_QUIZ_GET_QUIZZES } from "../../constants";
+import { PATH_QUIZ_LIST } from "../../constants";
 import { useNavigate } from "react-router-dom";
 import { quizGetQuizzesApi } from "../../apis/quizApis";
 
@@ -171,16 +171,16 @@ export default function QuizCategory() {
   const navigate = useNavigate();
 
   const getQuizHandler = async (category) => {
-    const data = {
+    const param = {
       category: category,
     };
-    const quizList = await quizGetQuizzesApi(data);
+    const quizList = await quizGetQuizzesApi(param);
     setQuizzes(quizList.data);
   };
 
   useEffect(() => {
     if (quizzes && quizzes.length > 0) {
-      navigate(PATH_QUIZ_GET_QUIZZES, {
+      navigate(PATH_QUIZ_LIST, {
         state: { quizzes, index: 0, correct: 0, pass: 0 },
       });
     }
@@ -190,7 +190,7 @@ export default function QuizCategory() {
     <Page>
       <Div>
         <Container>
-          <TextWrapper>Categories</TextWrapper>
+          <TextWrapper>Category</TextWrapper>
           <List>
             <Row>
               <Article onClick={() => getQuizHandler("COMPUTER_SCIENCE")}>
@@ -204,7 +204,7 @@ export default function QuizCategory() {
                   <Subtitle>Test your Computer Science knowledge</Subtitle>
                 </Frame>
               </Article>
-              <Article onClick={() => getQuizHandler("JAVA_SCRIPT")}>
+              <Article onClick={() => getQuizHandler("JAVASCRIPT")}>
                 <ImageContainer>
                   <Image>
                     <Img alt="JavaScript" src={img_javascript} />

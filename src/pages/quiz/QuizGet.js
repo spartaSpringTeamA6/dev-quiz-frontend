@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import {
-  PATH_BOARD,
-  PATH_QUIZ_BOARD,
-  PATH_QUIZ_GET_QUIZZES,
-  PATH_QUIZ_RESULT,
-} from "../../constants";
+import { PATH_BOARD, PATH_QUIZ_LIST, PATH_QUIZ_RESULT } from "../../constants";
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
-import { quizSubmitAnswerApi } from "../../apis/quizApis";
+import { quizGetQuizApi, quizSubmitAnswerApi } from "../../apis/quizApis";
 
 const Wrap = styled.div`
   padding: 80px 0 0 0;
@@ -208,14 +203,16 @@ const ToLink = styled(Link)`
   }
 `;
 
-export default function QuizGetQuizzes(props) {
+export default function QuizGet(props) {
   const [cookies] = useCookies();
   const { user } = useUserStore();
   const [userToken, setUserToken] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
+  const { quizId } = useParams();
 
+  const [quiz, setQuiz] = useState();
   const index = location.state?.index;
   const quizzes = location.state?.quizzes;
   const correct = location.state?.correct;
@@ -260,15 +257,11 @@ export default function QuizGetQuizzes(props) {
     if (index + 1 >= 10) {
       navigate(PATH_QUIZ_RESULT, { state: { correct: c, pass: p } });
     } else {
-      navigate(PATH_QUIZ_GET_QUIZZES, {
+      navigate(PATH_QUIZ_LIST, {
         state: { quizzes, index: index + 1, correct: c, pass: p },
       });
       return;
     }
-  };
-
-  const moveBoardHandler = (id) => {
-    navigate(PATH_QUIZ_BOARD.replace(":quizId", id));
   };
 
   const customColor = (click) => {
@@ -304,9 +297,13 @@ export default function QuizGetQuizzes(props) {
     }
   }, [user]);
 
+  useEffect(() => {
+    setQuiz(quizGetQuizApi(quizId).data);
+  }, []);
+
   return (
     <>
-      {quizzes.length > 0 && (
+      {quizzes.length > 0 && quiz && (
         <Wrap>
           <MainContainer>
             <ContentContainer>
@@ -321,14 +318,14 @@ export default function QuizGetQuizzes(props) {
                       color={selectAnswer === "1" && "blue"}
                       fontWeight={selectAnswer === "1" && "600"}
                     >
-                      {quizzes[index].example[0]}
+                      {quiz.example[0]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("1")}
                       fontWeight={() => customFontWeight("1")}
                     >
-                      {quizzes[index].example[0]}
+                      {quiz.example[0]}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -339,14 +336,14 @@ export default function QuizGetQuizzes(props) {
                       color={selectAnswer === "2" && "blue"}
                       fontWeight={selectAnswer === "2" && "600"}
                     >
-                      {quizzes[index].example[1]}
+                      {quiz.example[1]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("2")}
                       fontWeight={() => customFontWeight("2")}
                     >
-                      {quizzes[index].example[1]}
+                      {quiz.example[1]}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -357,14 +354,14 @@ export default function QuizGetQuizzes(props) {
                       color={selectAnswer === "3" && "blue"}
                       fontWeight={selectAnswer === "3" && "600"}
                     >
-                      {quizzes[index].example[2]}
+                      {quiz.example[2]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("3")}
                       fontWeight={() => customFontWeight("3")}
                     >
-                      {quizzes[index].example[2]}
+                      {quiz.example[2]}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -375,14 +372,14 @@ export default function QuizGetQuizzes(props) {
                       color={selectAnswer === "4" && "blue"}
                       fontWeight={selectAnswer === "4" && "600"}
                     >
-                      {quizzes[index].example[3]}
+                      {quiz.example[3]}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("4")}
                       fontWeight={() => customFontWeight("4")}
                     >
-                      {quizzes[index].example[3]}
+                      {quiz.example[3]}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -434,11 +431,9 @@ export default function QuizGetQuizzes(props) {
                   </>
                 )}
               </ButtonContainer>
-              <BoardTextButton
-                onClick={() => moveBoardHandler(quizzes[index].id)}
-              >
-                Ask on the Board
-              </BoardTextButton>
+              <ToLink to={PATH_BOARD}>
+                <BoardTextButton>Ask on the Board</BoardTextButton>
+              </ToLink>
             </ContentContainer>
           </MainContainer>
         </Wrap>

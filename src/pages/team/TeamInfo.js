@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { teamGetTeamInfoApi } from "../../apis/teamApis";
+import { teamGetTeamInfoApi, teamGetTeamsApi } from "../../apis/teamApis";
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
+import {
+  PATH_LOGIN,
+  PATH_TEAM,
+  PATH_TEAM_INFO,
+  PATH_TEAM_SETTING,
+} from "../../constants";
 
 const Wrap = styled.div`
   padding: 0px 0 80px 0;
@@ -31,7 +37,7 @@ const Sidebar = styled.div`
   width: 220px;
 `;
 
-const Item = styled.div`
+const Item = styled.button`
   align-items: center;
   align-self: stretch;
   display: flex;
@@ -41,6 +47,14 @@ const Item = styled.div`
   padding: 16px 20px;
   position: relative;
   width: 100%;
+  border: none;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: white;
+  }
 `;
 
 const Frame = styled.div`
@@ -105,15 +119,6 @@ const TextWrapper = styled.div`
   width: 520px;
 `;
 
-const Vector = styled.img`
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 168px;
-  width: 1220px;
-`;
-
 const Title2 = styled.div`
   color: #000000;
   font-size: 40px;
@@ -141,13 +146,13 @@ const List = styled.div`
 const Item2 = styled.div`
   align-items: center;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  flex-grow: 1;
   gap: 20px;
+  height: 204px;
   justify-content: center;
   padding: 12px 0px;
   position: relative;
+  width: 160px;
 `;
 
 const IconWrapper = styled.div`
@@ -213,15 +218,6 @@ const Subtitle2 = styled.div`
   text-align: center;
 `;
 
-const Img = styled.img`
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 460px;
-  width: 1220px;
-`;
-
 const Section2 = styled.div`
   align-items: center;
   align-self: stretch;
@@ -276,10 +272,11 @@ const List2 = styled.div`
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
-  gap: 40px 40px;
+  gap: 40px;
   padding: 20px 0px;
   position: relative;
   width: 100%;
+  justify-content: center;
 `;
 
 const Item3 = styled.div`
@@ -291,57 +288,98 @@ const Item3 = styled.div`
   justify-content: center;
   padding: 12px 0px;
   position: relative;
-  width: 200px;
-`;
-
-const Vector2 = styled.img`
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 764px;
-  width: 1220px;
+  width: 160px;
 `;
 
 export default function TeamInfo() {
-  const [cookies] = useCookies();
   const { user } = useUserStore();
-  const [userToken, setUserToken] = useState("");
-
+  const [userInfo, setUserInfo] = useState();
   const { teamId } = useParams();
+  const navigate = useNavigate();
 
-  const [team, setTeam] = useState();
+  const [teamList, setTeamList] = useState();
+  const [teamInfo, setTeamInfo] = useState();
+
+  const moveTeamListHandler = () => {
+    navigate(PATH_TEAM);
+  };
+
+  const moveTeamInfoHandler = (id) => {
+    navigate(PATH_TEAM_INFO.replace(":teamId", id));
+  };
+
+  const moveTeamSettingHandler = (id) => {
+    navigate(PATH_TEAM_SETTING.replace(":teamId", id));
+  };
+
+  const getTeamListHandler = async () => {
+    const response = await teamGetTeamsApi(user.userId);
+    if (response.status === 200) {
+      setTeamList(response.data.teamInfoList);
+    } else {
+      alert(response.message);
+      navigate(PATH_LOGIN);
+    }
+  };
+
+  const getTeamInfoHandler = async () => {
+    const response = await teamGetTeamInfoApi(teamId);
+    if (response.status === 200) {
+      setTeamInfo(response.data);
+    } else {
+      alert(response.message);
+      if (response.status === 403) {
+        navigate(PATH_TEAM);
+      } else {
+        navigate(PATH_LOGIN);
+      }
+    }
+  };
 
   useEffect(() => {
-    const token = cookies.access_token;
-    if (token) {
-      setUserToken(token);
+    if (userInfo) {
+      getTeamListHandler();
+      getTeamInfoHandler(teamId);
     }
+  }, [userInfo]);
+
+  useEffect(() => {
+    setUserInfo(user);
   }, [user]);
 
   useEffect(() => {
-    setTeam(teamGetTeamInfoApi(teamId).data);
-  }, []);
+    if (userInfo) {
+      getTeamListHandler();
+      getTeamInfoHandler(teamId);
+    }
+  }, [teamId]);
 
   return (
     <>
-      {team && (
+      {teamInfo && teamList && (
         <IndexWrapper>
           <Sidebar>
-            <Item>
+            <Item onClick={() => moveTeamListHandler()}>
               <Frame>
-                <Icon>😃</Icon>
+                <Icon>🐾</Icon>
               </Frame>
-              <Title>Teams</Title>
+              <Title>Team List</Title>
             </Item>
-            <Item>
-              <Frame>
-                <Icon>👥</Icon>
-              </Frame>
-              <Title>Members</Title>
-            </Item>
-            <div />
-            <Item>
+            {teamList !== undefined &&
+              teamList.map((team, index) => (
+                <Item
+                  key={index}
+                  onClick={() => moveTeamInfoHandler(team.teamId)}
+                  // backgroundColor={team.teamId == teamId && "white"}
+                  backgroundColor={team.teamId.toString() === teamId && "white"}
+                >
+                  <Frame>
+                    <Icon>🐶</Icon>
+                  </Frame>
+                  <Title>{team.name}</Title>
+                </Item>
+              ))}
+            <Item onClick={() => moveTeamSettingHandler(teamInfo.id)}>
               <Frame>
                 <Icon>⚙️</Icon>
               </Frame>
@@ -351,7 +389,7 @@ export default function TeamInfo() {
           <Wrap>
             <Section>
               <Container>
-                <TextWrapper>Team Name</TextWrapper>
+                <TextWrapper>{teamInfo.name}</TextWrapper>
               </Container>
             </Section>
             <Section>
@@ -364,7 +402,7 @@ export default function TeamInfo() {
                     </IconWrapper>
                     <Frame2>
                       <Title3>Team Name</Title3>
-                      <Subtitle>Amazing Team</Subtitle>
+                      <Subtitle>{teamInfo.name}</Subtitle>
                     </Frame2>
                   </Item2>
                   <Item2>
@@ -373,7 +411,7 @@ export default function TeamInfo() {
                     </IconWrapper>
                     <Frame2>
                       <Title3>Admin</Title3>
-                      <Subtitle>John</Subtitle>
+                      <Subtitle>{teamInfo.admin}</Subtitle>
                     </Frame2>
                   </Item2>
                   <Item2>
@@ -382,7 +420,7 @@ export default function TeamInfo() {
                     </IconWrapper>
                     <Frame2>
                       <Title3>Team Members</Title3>
-                      <Subtitle2>3</Subtitle2>
+                      <Subtitle2>{teamInfo.userList.length}</Subtitle2>
                     </Frame2>
                   </Item2>
                 </List>
@@ -394,42 +432,25 @@ export default function TeamInfo() {
                 <Description>View details about each team member</Description>
               </Container2>
               <List2>
-                <Item3>
-                  <IconWrapper>
-                    <Icon2>🧑🏻‍💻</Icon2>
-                  </IconWrapper>
-                  <Frame2>
-                    <Title3>Name</Title3>
-                    <Subtitle>score: 90</Subtitle>
-                  </Frame2>
-                </Item3>
-                <Item3>
-                  <IconWrapper>
-                    <Icon2>🧑🏻‍💻</Icon2>
-                  </IconWrapper>
-                  <Frame2>
-                    <Title3>Name</Title3>
-                    <Subtitle>score: 90</Subtitle>
-                  </Frame2>
-                </Item3>
-                <Item3>
-                  <IconWrapper>
-                    <Icon2>🧑🏻‍💻</Icon2>
-                  </IconWrapper>
-                  <Frame2>
-                    <Title3>Name</Title3>
-                    <Subtitle>score: 90</Subtitle>
-                  </Frame2>
-                </Item3>
-                <Item3>
-                  <IconWrapper>
-                    <Icon2>🧑🏻‍💻</Icon2>
-                  </IconWrapper>
-                  <Frame2>
-                    <Title3>Name</Title3>
-                    <Subtitle>score: 90</Subtitle>
-                  </Frame2>
-                </Item3>
+                {teamInfo.userList.length > 0 ? (
+                  teamInfo.userList.map((user, index) => (
+                    <Item3>
+                      <IconWrapper>
+                        <Icon2>🧑🏻‍💻</Icon2>
+                      </IconWrapper>
+                      <Frame2>
+                        <Title3>{user.username}</Title3>
+                        {/* <Subtitle>score: 0</Subtitle> */}
+                      </Frame2>
+                    </Item3>
+                  ))
+                ) : (
+                  <>
+                    <Frame2>
+                      <Title3>Please invite the members!</Title3>
+                    </Frame2>
+                  </>
+                )}
               </List2>
             </Section2>
           </Wrap>

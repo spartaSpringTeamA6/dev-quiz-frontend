@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { logo_devquiz } from "../../assets/images";
 import { Link } from "react-router-dom";
-import { PATH_HOME, PATH_LOGIN, PATH_QUIZ, PATH_TEAM } from "../../constants";
+import {
+  PATH_HOME,
+  PATH_LOGIN,
+  PATH_MYPAGE,
+  PATH_QUIZ,
+  PATH_TEAM,
+} from "../../constants";
+import { useCookies } from "react-cookie";
+import useUserStore from "../../stores/user.store";
+import { userGetMyInfoApi } from "../../apis/userApis";
 
 const TopBar = styled.div`
   align-items: center;
@@ -94,7 +103,7 @@ const PrimaryButton = styled.button`
   justify-content: center;
   padding: 12px;
   position: relative;
-  width: 100px;
+  min-width: 100px;
   border: none;
   &:focus {
     outline: none;
@@ -124,6 +133,28 @@ const ToLink = styled(Link)`
 `;
 
 export default function Header() {
+  const [cookies] = useCookies();
+  const { user, setUser, setAccessToken } = useUserStore();
+  const [loginUser, setLoginUser] = useState("");
+
+  useEffect(() => {
+    setLoginUser(user);
+  }, [user]);
+
+  useEffect(() => {
+    const getUserInfoHandler = async () => {
+      const response = await userGetMyInfoApi();
+      if (response.status === 200) {
+        setUser(response.data);
+        setAccessToken(cookies.access_token);
+      }
+    };
+
+    if (cookies.access_token) {
+      getUserInfoHandler();
+    }
+  }, [cookies]);
+
   return (
     <TopBar>
       <DevQuizLogo alt="Devquiz logo" src={logo_devquiz} />
@@ -140,16 +171,26 @@ export default function Header() {
         {/* <ToLink to={PATH_QUIZ}>
           <Tab>Board</Tab>
         </ToLink> */}
-        <ToLink to={PATH_TEAM}>
-          <Tab>Team</Tab>
-        </ToLink>
+        {loginUser && (
+          <ToLink to={PATH_TEAM}>
+            <Tab>Team</Tab>
+          </ToLink>
+        )}
       </NavBar>
       <TextWrapper></TextWrapper>
-      <ToLink to={PATH_LOGIN}>
-        <PrimaryButton>
-          <PrimaryButtonText>Login</PrimaryButtonText>
-        </PrimaryButton>
-      </ToLink>
+      {!loginUser ? (
+        <ToLink to={PATH_LOGIN}>
+          <PrimaryButton>
+            <PrimaryButtonText>Login</PrimaryButtonText>
+          </PrimaryButton>
+        </ToLink>
+      ) : (
+        <ToLink to={PATH_MYPAGE}>
+          <PrimaryButton>
+            <PrimaryButtonText>{loginUser.username}</PrimaryButtonText>
+          </PrimaryButton>
+        </ToLink>
+      )}
     </TopBar>
   );
 }

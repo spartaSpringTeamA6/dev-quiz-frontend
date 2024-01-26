@@ -19,8 +19,8 @@ import {
   PATH_TEAM_INFO,
   PATH_TEAM_SETTING,
   PATH_QUIZ_RESULT,
-  PATH_QUIZ_GET_QUIZ,
-  PATH_QUIZ_GET_QUIZZES,
+  PATH_QUIZ_GET,
+  PATH_QUIZ_LIST,
   PATH_QUIZ_BOARD,
   PATH_QUIZ_BOARD_POST,
 } from "./constants";
@@ -28,14 +28,14 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import QuizCategory from "./pages/quiz/QuizCategory";
-import QuizGetQuizzes from "./pages/quiz/QuizGetQuizzes";
+import QuizList from "./pages/quiz/QuizList";
 import MyPageProfile from "./pages/mypage/MypageProfile";
 import TeamList from "./pages/team/TeamList";
 import TeamInfo from "./pages/team/TeamInfo";
 import TeamSetting from "./pages/team/TeamSetting";
 import { useUserStore } from "./stores/user.store";
 import QuizResult from "./pages/quiz/QuizResult";
-import QuizGetQuiz from "./pages/quiz/QuizGetQuiz";
+import QuizGet from "./pages/quiz/QuizGet";
 import QuizBoardList from "./pages/board/QuizBoardList";
 import QuizBoardPost from "./pages/board/QuizBaordPost";
 import { userGetMyInfoApi } from "./apis/userApis";
@@ -43,40 +43,6 @@ import { authReissueApi } from "./apis/authApis";
 
 function App() {
   // const [connection, setConnection] = useState("");
-  const [cookies] = useCookies();
-  const { user, setUser, setAccessToken, removeUser, removeAccessToken } =
-    useUserStore();
-  const [loginUser, setLoginUser] = useState("");
-
-  useEffect(() => {
-    setLoginUser(user);
-  }, [user]);
-
-  useEffect(() => {
-    const getUserInfoHandler = async () => {
-      const userInfo = await userGetMyInfoApi();
-      setUser(userInfo.data);
-      setAccessToken(cookies.access_token);
-    };
-
-    const postAuthReissueHandler = async () => {
-      const reissue = await authReissueApi();
-      console.log("issue", reissue);
-      if (cookies.access_token) {
-        setAccessToken(cookies.access_token);
-      } else {
-        removeUser();
-      }
-    };
-
-    if (cookies.access_token) {
-      getUserInfoHandler();
-    } else {
-      console.log("cookies change");
-      postAuthReissueHandler();
-    }
-  }, [cookies]);
-
   // useEffect(() => {
   //   const connectionTest = () => {
   //     axios
@@ -88,7 +54,6 @@ function App() {
   //         setConnection(error.message);
   //       });
   //   };
-
   //   connectionTest();
   // }, []);
 
@@ -109,11 +74,8 @@ function App() {
 
                 {/* Quiz */}
                 <Route path={PATH_QUIZ} element={<QuizCategory />} />
-                <Route path={PATH_QUIZ_GET_QUIZ} element={<QuizGetQuiz />} />
-                <Route
-                  path={PATH_QUIZ_GET_QUIZZES}
-                  element={<QuizGetQuizzes />}
-                />
+                <Route path={PATH_QUIZ_GET} element={<QuizGet />} />
+                <Route path={PATH_QUIZ_LIST} element={<QuizList />} />
                 <Route path={PATH_QUIZ_RESULT} element={<QuizResult />} />
 
                 {/* Board */}

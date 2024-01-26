@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { authLogoutApi } from "../../apis/authApis";
+import useUserStore from "../../stores/user.store";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { PATH_HOME } from "../../constants";
 
 const Index = styled.div`
   align-items: center;
@@ -66,6 +71,16 @@ const Avatar = styled.div`
   height: 100px;
   position: relative;
   width: 100px;
+`;
+
+const Icon = styled.div`
+  color: #000000;
+  display: flex;
+  font-size: 64px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 `;
 
 const Container2 = styled.div`
@@ -156,6 +171,7 @@ const Secondary = styled.button`
   position: relative;
   width: 100px;
   background-color: white;
+
   &:focus {
     outline: none;
   }
@@ -177,7 +193,7 @@ const Title2 = styled.div`
   width: fit-content;
 `;
 
-const Primary = styled.div`
+const Primary = styled.button`
   align-items: center;
   background-color: #000000;
   border-radius: 8px;
@@ -188,7 +204,7 @@ const Primary = styled.div`
   padding: 12px;
   position: relative;
   width: 100px;
-
+  border: none;
   &:focus {
     outline: none;
     cursor: pointer;
@@ -406,90 +422,112 @@ const Container5 = styled.div`
 `;
 
 export default function MyPageProfile() {
+  const { user, removeUser } = useUserStore();
+  const [userInfo, setUserInfo] = useState();
+  const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    const response = await authLogoutApi();
+    removeCookie("access_token", { path: "/" });
+    removeUser();
+    navigate(PATH_HOME);
+  };
+
+  useEffect(() => {
+    setUserInfo(user);
+  }, [user]);
+
   return (
-    <Index>
-      <Section>
-        <Container>
-          <Title>Welcome to DevQuiz</Title>
-        </Container>
-      </Section>
-      <Div>
-        <Avatar />
-        <Container2>
-          <TextWrapper>User</TextWrapper>
-          <ChipGroup>
-            <Chip>
-              <Text>Programming</Text>
-            </Chip>
-            <Chip>
-              <Text>Design</Text>
-            </Chip>
-            <Chip>
-              <Text>Writing</Text>
-            </Chip>
-            <Chip>
-              <Text>Marketing</Text>
-            </Chip>
-          </ChipGroup>
-        </Container2>
-        <Button>
-          <Button2>
-            <Secondary>
-              <Title2>Edit</Title2>
-            </Secondary>
-            <Primary>
-              <Title3>Log out</Title3>
-            </Primary>
-          </Button2>
-        </Button>
-      </Div>
-      <Section2>
-        <Container3>
-          <Title4>User Status</Title4>
-          <List>
-            <Metric>
-              <Title5>Solve</Title5>
-              <Data>341</Data>
-            </Metric>
-            <Metric>
-              <Title5>Fail</Title5>
-              <Data>12</Data>
-            </Metric>
-            <Metric>
-              <Title5>Pass</Title5>
-              <Data>4</Data>
-            </Metric>
-          </List>
-        </Container3>
-      </Section2>
-      <Section>
-        <ContainerWrapper>
-          <Container4>
-            <Title6>맞은 문제</Title6>
-            <Section3>
-              <TextWrapper2>222</TextWrapper2>
-            </Section3>
-          </Container4>
-        </ContainerWrapper>
-      </Section>
-      <Section>
-        <Container5>
-          <Title6>틀린 문제</Title6>
-          <Section3>
-            <TextWrapper2>222</TextWrapper2>
-          </Section3>
-        </Container5>
-      </Section>
-      <Section>
-        <ContainerWrapper>
-          <Container4>
-            <Title6>모르는 문제</Title6>
-            <Section3>
-              <TextWrapper2>222</TextWrapper2>
-            </Section3>
-          </Container4>
-        </ContainerWrapper>
-      </Section>
-    </Index>
+    <>
+      {userInfo && (
+        <Index>
+          <Section>
+            <Container>
+              <Title>Welcome to DevQuiz</Title>
+            </Container>
+          </Section>
+          <Div>
+            <Avatar>
+              <Icon>🧑🏻‍💻</Icon>
+            </Avatar>
+            <Container2>
+              <TextWrapper>{userInfo.username}</TextWrapper>
+              <ChipGroup>
+                <Chip>
+                  <Text>Programming</Text>
+                </Chip>
+                <Chip>
+                  <Text>Design</Text>
+                </Chip>
+                <Chip>
+                  <Text>Writing</Text>
+                </Chip>
+                <Chip>
+                  <Text>Marketing</Text>
+                </Chip>
+              </ChipGroup>
+            </Container2>
+            <Button>
+              <Button2>
+                <Secondary>
+                  <Title2>Edit</Title2>
+                </Secondary>
+                <Primary onClick={() => logoutHandler()}>
+                  <Title3>Logout</Title3>
+                </Primary>
+              </Button2>
+            </Button>
+          </Div>
+          <Section2>
+            <Container3>
+              <Title4>User Status</Title4>
+              <List>
+                <Metric>
+                  <Title5>Solve</Title5>
+                  <Data>341</Data>
+                </Metric>
+                <Metric>
+                  <Title5>Fail</Title5>
+                  <Data>12</Data>
+                </Metric>
+                <Metric>
+                  <Title5>Pass</Title5>
+                  <Data>4</Data>
+                </Metric>
+              </List>
+            </Container3>
+          </Section2>
+          <Section>
+            <ContainerWrapper>
+              <Container4>
+                <Title6>맞은 문제</Title6>
+                <Section3>
+                  <TextWrapper2>222</TextWrapper2>
+                </Section3>
+              </Container4>
+            </ContainerWrapper>
+          </Section>
+          <Section>
+            <Container5>
+              <Title6>틀린 문제</Title6>
+              <Section3>
+                <TextWrapper2>222</TextWrapper2>
+              </Section3>
+            </Container5>
+          </Section>
+          <Section>
+            <ContainerWrapper>
+              <Container4>
+                <Title6>모르는 문제</Title6>
+                <Section3>
+                  <TextWrapper2>222</TextWrapper2>
+                </Section3>
+              </Container4>
+            </ContainerWrapper>
+          </Section>
+        </Index>
+      )}
+    </>
   );
 }
