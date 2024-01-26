@@ -2,11 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import styled from "styled-components";
 import useUserStore from "../../stores/user.store";
-import { useParams } from "react-router-dom";
-import { teamGetTeamsApi } from "../../apis/teamApis";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  teamCreateTeamApi,
+  teamGetTeamInfoApi,
+  teamGetTeamsApi,
+} from "../../apis/teamApis";
+import {
+  PATH_HOME,
+  PATH_LOGIN,
+  PATH_TEAM,
+  PATH_TEAM_INFO,
+} from "../../constants";
 
 const Wrap = styled.div`
   padding: 80px 0;
+  display: flex;
+  flex-direction: column;
 `;
 const IndexWrapper = styled.div`
   align-items: center;
@@ -30,7 +42,7 @@ const Sidebar = styled.div`
   width: 220px;
 `;
 
-const Item = styled.div`
+const Item = styled.button`
   align-items: center;
   align-self: stretch;
   display: flex;
@@ -40,6 +52,16 @@ const Item = styled.div`
   padding: 16px 20px;
   position: relative;
   width: 100%;
+  border: none;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+  &:focus {
+    outline: none;
+    border-color: black;
+    color: black;
+  }
+  &:hover {
+    background-color: white;
+  }
 `;
 
 const Frame = styled.div`
@@ -75,7 +97,6 @@ const Section = styled.div`
   display: flex;
   flex: 0 0 auto;
   gap: 60px;
-  justify-content: center;
   overflow: hidden;
   padding: 60px;
   position: relative;
@@ -90,6 +111,7 @@ const Container = styled.div`
   flex-grow: 1;
   gap: 24px;
   position: relative;
+  width: 520px;
 `;
 
 const TextWrapper = styled.div`
@@ -118,17 +140,19 @@ const Description = styled.p`
 const List = styled.div`
   align-items: flex-start;
   align-self: stretch;
+  text-align: center;
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
   gap: 40px 40px;
-  padding: 20px 0px;
   position: relative;
-  width: 100%;
+  justify-content: center;
+  margin: auto;
 `;
 
 const Div = styled.div`
   align-items: flex-start;
+  justify-content: flex-start;
   display: flex;
   flex-wrap: wrap;
   gap: 40px 40px;
@@ -146,28 +170,38 @@ const Item2 = styled.div`
   justify-content: center;
   padding: 12px 0px;
   position: relative;
-  width: 200px;
+  width: 160px;
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled.button`
   background-color: #0000000d;
   border-radius: 50px;
   height: 100px;
   position: relative;
   width: 100px;
+  border: none;
+
+  &:focus {
+    outline: none;
+    border-color: black;
+    color: black;
+  }
+  &:hover {
+    border-color: black;
+  }
 `;
 
 const Icon2 = styled.div`
   color: #000000;
   display: flex;
   font-size: 62.5px;
-  height: 100px;
+  height: 100%;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 100%;
 `;
 
-const TitleWrapper = styled.div`
+const TitleWrapper = styled.button`
   align-items: flex-start;
   align-self: stretch;
   display: flex;
@@ -176,13 +210,18 @@ const TitleWrapper = styled.div`
   gap: 8px;
   position: relative;
   width: 100%;
+  border: none;
+  background-color: transparent;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Title2 = styled.div`
   align-self: stretch;
   color: #000000;
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 600;
   letter-spacing: 0;
   line-height: 28px;
   margin-top: -1px;
@@ -212,30 +251,36 @@ const Textfield = styled.input`
   height: 20px;
   padding: 8px 12px;
   width: 100%;
+  &:focus {
+    outline: none;
+    border-color: black;
+    color: black;
+  }
+  &:hover {
+    border-color: black;
+  }
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button`
   all: unset;
-  align-items: flex-start;
-  box-sizing: border-box;
-  display: inline-flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-`;
-
-const Primary = styled.div`
   align-items: center;
-  background-color: #000000;
-  border-radius: 8px;
+  box-sizing: border-box;
   display: flex;
   flex: 0 0 auto;
+  border-radius: 8px;
   flex-direction: column;
-  justify-content: center;
-  padding: 12px;
+  background-color: #000000;
+  gap: 12px;
   position: relative;
+  padding: 12px;
   width: 160px;
+  justify-content: center;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const Title3 = styled.div`
@@ -249,59 +294,109 @@ const Title3 = styled.div`
 `;
 
 export default function TeamList() {
-  const [cookies] = useCookies();
   const { user } = useUserStore();
-  // const [userToken, setUserToken] = useState("");
+  const [userInfo, setUserInfo] = useState();
+  const navigate = useNavigate();
 
-  const { teamId } = useParams();
+  const [teamList, setTeamList] = useState();
+  const [createTeamName, setCreateTeamName] = useState("");
 
-  const [teams, setTeams] = useState();
+  const moveTeamListHandler = () => {
+    navigate(PATH_TEAM);
+  };
 
-  useEffect(() => {
-    console.log("teams ", teams);
-  }, [teams]);
+  const moveTeamInfoHandler = (id) => {
+    navigate(PATH_TEAM_INFO.replace(":teamId", id));
+  };
 
-  useEffect(() => {
-    const getTeamsHandler = async () => {
-      const getTeams = await teamGetTeamsApi(user.userId);
-      setTeams(getTeams.data.teamInfoList);
+  const setCreateTeamNameHandler = async (event) => {
+    await setCreateTeamName(event.target.value);
+  };
+
+  const createTeamHandler = async () => {
+    const data = {
+      name: createTeamName,
     };
+    const response = await teamCreateTeamApi(data);
 
-    getTeamsHandler();
-  }, []);
+    if (response.status === 201) {
+      getTeamListHandler();
+    } else if (response.status === 409) {
+      alert(response.message);
+    }
+    setCreateTeamName("");
+  };
+
+  const getTeamListHandler = async () => {
+    const response = await teamGetTeamsApi(user.userId);
+    if (response.status === 200) {
+      setTeamList(response.data.teamInfoList);
+    } else {
+      alert(response.message);
+      navigate(PATH_LOGIN);
+    }
+  };
+
+  useEffect(() => {
+    if (userInfo) {
+      getTeamListHandler();
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    setUserInfo(user);
+  }, [user]);
 
   return (
     <>
       {user !== null && (
         <IndexWrapper>
           <Sidebar>
-            <Item>
+            <Item
+              onClick={() => moveTeamListHandler()}
+              backgroundColor={"white"}
+            >
               <Frame>
-                <Icon>🐶</Icon>
+                <Icon>🐾</Icon>
               </Frame>
-              <Title>Teams</Title>
+              <Title>Team List</Title>
             </Item>
+            {teamList !== undefined &&
+              teamList.map((team, index) => (
+                <Item
+                  key={index}
+                  onClick={() => moveTeamInfoHandler(team.teamId)}
+                >
+                  <Frame>
+                    <Icon>🐶</Icon>
+                  </Frame>
+                  <Title>{team.name}</Title>
+                </Item>
+              ))}
           </Sidebar>
           <Wrap>
             <Section>
               <Container>
                 <TextWrapper>My Teams</TextWrapper>
                 <Description>List of teams you are part of</Description>
-
                 <List>
-                  {teams !== undefined &&
-                    teams.map((team, index) => (
-                      <Div key={index}>
-                        <Item2>
-                          <IconWrapper>
+                  <Div>
+                    {teamList !== undefined &&
+                      teamList.map((team, index) => (
+                        <Item2 key={index}>
+                          <IconWrapper
+                            onClick={() => moveTeamInfoHandler(team.teamId)}
+                          >
                             <Icon2>🐶</Icon2>
                           </IconWrapper>
-                          <TitleWrapper>
+                          <TitleWrapper
+                            onClick={() => moveTeamInfoHandler(team.teamId)}
+                          >
                             <Title2>{team.name}</Title2>
                           </TitleWrapper>
                         </Item2>
-                      </Div>
-                    ))}
+                      ))}
+                  </Div>
                 </List>
               </Container>
             </Section>
@@ -313,13 +408,13 @@ export default function TeamList() {
                     className="textfield"
                     placeholder="team name"
                     type="text"
+                    value={createTeamName}
+                    onChange={setCreateTeamNameHandler}
                   />
                 </Input>
-                <Button>
-                  <Primary>
-                    <Title3>Create</Title3>
-                  </Primary>
-                </Button>
+                <StyledButton onClick={() => createTeamHandler()}>
+                  <Title3>Create</Title3>
+                </StyledButton>
               </Container>
             </Section>
           </Wrap>

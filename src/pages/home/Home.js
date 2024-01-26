@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { PATH_QUIZ } from "../../constants";
 import { Link } from "react-router-dom";
 import { img_dogzip } from "../../assets/images";
+import { authReissueApi } from "../../apis/authApis";
 
 const IndexWrapper = styled.div`
   align-items: center;
