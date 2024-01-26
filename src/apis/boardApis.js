@@ -4,34 +4,34 @@ import api from "../helper/jwtInterceptor";
 export const boardGetListApi = async (quizId) => {
   const response = await api
     .get(`${API_BASE_URL}/api/quizzes/${quizId}/boards`)
-    .catch((error) => null);
-  return !response ? null : response.data;
+    .catch((error) => error.response);
+  return response.data;
 };
 
 export const boardCreateApi = async (quizId, data) => {
   const response = await api
     .post(`${API_BASE_URL}/api/quizzes/${quizId}/boards`, data)
-    .catch((error) => null);
-  return !response ? null : response.data;
+    .catch((error) => error.response);
+  return response.data;
 };
 
 export const boardGetApi = async (boardId) => {
   const response = await api
     .get(`${API_BASE_URL}/api/boards/${boardId}`)
-    .catch((error) => null);
-  return !response ? null : response.data;
+    .catch((error) => error.response);
+  return response.data;
 };
 
 export const boardDeleteApi = async (boardId) => {
   const response = await api
     .delete(`${API_BASE_URL}/api/boards/${boardId}`)
-    .catch((error) => null);
-  return !response ? null : response.data;
+    .catch((error) => error.response);
+  return response.data;
 };
 
 export const boardUpdateApi = async (boardId, data) => {
   const response = await api
     .patch(`${API_BASE_URL}/api/boards/${boardId}`, data)
-    .catch((error) => null);
-  return !response ? null : response.data;
+    .catch((error) => error.response);
+  return response.data;
 };

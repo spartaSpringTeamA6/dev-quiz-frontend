@@ -11,6 +11,6 @@ export const userGetMyInfoApi = async () => {
 export const userUpdateInfoApi = async (userId, data) => {
   const response = await api
     .patch(`${API_BASE_URL}/api/users/${userId}`, data)
-    .catch((error) => null);
-  return !response ? null : response.data;
+    .catch((error) => error.response);
+  return response.data;
 };
