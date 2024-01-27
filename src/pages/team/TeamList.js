@@ -293,7 +293,7 @@ const Title3 = styled.div`
   width: fit-content;
 `;
 
-export default function TeamList() {
+export default function TeamList(props) {
   const { user } = useUserStore();
   const [userInfo, setUserInfo] = useState();
   const navigate = useNavigate();

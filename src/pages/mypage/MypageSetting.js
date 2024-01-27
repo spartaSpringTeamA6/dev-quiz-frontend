@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { authLogoutApi } from "../../apis/authApis";
 import useUserStore from "../../stores/user.store";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { PATH_HOME, PATH_MYPAGE_SETTING } from "../../constants";
+import { PATH_MYPAGE } from "../../constants";
+import { userGetMyInfoApi, userUpdateInfoApi } from "../../apis/userApis";
 
-const Index = styled.div`
+const IndexWrapper = styled.div`
   align-items: center;
   background-color: #ffffff;
   display: flex;
@@ -52,6 +51,15 @@ const Title = styled.div`
   width: 865px;
 `;
 
+const Vector = styled.img`
+  height: 1px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 156px;
+  width: 1440px;
+`;
+
 const Div = styled.div`
   align-items: center;
   align-self: stretch;
@@ -93,7 +101,6 @@ const Container2 = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  text-align: left;
   align-self: stretch;
   color: #000000;
   font-family: "Roboto", Helvetica;
@@ -103,6 +110,7 @@ const TextWrapper = styled.div`
   line-height: 32px;
   margin-top: -1px;
   position: relative;
+  text-align: left;
 `;
 
 const ChipGroup = styled.div`
@@ -123,7 +131,7 @@ const Chip = styled.div`
   flex: 0 0 auto;
   flex-direction: column;
   justify-content: center;
-  padding: 8px 10px;
+  padding: 8px;
   position: relative;
 `;
 
@@ -140,8 +148,22 @@ const Text = styled.div`
   width: fit-content;
 `;
 
+const DivWrapper = styled.div`
+  align-items: center;
+  background-color: #0000000d;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px;
+  position: relative;
+  width: 64px;
+`;
+
 const Button = styled.div`
+  all: unset;
   align-items: flex-start;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -150,7 +172,9 @@ const Button = styled.div`
 `;
 
 const Button2 = styled.div`
+  all: unset;
   align-items: flex-start;
+  box-sizing: border-box;
   display: inline-flex;
   flex: 0 0 auto;
   flex-direction: column;
@@ -158,7 +182,7 @@ const Button2 = styled.div`
   position: relative;
 `;
 
-const Secondary = styled.button`
+const Seconday = styled.button`
   align-items: center;
   border: 1px solid;
   border-color: #000000;
@@ -193,39 +217,13 @@ const Title2 = styled.div`
   width: fit-content;
 `;
 
-const Primary = styled.button`
-  align-items: center;
-  background-color: #000000;
-  border-radius: 8px;
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  justify-content: center;
-  padding: 12px;
-  position: relative;
-  width: 100px;
-  border: none;
-  &:focus {
-    outline: none;
-    cursor: pointer;
-  }
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-  }
-`;
-
-const Title3 = styled.div`
-  color: #ffffff;
-  font-family: "Roboto", Helvetica;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 24px;
-  margin-top: -1px;
-  position: relative;
-  white-space: nowrap;
-  width: fit-content;
+const Img = styled.img`
+  height: 1px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 220px;
+  width: 1440px;
 `;
 
 const Section2 = styled.div`
@@ -250,7 +248,7 @@ const Container3 = styled.div`
   width: 1000px;
 `;
 
-const Title4 = styled.div`
+const Title3 = styled.div`
   color: #000000;
   font-family: "Roboto", Helvetica;
   font-size: 40px;
@@ -263,46 +261,77 @@ const Title4 = styled.div`
   width: 520px;
 `;
 
-const List = styled.div`
-  align-items: center;
-  align-self: stretch;
-  display: flex;
-  flex: 0 0 auto;
-  gap: 20px;
-  padding: 20px 0px;
+const Description = styled.div`
+  color: #000000;
+  font-family: "Roboto", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
   position: relative;
-  width: 70%;
-  margin: 0 auto;
+  text-align: center;
+  width: 520px;
 `;
 
-const Metric = styled.div`
+const Input = styled.div`
   align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  position: relative;
+  width: 600px;
+`;
+
+const Title4 = styled.div`
+  align-self: stretch;
+  color: #000000;
+  font-family: "Roboto", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 20px;
+  margin-top: -1px;
+  position: relative;
+  text-align: left;
+`;
+
+const Textfield = styled.input`
+  align-items: center;
+  align-self: stretch;
+  background-color: #ffffff;
   border: 1px solid;
   border-color: #0000001a;
   border-radius: 6px;
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  flex-grow: 1;
+  flex: 0 0 auto;
   gap: 4px;
-  overflow: hidden;
-  padding: 16px;
+  padding: 8px 12px;
   position: relative;
-  width: 200px;
+  width: 100%;
+  &:focus {
+    outline: none;
+    border-color: black;
+    color: black;
+  }
+  &:hover {
+    border-color: black;
+  }
 `;
 
-const Title5 = styled.div`
+const Text2 = styled.div`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
-  align-self: stretch;
   color: #00000080;
   display: -webkit-box;
+  flex: 1;
   font-family: "Roboto", Helvetica;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  height: 24px;
+  height: 20px;
   letter-spacing: 0;
-  line-height: 24px;
+  line-height: 20px;
   margin-top: -1px;
   overflow: hidden;
   position: relative;
@@ -310,92 +339,96 @@ const Title5 = styled.div`
   white-space: nowrap;
 `;
 
-const Data = styled.div`
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  align-self: stretch;
-  color: #000000;
-  display: -webkit-box;
-  font-family: "Roboto", Helvetica;
-  font-size: 28px;
-  font-weight: 500;
-  height: 36px;
-  letter-spacing: 0;
-  line-height: 36px;
-  overflow: hidden;
-  position: relative;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-const Change = styled.div`
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  color: #000000;
-  display: -webkit-box;
-  font-family: "Roboto", Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  height: 24px;
-  letter-spacing: 0;
-  line-height: 24px;
-  overflow: hidden;
-  position: relative;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 30px;
-`;
-
-const ContainerWrapper = styled.div`
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  position: relative;
-  width: 600px;
-`;
-
-const Container4 = styled.div`
-  align-items: flex-start;
+const Primary = styled.button`
+  align-items: center;
+  background-color: #000000;
+  border-radius: 8px;
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
+  justify-content: center;
+  padding: 12px;
+  position: relative;
+  width: 160px;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const Title5 = styled.div`
+  color: #ffffff;
+  font-family: "Roboto", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+`;
+
+const Vector2 = styled.img`
+  height: 1px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 372px;
+  width: 1440px;
+`;
+
+const Selection = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 4px;
   position: relative;
   width: 600px;
 `;
 
-const Title6 = styled.div`
+const Info = styled.div`
   align-self: stretch;
-  color: #000000;
+  color: #00000080;
   font-family: "Roboto", Helvetica;
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 400;
   letter-spacing: 0;
-  line-height: 48px;
-  margin-top: -1px;
-  padding: 0 0 48px 0;
+  line-height: 16px;
   position: relative;
-  text-align: center;
 `;
 
-const Section3 = styled.div`
-  align-items: center;
+const ChipGroup2 = styled.div`
+  align-items: flex-start;
   align-self: stretch;
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
-  gap: 20px 20px;
-  justify-content: center;
-  overflow: hidden;
-  padding: 10px 20px;
+  gap: 8px 8px;
   position: relative;
   width: 100%;
 `;
 
-const TextWrapper2 = styled.button`
-  color: #000000;
+const Chip2 = styled.div`
+  align-items: center;
+  background-color: #00000099;
+  border-radius: 6px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px;
+  position: relative;
+`;
+
+const Text3 = styled.div`
+  color: #ffffff;
   font-family: "Roboto", Helvetica;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 20px;
@@ -403,39 +436,48 @@ const TextWrapper2 = styled.button`
   position: relative;
   white-space: nowrap;
   width: fit-content;
-  border: none;
-  background-color: transparent;
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    font-weight: 600;
-  }
 `;
 
-const Container5 = styled.div`
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 600px;
+const Vector3 = styled.img`
+  height: 1px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 392px;
+  width: 1440px;
 `;
 
-export default function MyPageProfile() {
-  const { user, removeUser } = useUserStore();
+export default function MyPageSetting() {
+  const { user, setUser } = useUserStore();
   const [userInfo, setUserInfo] = useState();
-  const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
-  const logoutHandler = async () => {
-    const response = await authLogoutApi();
-    removeCookie("access_token", { path: "/" });
-    removeUser();
-    navigate(PATH_HOME);
+  const [updateMyName, setUpdateMyName] = useState("");
+
+  const moveMypageHandler = () => {
+    navigate(PATH_MYPAGE);
   };
 
-  const moveMypageSettingHandler = () => {
-    navigate(PATH_MYPAGE_SETTING);
+  const setUpdateMyNameHandler = async (event) => {
+    await setUpdateMyName(event.target.value);
+  };
+
+  const updateMyNameHandler = async () => {
+    const data = {
+      username: updateMyName,
+      skillList: [],
+    };
+    const response = await userUpdateInfoApi(userInfo.userId, data);
+
+    if (response.status === 200) {
+      const getMyInfo = await userGetMyInfoApi();
+      if (response.status === 200) {
+        setUser(getMyInfo.data);
+      }
+    } else {
+      alert(response.message);
+    }
+    setUpdateMyName("");
   };
 
   useEffect(() => {
@@ -445,7 +487,7 @@ export default function MyPageProfile() {
   return (
     <>
       {userInfo && (
-        <Index>
+        <IndexWrapper>
           <Section>
             <Container>
               <Title>Welcome to DevQuiz</Title>
@@ -458,79 +500,74 @@ export default function MyPageProfile() {
             <Container2>
               <TextWrapper>{userInfo.username}</TextWrapper>
               <ChipGroup>
-                <Chip>
+                {/* <Chip>
                   <Text>Programming</Text>
                 </Chip>
-                <Chip>
+                <DivWrapper>
                   <Text>Design</Text>
-                </Chip>
-                <Chip>
+                </DivWrapper>
+                <DivWrapper>
                   <Text>Writing</Text>
-                </Chip>
+                </DivWrapper>
                 <Chip>
                   <Text>Marketing</Text>
-                </Chip>
+                </Chip> */}
               </ChipGroup>
             </Container2>
             <Button>
               <Button2>
-                <Secondary onClick={() => moveMypageSettingHandler()}>
-                  <Title2>Edit</Title2>
-                </Secondary>
-                <Primary onClick={() => logoutHandler()}>
-                  <Title3>Logout</Title3>
-                </Primary>
+                <Seconday onClick={() => moveMypageHandler()}>
+                  <Title2>Save</Title2>
+                </Seconday>
               </Button2>
             </Button>
           </Div>
           <Section2>
             <Container3>
-              <Title4>User Status</Title4>
-              <List>
-                <Metric>
-                  <Title5>Solve</Title5>
-                  <Data>341</Data>
-                </Metric>
-                <Metric>
-                  <Title5>Fail</Title5>
-                  <Data>12</Data>
-                </Metric>
-                <Metric>
-                  <Title5>Pass</Title5>
-                  <Data>4</Data>
-                </Metric>
-              </List>
+              <Title3>Change Username</Title3>
+              <Description>Update your username</Description>
+              <Input>
+                <Textfield
+                  value={updateMyName}
+                  onChange={setUpdateMyNameHandler}
+                  placeholder="Enter your new username"
+                />
+              </Input>
+              <Button2>
+                <Primary onClick={() => updateMyNameHandler()}>
+                  <Title5>Save</Title5>
+                </Primary>
+              </Button2>
             </Container3>
           </Section2>
-          <Section>
-            <ContainerWrapper>
-              <Container4>
-                <Title6>맞은 문제</Title6>
-                <Section3>
-                  <TextWrapper2>222</TextWrapper2>
-                </Section3>
-              </Container4>
-            </ContainerWrapper>
-          </Section>
-          <Section>
-            <Container5>
-              <Title6>틀린 문제</Title6>
-              <Section3>
-                <TextWrapper2>222</TextWrapper2>
-              </Section3>
-            </Container5>
-          </Section>
-          <Section>
-            <ContainerWrapper>
-              <Container4>
-                <Title6>모르는 문제</Title6>
-                <Section3>
-                  <TextWrapper2>222</TextWrapper2>
-                </Section3>
-              </Container4>
-            </ContainerWrapper>
-          </Section>
-        </Index>
+          {/* <Section2>
+            <Container3>
+              <Title3>Choose Skills</Title3>
+              <Description>Select your skills</Description>
+              <Selection>
+                <ChipGroup2>
+                  <Chip>
+                    <Text>Programming</Text>
+                  </Chip>
+                  <DivWrapper>
+                    <Text>Design</Text>
+                  </DivWrapper>
+                  <DivWrapper>
+                    <Text>Writing</Text>
+                  </DivWrapper>
+                  <Chip2>
+                    <Text3>Marketing</Text3>
+                  </Chip2>
+                </ChipGroup2>
+              </Selection>
+              <Button2>
+                <Primary>
+                  <Title5>Save</Title5>
+                </Primary>
+              </Button2>
+            </Container3>
+          </Section2> */}
+        </IndexWrapper>
       )}
     </>
   );

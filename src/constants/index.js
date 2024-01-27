@@ -10,6 +10,7 @@ export const PATH_ANY = "/*";
 
 export const PATH_LOGIN = "/login";
 export const PATH_MYPAGE = "/mypage";
+export const PATH_MYPAGE_SETTING = "/mypage/setting";
 
 export const PATH_QUIZ = "/quiz";
 export const PATH_QUIZ_GET = "/quiz/:quizId";

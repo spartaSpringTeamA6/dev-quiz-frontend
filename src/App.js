@@ -23,6 +23,7 @@ import {
   PATH_QUIZ_LIST,
   PATH_QUIZ_BOARD,
   PATH_QUIZ_BOARD_POST,
+  PATH_MYPAGE_SETTING,
 } from "./constants";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home/Home";
@@ -30,6 +31,7 @@ import Login from "./pages/login/Login";
 import QuizCategory from "./pages/quiz/QuizCategory";
 import QuizList from "./pages/quiz/QuizList";
 import MyPageProfile from "./pages/mypage/MypageProfile";
+import MyPageProfileSetting from "./pages/mypage/MypageSetting.js";
 import TeamList from "./pages/team/TeamList";
 import TeamInfo from "./pages/team/TeamInfo";
 import TeamSetting from "./pages/team/TeamSetting";
@@ -71,6 +73,10 @@ function App() {
                 {/* User */}
                 <Route path={PATH_LOGIN} element={<Login />} />
                 <Route path={PATH_MYPAGE} element={<MyPageProfile />} />
+                <Route
+                  path={PATH_MYPAGE_SETTING}
+                  element={<MyPageProfileSetting />}
+                />
 
                 {/* Quiz */}
                 <Route path={PATH_QUIZ} element={<QuizCategory />} />
