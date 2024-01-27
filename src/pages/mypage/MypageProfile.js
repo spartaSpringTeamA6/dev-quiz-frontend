@@ -5,6 +5,11 @@ import useUserStore from "../../stores/user.store";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { PATH_HOME, PATH_MYPAGE_SETTING } from "../../constants";
+import {
+  userGetCorrectQuizApi,
+  userGetFailQuizApi,
+  userGetPassQuizApi,
+} from "../../apis/userApis";
 
 const Index = styled.div`
   align-items: center;
@@ -427,6 +432,10 @@ export default function MyPageProfile() {
   const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
+  const [correctQuizList, setCorrectQuizList] = useState();
+  const [failQuizList, setFailQuizList] = useState();
+  const [passQuizList, setPassQuizList] = useState();
+
   const logoutHandler = async () => {
     const response = await authLogoutApi();
     removeCookie("access_token", { path: "/" });
@@ -437,6 +446,47 @@ export default function MyPageProfile() {
   const moveMypageSettingHandler = () => {
     navigate(PATH_MYPAGE_SETTING);
   };
+
+  useEffect(() => {
+    const getCorrectQuizListHandler = async () => {
+      const response = await userGetCorrectQuizApi(userInfo.userId);
+      if (response) {
+        if (response.status === 200) {
+          setCorrectQuizList(response.data);
+        } else {
+          alert(response.message);
+        }
+      }
+    };
+
+    const getFailQuizListHandler = async () => {
+      const response = await userGetFailQuizApi(userInfo.userId);
+      if (response) {
+        if (response.status === 200) {
+          setFailQuizList(response.data);
+        } else {
+          alert(response.message);
+        }
+      }
+    };
+
+    const getPassQuizListHandler = async () => {
+      const response = await userGetPassQuizApi(userInfo.userId);
+      if (response) {
+        if (response.status === 200) {
+          setPassQuizList(response.data);
+        } else {
+          alert(response.message);
+        }
+      }
+    };
+
+    if (userInfo) {
+      getCorrectQuizListHandler();
+      getFailQuizListHandler();
+      getPassQuizListHandler();
+    }
+  }, [userInfo]);
 
   useEffect(() => {
     setUserInfo(user);
@@ -483,53 +533,66 @@ export default function MyPageProfile() {
               </Button2>
             </Button>
           </Div>
-          <Section2>
-            <Container3>
-              <Title4>User Status</Title4>
-              <List>
-                <Metric>
-                  <Title5>Solve</Title5>
-                  <Data>341</Data>
-                </Metric>
-                <Metric>
-                  <Title5>Fail</Title5>
-                  <Data>12</Data>
-                </Metric>
-                <Metric>
-                  <Title5>Pass</Title5>
-                  <Data>4</Data>
-                </Metric>
-              </List>
-            </Container3>
-          </Section2>
-          <Section>
-            <ContainerWrapper>
-              <Container4>
-                <Title6>맞은 문제</Title6>
-                <Section3>
-                  <TextWrapper2>222</TextWrapper2>
-                </Section3>
-              </Container4>
-            </ContainerWrapper>
-          </Section>
-          <Section>
-            <Container5>
-              <Title6>틀린 문제</Title6>
-              <Section3>
-                <TextWrapper2>222</TextWrapper2>
-              </Section3>
-            </Container5>
-          </Section>
-          <Section>
-            <ContainerWrapper>
-              <Container4>
-                <Title6>모르는 문제</Title6>
-                <Section3>
-                  <TextWrapper2>222</TextWrapper2>
-                </Section3>
-              </Container4>
-            </ContainerWrapper>
-          </Section>
+          {correctQuizList && failQuizList && passQuizList && (
+            <>
+              <Section2>
+                <Container3>
+                  <Title4>User Status</Title4>
+                  <List>
+                    <Metric>
+                      <Title5>Correct</Title5>
+                      <Data>{correctQuizList.quizList.length}</Data>
+                    </Metric>
+                    <Metric>
+                      <Title5>Fail</Title5>
+                      <Data>{failQuizList.quizList.length}</Data>
+                    </Metric>
+                    <Metric>
+                      <Title5>Pass</Title5>
+                      <Data>{passQuizList.quizList.length}</Data>
+                    </Metric>
+                  </List>
+                </Container3>
+              </Section2>
+              <Section>
+                <ContainerWrapper>
+                  <Container4>
+                    <Title6>맞은 문제</Title6>
+                    <Section3>
+                      {correctQuizList !== undefined &&
+                        correctQuizList.quizList.map((quiz, index) => (
+                          <TextWrapper2>{quiz.id}</TextWrapper2>
+                        ))}
+                    </Section3>
+                  </Container4>
+                </ContainerWrapper>
+              </Section>
+              <Section>
+                <Container5>
+                  <Title6>틀린 문제</Title6>
+                  <Section3>
+                    {failQuizList !== undefined &&
+                      failQuizList.quizList.map((quiz, index) => (
+                        <TextWrapper2>{quiz.id}</TextWrapper2>
+                      ))}
+                  </Section3>
+                </Container5>
+              </Section>
+              <Section>
+                <ContainerWrapper>
+                  <Container4>
+                    <Title6>모르는 문제</Title6>
+                    <Section3>
+                      {passQuizList !== undefined &&
+                        passQuizList.quizList.map((quiz, index) => (
+                          <TextWrapper2>{quiz.id}</TextWrapper2>
+                        ))}
+                    </Section3>
+                  </Container4>
+                </ContainerWrapper>
+              </Section>
+            </>
+          )}
         </Index>
       )}
     </>
