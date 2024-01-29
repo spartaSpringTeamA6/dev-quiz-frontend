@@ -62,47 +62,45 @@ function App() {
   return (
     <CookiesProvider>
       <ThemeProvider theme={theme}>
-        <HashRouter>
-          <BrowserRouter>
-            <div className="App">
-              <Routes>
-                <Route element={<MainLayout />}>
-                  {/* Home */}
-                  <Route path={PATH_ANY} element={<Home />} />
-                  <Route path={PATH_HOME} element={<Home />} />
+        <BrowserRouter>
+          <div className="App">
+            <Routes>
+              <Route element={<MainLayout />}>
+                {/* Home */}
+                <Route path={PATH_ANY} element={<Home />} />
+                <Route path={PATH_HOME} element={<Home />} />
 
-                  {/* User */}
-                  <Route path={PATH_LOGIN} element={<Login />} />
-                  <Route path={PATH_MYPAGE} element={<MyPageProfile />} />
-                  <Route
-                    path={PATH_MYPAGE_SETTING}
-                    element={<MyPageProfileSetting />}
-                  />
+                {/* User */}
+                <Route path={PATH_LOGIN} element={<Login />} />
+                <Route path={PATH_MYPAGE} element={<MyPageProfile />} />
+                <Route
+                  path={PATH_MYPAGE_SETTING}
+                  element={<MyPageProfileSetting />}
+                />
 
-                  {/* Quiz */}
-                  <Route path={PATH_QUIZ} element={<QuizCategory />} />
-                  <Route path={PATH_QUIZ_GET} element={<QuizGet />} />
-                  <Route path={PATH_QUIZ_LIST} element={<QuizList />} />
-                  <Route path={PATH_QUIZ_RESULT} element={<QuizResult />} />
+                {/* Quiz */}
+                <Route path={PATH_QUIZ} element={<QuizCategory />} />
+                <Route path={PATH_QUIZ_GET} element={<QuizGet />} />
+                <Route path={PATH_QUIZ_LIST} element={<QuizList />} />
+                <Route path={PATH_QUIZ_RESULT} element={<QuizResult />} />
 
-                  {/* Board */}
-                  <Route path={PATH_QUIZ_BOARD} element={<QuizBoardList />} />
-                  <Route
-                    path={PATH_QUIZ_BOARD_POST}
-                    element={<QuizBoardPost />}
-                  />
+                {/* Board */}
+                <Route path={PATH_QUIZ_BOARD} element={<QuizBoardList />} />
+                <Route
+                  path={PATH_QUIZ_BOARD_POST}
+                  element={<QuizBoardPost />}
+                />
 
-                  {/* Team */}
-                  <Route path={PATH_TEAM} element={<TeamList />} />
-                  <Route path={PATH_TEAM_INFO} element={<TeamInfo />} />
-                  <Route path={PATH_TEAM_SETTING} element={<TeamSetting />} />
-                </Route>
+                {/* Team */}
+                <Route path={PATH_TEAM} element={<TeamList />} />
+                <Route path={PATH_TEAM_INFO} element={<TeamInfo />} />
+                <Route path={PATH_TEAM_SETTING} element={<TeamSetting />} />
+              </Route>
 
-                {/* Admin 관련 라우트도 이곳에 추가 */}
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </HashRouter>
+              {/* Admin 관련 라우트도 이곳에 추가 */}
+            </Routes>
+          </div>
+        </BrowserRouter>
       </ThemeProvider>
     </CookiesProvider>
   );
