@@ -38,7 +38,7 @@ const ContentContainer = styled.div`
 `;
 
 const ProgressWrapper = styled.div`
-  width: 100px;
+  width: 500px;
 `;
 
 const SubTitle = styled.div`
@@ -218,6 +218,7 @@ export default function QuizList(props) {
   const quizzes = location.state?.quizzes;
   const correct = location.state?.correct;
   const pass = location.state?.pass;
+  const [progress, setProgress] = useState();
   const [submitAnswer, setSubmitAnswer] = useState(false);
   const [selectAnswer, setSelectAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -296,6 +297,14 @@ export default function QuizList(props) {
   };
 
   useEffect(() => {
+    if (!submitAnswer) {
+      setProgress(index * 10);
+    } else {
+      setProgress(index * 10 + 10);
+    }
+  }, [submitAnswer]);
+
+  useEffect(() => {
     const token = cookies.access_token;
     if (token) {
       setUserToken(token);
@@ -309,7 +318,13 @@ export default function QuizList(props) {
           <MainContainer>
             <ContentContainer>
               <ProgressWrapper>
-                <ProgressBar now={index * 10} />
+                <ProgressBar
+                  style={{
+                    height: "20px",
+                    borderRadius: "10px",
+                  }}
+                  now={progress}
+                />
               </ProgressWrapper>
               <SubTitle>문제 {quizzes[index].id}번</SubTitle>
               <Title>{quizzes[index].question}</Title>
