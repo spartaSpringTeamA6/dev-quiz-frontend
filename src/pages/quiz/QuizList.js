@@ -9,6 +9,7 @@ import {
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
 import { quizSubmitAnswerApi } from "../../apis/quizApis";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 const Wrap = styled.div`
   padding: 80px 0 0 0;
@@ -34,6 +35,10 @@ const ContentContainer = styled.div`
   align-items: center;
   gap: 24px;
   display: inline-flex;
+`;
+
+const ProgressWrapper = styled.div`
+  width: 100px;
 `;
 
 const SubTitle = styled.div`
@@ -303,6 +308,9 @@ export default function QuizList(props) {
         <Wrap>
           <MainContainer>
             <ContentContainer>
+              <ProgressWrapper>
+                <ProgressBar now={index * 10} />
+              </ProgressWrapper>
               <SubTitle>문제 {quizzes[index].id}번</SubTitle>
               <Title>{quizzes[index].question}</Title>
               <Description>Choose the correct answer</Description>
