@@ -370,7 +370,6 @@ export default function TeamInfo() {
                 <Item
                   key={index}
                   onClick={() => moveTeamInfoHandler(team.teamId)}
-                  // backgroundColor={team.teamId == teamId && "white"}
                   backgroundColor={team.teamId.toString() === teamId && "white"}
                 >
                   <Frame>
