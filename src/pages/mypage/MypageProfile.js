@@ -4,7 +4,7 @@ import { authLogoutApi } from "../../apis/authApis";
 import useUserStore from "../../stores/user.store";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { PATH_HOME, PATH_MYPAGE_SETTING } from "../../constants";
+import { PATH_HOME, PATH_MYPAGE_SETTING, PATH_QUIZ_GET } from "../../constants";
 import {
   userGetCorrectQuizApi,
   userGetFailQuizApi,
@@ -447,6 +447,10 @@ export default function MyPageProfile() {
     navigate(PATH_MYPAGE_SETTING);
   };
 
+  const moveQuizGetHandler = (id) => {
+    navigate(PATH_QUIZ_GET.replace(":quizId", id));
+  };
+
   useEffect(() => {
     const getCorrectQuizListHandler = async () => {
       const response = await userGetCorrectQuizApi(userInfo.userId);
@@ -508,18 +512,9 @@ export default function MyPageProfile() {
             <Container2>
               <TextWrapper>{userInfo.username}</TextWrapper>
               <ChipGroup>
-                <Chip>
+                {/* <Chip>
                   <Text>Programming</Text>
-                </Chip>
-                <Chip>
-                  <Text>Design</Text>
-                </Chip>
-                <Chip>
-                  <Text>Writing</Text>
-                </Chip>
-                <Chip>
-                  <Text>Marketing</Text>
-                </Chip>
+                </Chip> */}
               </ChipGroup>
             </Container2>
             <Button>
@@ -561,7 +556,11 @@ export default function MyPageProfile() {
                     <Section3>
                       {correctQuizList !== undefined &&
                         correctQuizList.quizList.map((quiz, index) => (
-                          <TextWrapper2>{quiz.id}</TextWrapper2>
+                          <TextWrapper2
+                            onClick={() => moveQuizGetHandler(quiz.id)}
+                          >
+                            {quiz.id}
+                          </TextWrapper2>
                         ))}
                     </Section3>
                   </Container4>
@@ -573,7 +572,11 @@ export default function MyPageProfile() {
                   <Section3>
                     {failQuizList !== undefined &&
                       failQuizList.quizList.map((quiz, index) => (
-                        <TextWrapper2>{quiz.id}</TextWrapper2>
+                        <TextWrapper2
+                          onClick={() => moveQuizGetHandler(quiz.id)}
+                        >
+                          {quiz.id}
+                        </TextWrapper2>
                       ))}
                   </Section3>
                 </Container5>
@@ -585,7 +588,11 @@ export default function MyPageProfile() {
                     <Section3>
                       {passQuizList !== undefined &&
                         passQuizList.quizList.map((quiz, index) => (
-                          <TextWrapper2>{quiz.id}</TextWrapper2>
+                          <TextWrapper2
+                            onClick={() => moveQuizGetHandler(quiz.id)}
+                          >
+                            {quiz.id}
+                          </TextWrapper2>
                         ))}
                     </Section3>
                   </Container4>

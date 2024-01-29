@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { PATH_BOARD, PATH_QUIZ_LIST, PATH_QUIZ_RESULT } from "../../constants";
+import {
+  PATH_BOARD,
+  PATH_MYPAGE,
+  PATH_QUIZ_LIST,
+  PATH_QUIZ_RESULT,
+} from "../../constants";
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
 import { quizGetQuizApi, quizSubmitAnswerApi } from "../../apis/quizApis";
@@ -213,10 +218,6 @@ export default function QuizGet(props) {
   const { quizId } = useParams();
 
   const [quiz, setQuiz] = useState();
-  const index = location.state?.index;
-  const quizzes = location.state?.quizzes;
-  const correct = location.state?.correct;
-  const pass = location.state?.pass;
   const [submitAnswer, setSubmitAnswer] = useState(false);
   const [selectAnswer, setSelectAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -226,7 +227,7 @@ export default function QuizGet(props) {
     const data = {
       answer: "0",
     };
-    const response = await quizSubmitAnswerApi(quizzes[index].id, data);
+    const response = await quizSubmitAnswerApi(quiz.id, data);
     setCorrectAnswer(response.data.correctAnswer);
     setSubmitAnswer(true);
   };
@@ -235,33 +236,13 @@ export default function QuizGet(props) {
     const data = {
       answer: answer,
     };
-    const response = await quizSubmitAnswerApi(quizzes[index].id, data);
+    const response = await quizSubmitAnswerApi(quiz.id, data);
     setCorrectAnswer(response.data.correctAnswer);
     setSubmitAnswer(true);
   };
 
-  const clickNextHandler = async () => {
-    setSubmitAnswer(false);
-    if (selectAnswer === "0") {
-      moveNextPageHandler(correct, pass + 1);
-    } else if (correctAnswer === selectAnswer) {
-      moveNextPageHandler(correct + 1, pass);
-    } else {
-      moveNextPageHandler(correct, pass);
-    }
-  };
-
-  const moveNextPageHandler = (c, p) => {
-    setSelectAnswer("");
-    setCorrectAnswer("");
-    if (index + 1 >= 10) {
-      navigate(PATH_QUIZ_RESULT, { state: { correct: c, pass: p } });
-    } else {
-      navigate(PATH_QUIZ_LIST, {
-        state: { quizzes, index: index + 1, correct: c, pass: p },
-      });
-      return;
-    }
+  const moveNextPageHandler = async () => {
+    navigate(PATH_MYPAGE);
   };
 
   const customColor = (click) => {
@@ -298,17 +279,27 @@ export default function QuizGet(props) {
   }, [user]);
 
   useEffect(() => {
-    setQuiz(quizGetQuizApi(quizId).data);
+    const getQuizHandler = async () => {
+      const response = await quizGetQuizApi(quizId);
+      if (response.status === 200) {
+        setQuiz(response.data);
+      } else {
+        alert(response.message);
+        navigate(PATH_MYPAGE);
+      }
+    };
+
+    getQuizHandler();
   }, []);
 
   return (
     <>
-      {quizzes.length > 0 && quiz && (
+      {quiz && (
         <Wrap>
           <MainContainer>
             <ContentContainer>
-              <SubTitle>문제 {quizzes[index].id}번</SubTitle>
-              <Title>{quizzes[index].question}</Title>
+              <SubTitle>문제 {quiz.id}번</SubTitle>
+              <Title>{quiz.question}</Title>
               <Description>Choose the correct answer</Description>
               <AnswerContainer>
                 <Answer>
@@ -424,7 +415,7 @@ export default function QuizGet(props) {
                   <>
                     <Button
                       background="black"
-                      onClick={() => clickNextHandler()}
+                      onClick={() => moveNextPageHandler()}
                     >
                       <ButtonText color="white">Next</ButtonText>
                     </Button>

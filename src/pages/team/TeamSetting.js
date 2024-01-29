@@ -461,7 +461,7 @@ export default function TeamSetting(props) {
     if (confirmed) {
       const response = await teamUpdateTeamNameApi(id, data);
       if (response.status === 200) {
-        navigate(PATH_TEAM_SETTING.replace(":teamId", id));
+        navigate(PATH_TEAM_INFO.replace(":teamId", id));
       } else {
         alert(response.message);
       }
