@@ -134,7 +134,7 @@ const ToLink = styled(Link)`
 
 export default function Header() {
   const [cookies] = useCookies();
-  const { user, setUser, setAccessToken } = useUserStore();
+  const { user, setUser, setAccessToken, removeUser } = useUserStore();
   const [loginUser, setLoginUser] = useState("");
 
   useEffect(() => {
@@ -152,6 +152,8 @@ export default function Header() {
 
     if (cookies.access_token) {
       getUserInfoHandler();
+    } else {
+      removeUser();
     }
   }, [cookies]);
 
