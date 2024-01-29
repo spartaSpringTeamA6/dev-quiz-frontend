@@ -4,7 +4,7 @@ import "./App.css";
 import theme from "./styles/themes/default";
 
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 import { useCookies } from "react-cookie";
 
@@ -62,7 +62,7 @@ function App() {
   return (
     <CookiesProvider>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
+        <HashRouter>
           <div className="App">
             <Routes>
               <Route element={<MainLayout />}>
@@ -100,7 +100,7 @@ function App() {
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>
           </div>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </CookiesProvider>
   );
