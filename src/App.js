@@ -24,6 +24,7 @@ import {
   PATH_QUIZ_BOARD,
   PATH_QUIZ_BOARD_POST,
   PATH_MYPAGE_SETTING,
+  PUBLIC_URL,
 } from "./constants";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home/Home";
@@ -63,7 +64,6 @@ function App() {
     <CookiesProvider>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          {/* <HashRouter> */}
           <div className="App">
             <Routes>
               <Route element={<MainLayout />}>
@@ -101,7 +101,6 @@ function App() {
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>
           </div>
-          {/* </HashRouter> */}
         </BrowserRouter>
       </ThemeProvider>
     </CookiesProvider>
