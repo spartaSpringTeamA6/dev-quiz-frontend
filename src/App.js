@@ -62,7 +62,8 @@ function App() {
   return (
     <CookiesProvider>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
+        {/* <BrowserRouter> */}
+        <HashRouter>
           <div className="App">
             <Routes>
               <Route element={<MainLayout />}>
@@ -100,7 +101,8 @@ function App() {
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>
           </div>
-        </BrowserRouter>
+        </HashRouter>
+        {/* </BrowserRouter> */}
       </ThemeProvider>
     </CookiesProvider>
   );
