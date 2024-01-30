@@ -15,13 +15,17 @@ import {
   userRejectTeamInvitationApi,
 } from "../../apis/userApis";
 
+const Wrapper = styled.div`
+  padding: 80px 0;
+  width: calc(100% - 220px);
+`;
+
 const IndexWrapper = styled.div`
-  align-items: center;
   background-color: #ffffff;
   display: flex;
-  flex-direction: column;
-  padding: 0px 0px 0px 220px;
+  flex-direction: row;
   position: relative;
+  align-items: stretch;
 `;
 
 const Sidebar = styled.div`
@@ -29,12 +33,12 @@ const Sidebar = styled.div`
   background-color: #0000000d;
   display: flex;
   flex-direction: column;
-  height: 100%;
   left: 0;
   padding: 12px 0px;
-  position: absolute;
   top: -10px;
-  width: 220px;
+  width: 240px;
+  position: relative;
+  border-radius: 0 20px 20px 0;
 `;
 
 const Item = styled.button`
@@ -296,10 +300,6 @@ const Title4 = styled.div`
   width: fit-content;
 `;
 
-const Wrapper = styled.div`
-  padding: 80px 0;
-`;
-
 export default function TeamInvitation() {
   const { user } = useUserStore();
   const [userInfo, setUserInfo] = useState();
@@ -412,7 +412,7 @@ export default function TeamInvitation() {
               <Div>초대요청: {invitations.length}건</Div>
             </Container>
           </Section>
-          {invitations !== undefined &&
+          {invitations !== undefined && invitations.length > 0 ? (
             invitations.map((team, index) => (
               <Section2 key={index}>
                 <IconWrapper>
@@ -436,7 +436,16 @@ export default function TeamInvitation() {
                   </Button2>
                 </Button>
               </Section2>
-            ))}
+            ))
+          ) : (
+            <Section2>
+              <TextWrapper>
+                <text style={{ fontSize: "24px", fontWeight: "600" }}>
+                  No Invitation
+                </text>
+              </TextWrapper>
+            </Section2>
+          )}
         </Wrapper>
       )}
     </IndexWrapper>

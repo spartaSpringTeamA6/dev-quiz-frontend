@@ -20,13 +20,17 @@ import {
   teamWithdrawTeamApi,
 } from "../../apis/teamApis";
 
+const Wrapper = styled.div`
+  padding: 80px 0;
+  width: calc(100% - 220px);
+`;
+
 const IndexWrapper = styled.div`
-  align-items: center;
   background-color: #ffffff;
   display: flex;
-  flex-direction: column;
-  padding: 0px 0px 0px 220px;
+  flex-direction: row;
   position: relative;
+  align-items: stretch;
 `;
 
 const Sidebar = styled.div`
@@ -34,12 +38,12 @@ const Sidebar = styled.div`
   background-color: #0000000d;
   display: flex;
   flex-direction: column;
-  height: 100%;
   left: 0;
   padding: 12px 0px;
-  position: absolute;
   top: -10px;
-  width: 220px;
+  width: 240px;
+  position: relative;
+  border-radius: 0 20px 20px 0;
 `;
 
 const Item = styled.button`
@@ -573,134 +577,138 @@ export default function TeamSetting(props) {
               <Title>Invitation</Title>
             </Item>
           </Sidebar>
-          <Section>
-            <Container>
-              <TextWrapper>{teamInfo.name}</TextWrapper>
-            </Container>
-          </Section>
-          <Section2>
-            {userInfo.username === teamInfo.admin && (
-              <>
-                <Section3>
-                  <Container2>
-                    <Title2>Invite Member</Title2>
-                    <DivWrapper>
-                      <Input>
-                        <Title3>Invite User Name</Title3>
-                        <Input2>
-                          <Textfield
-                            value={inviteTeamUser}
-                            onChange={setInviteTeamUserHandler}
-                            placeholder="user name"
-                          />
-                          <Primary
-                            onClick={() => inviteTeamUserHandler(teamInfo.id)}
-                          >
-                            <Title5>invite</Title5>
-                          </Primary>
-                        </Input2>
-                      </Input>
-                    </DivWrapper>
-                  </Container2>
-                </Section3>
+          <Wrapper>
+            <Section>
+              <Container>
+                <TextWrapper>{teamInfo.name}</TextWrapper>
+              </Container>
+            </Section>
+            <Section2>
+              {userInfo.username === teamInfo.admin && (
+                <>
+                  <Section3>
+                    <Container2>
+                      <Title2>Invite Member</Title2>
+                      <DivWrapper>
+                        <Input>
+                          <Title3>Invite User Name</Title3>
+                          <Input2>
+                            <Textfield
+                              value={inviteTeamUser}
+                              onChange={setInviteTeamUserHandler}
+                              placeholder="user name"
+                            />
+                            <Primary
+                              onClick={() => inviteTeamUserHandler(teamInfo.id)}
+                            >
+                              <Title5>invite</Title5>
+                            </Primary>
+                          </Input2>
+                        </Input>
+                      </DivWrapper>
+                    </Container2>
+                  </Section3>
 
-                <Section3>
-                  <Container2>
-                    <Title2>Delete Member</Title2>
-                    <DivWrapper>
-                      <Input>
-                        <Title3>Delete User Name</Title3>
-                        <Input2>
-                          <Textfield
-                            value={deleteTeamUser}
-                            onChange={setDeleteTeamUserHandler}
-                            placeholder="user name"
-                          />
-                          <Primary
-                            onClick={() => deleteTeamUserHandler(teamInfo.id)}
+                  <Section3>
+                    <Container2>
+                      <Title2>Delete Member</Title2>
+                      <DivWrapper>
+                        <Input>
+                          <Title3>Delete User Name</Title3>
+                          <Input2>
+                            <Textfield
+                              value={deleteTeamUser}
+                              onChange={setDeleteTeamUserHandler}
+                              placeholder="user name"
+                            />
+                            <Primary
+                              onClick={() => deleteTeamUserHandler(teamInfo.id)}
+                            >
+                              <Title5>delete</Title5>
+                            </Primary>
+                          </Input2>
+                        </Input>
+                      </DivWrapper>
+                    </Container2>
+                  </Section3>
+                  <Section3>
+                    <Container2>
+                      <Title2>Update Team Name</Title2>
+                      <DivWrapper>
+                        <Input>
+                          <Title3>New Team Name</Title3>
+                          <Input2>
+                            <Textfield
+                              value={updateTeamName}
+                              onChange={setUpdateTeamNameHandler}
+                              placeholder="team name"
+                            />
+                            <Primary
+                              onClick={() => updateTeamNameHandler(teamInfo.id)}
+                            >
+                              <Title5>update</Title5>
+                            </Primary>
+                          </Input2>
+                        </Input>
+                      </DivWrapper>
+                    </Container2>
+                  </Section3>
+                  <Section3>
+                    <Container2>
+                      <Title2>Update Team Admin</Title2>
+                      <DivWrapper>
+                        <Input>
+                          <Title3>New Team Admin</Title3>
+                          <Input2>
+                            <Textfield
+                              value={updateTeamAdmin}
+                              onChange={setUpdateTeamAdminHandler}
+                              placeholder="user name"
+                            />
+                            <Primary
+                              onClick={() =>
+                                updateTeamAdminHandler(teamInfo.id)
+                              }
+                            >
+                              <Title5>update</Title5>
+                            </Primary>
+                          </Input2>
+                        </Input>
+                      </DivWrapper>
+                    </Container2>
+                  </Section3>
+                  <Section3>
+                    <Container2>
+                      <Title2>Delete Team</Title2>
+                      <DivWrapper>
+                        <PrimaryWrapper>
+                          <TitleWrapper
+                            onClick={() => deleteTeamHandler(teamInfo.id)}
                           >
-                            <Title5>delete</Title5>
-                          </Primary>
-                        </Input2>
-                      </Input>
-                    </DivWrapper>
-                  </Container2>
-                </Section3>
-                <Section3>
-                  <Container2>
-                    <Title2>Update Team Name</Title2>
-                    <DivWrapper>
-                      <Input>
-                        <Title3>New Team Name</Title3>
-                        <Input2>
-                          <Textfield
-                            value={updateTeamName}
-                            onChange={setUpdateTeamNameHandler}
-                            placeholder="team name"
-                          />
-                          <Primary
-                            onClick={() => updateTeamNameHandler(teamInfo.id)}
-                          >
-                            <Title5>update</Title5>
-                          </Primary>
-                        </Input2>
-                      </Input>
-                    </DivWrapper>
-                  </Container2>
-                </Section3>
-                <Section3>
-                  <Container2>
-                    <Title2>Update Team Admin</Title2>
-                    <DivWrapper>
-                      <Input>
-                        <Title3>New Team Admin</Title3>
-                        <Input2>
-                          <Textfield
-                            value={updateTeamAdmin}
-                            onChange={setUpdateTeamAdminHandler}
-                            placeholder="user name"
-                          />
-                          <Primary
-                            onClick={() => updateTeamAdminHandler(teamInfo.id)}
-                          >
-                            <Title5>update</Title5>
-                          </Primary>
-                        </Input2>
-                      </Input>
-                    </DivWrapper>
-                  </Container2>
-                </Section3>
-                <Section3>
-                  <Container2>
-                    <Title2>Delete Team</Title2>
-                    <DivWrapper>
-                      <PrimaryWrapper>
-                        <TitleWrapper
-                          onClick={() => deleteTeamHandler(teamInfo.id)}
-                        >
-                          <Title6>delete</Title6>
-                        </TitleWrapper>
-                      </PrimaryWrapper>
-                    </DivWrapper>
-                  </Container2>
-                </Section3>
-              </>
-            )}
-            <Section3>
-              <Container2>
-                <Title2>Withdraw From Team</Title2>
-                <DivWrapper>
-                  <PrimaryWrapper>
-                    <TitleWrapper
-                      onClick={() => withdrawTeamHandler(teamInfo.id)}
-                    >
-                      <Title6>withdraw</Title6>
-                    </TitleWrapper>
-                  </PrimaryWrapper>
-                </DivWrapper>
-              </Container2>
-            </Section3>
-          </Section2>
+                            <Title6>delete</Title6>
+                          </TitleWrapper>
+                        </PrimaryWrapper>
+                      </DivWrapper>
+                    </Container2>
+                  </Section3>
+                </>
+              )}
+              <Section3>
+                <Container2>
+                  <Title2>Withdraw From Team</Title2>
+                  <DivWrapper>
+                    <PrimaryWrapper>
+                      <TitleWrapper
+                        onClick={() => withdrawTeamHandler(teamInfo.id)}
+                      >
+                        <Title6>withdraw</Title6>
+                      </TitleWrapper>
+                    </PrimaryWrapper>
+                  </DivWrapper>
+                </Container2>
+              </Section3>
+            </Section2>
+          </Wrapper>
         </IndexWrapper>
       )}
     </>

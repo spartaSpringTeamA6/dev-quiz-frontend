@@ -9,25 +9,23 @@ import {
   teamGetTeamsApi,
 } from "../../apis/teamApis";
 import {
-  PATH_HOME,
   PATH_LOGIN,
   PATH_TEAM,
   PATH_TEAM_INFO,
   PATH_TEAM_INVITATION,
 } from "../../constants";
 
-const Wrap = styled.div`
+const Wrapper = styled.div`
   padding: 80px 0;
-  display: flex;
-  flex-direction: column;
+  width: calc(100% - 220px);
 `;
+
 const IndexWrapper = styled.div`
-  align-items: center;
   background-color: #ffffff;
   display: flex;
-  flex-direction: column;
-  padding: 0px 0px 0px 220px;
+  flex-direction: row;
   position: relative;
+  align-items: stretch;
 `;
 
 const Sidebar = styled.div`
@@ -35,12 +33,12 @@ const Sidebar = styled.div`
   background-color: #0000000d;
   display: flex;
   flex-direction: column;
-  padding: 12px 0px;
-  height: 100%;
   left: 0;
-  position: absolute;
+  padding: 12px 0px;
   top: -10px;
-  width: 220px;
+  width: 240px;
+  position: relative;
+  border-radius: 0 20px 20px 0;
 `;
 
 const Item = styled.button`
@@ -101,7 +99,7 @@ const Section = styled.div`
   overflow: hidden;
   padding: 60px;
   position: relative;
-  width: 800px;
+  width: 100%;
 `;
 
 const Container = styled.div`
@@ -390,7 +388,7 @@ export default function TeamList(props) {
               <Title>Invitation</Title>
             </Item>
           </Sidebar>
-          <Wrap>
+          <Wrapper>
             <Section>
               <Container>
                 <TextWrapper>My Teams</TextWrapper>
@@ -433,7 +431,7 @@ export default function TeamList(props) {
                 </StyledButton>
               </Container>
             </Section>
-          </Wrap>
+          </Wrapper>
         </IndexWrapper>
       )}
     </>

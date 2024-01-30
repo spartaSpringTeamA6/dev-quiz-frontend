@@ -14,15 +14,15 @@ import {
 
 const Wrap = styled.div`
   padding: 0px 0 80px 0;
+  width: calc(100% - 220px);
 `;
 
 const IndexWrapper = styled.div`
-  align-items: center;
   background-color: #ffffff;
   display: flex;
-  flex-direction: column;
-  padding: 0px 0px 0px 220px;
+  flex-direction: row;
   position: relative;
+  align-items: stretch;
 `;
 
 const Sidebar = styled.div`
@@ -30,12 +30,12 @@ const Sidebar = styled.div`
   background-color: #0000000d;
   display: flex;
   flex-direction: column;
-  height: 100%;
   left: 0;
   padding: 12px 0px;
-  position: absolute;
   top: -10px;
-  width: 220px;
+  width: 240px;
+  position: relative;
+  border-radius: 0 20px 20px 0;
 `;
 
 const Item = styled.button`
@@ -95,7 +95,7 @@ const Section = styled.div`
   overflow: hidden;
   padding: 60px;
   position: relative;
-  width: 800px;
+  width: 100%;
 `;
 
 const Container = styled.div`
@@ -230,7 +230,7 @@ const Section2 = styled.div`
   overflow: hidden;
   padding: 60px;
   position: relative;
-  width: 800px;
+  width: 100%;
 `;
 
 const Container2 = styled.div`
