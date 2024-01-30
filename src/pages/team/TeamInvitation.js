@@ -380,7 +380,7 @@ export default function TeamInvitation() {
       <Sidebar>
         <Item onClick={() => moveTeamListHandler()}>
           <Frame>
-            <Icon>🐾</Icon>
+            <Icon>💼</Icon>
           </Frame>
           <Title>Team List</Title>
         </Item>

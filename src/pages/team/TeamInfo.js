@@ -366,7 +366,7 @@ export default function TeamInfo() {
           <Sidebar>
             <Item onClick={() => moveTeamListHandler()}>
               <Frame>
-                <Icon>🐾</Icon>
+                <Icon>💼</Icon>
               </Frame>
               <Title>Team List</Title>
             </Item>
@@ -408,7 +408,7 @@ export default function TeamInfo() {
                 <List>
                   <Item2>
                     <IconWrapper>
-                      <Icon2>💼</Icon2>
+                      <Icon2>🐕</Icon2>
                     </IconWrapper>
                     <Frame2>
                       <Title3>Team Name</Title3>
@@ -417,7 +417,7 @@ export default function TeamInfo() {
                   </Item2>
                   <Item2>
                     <IconWrapper>
-                      <Icon2>👨‍💼</Icon2>
+                      <Icon2>🐶</Icon2>
                     </IconWrapper>
                     <Frame2>
                       <Title3>Admin</Title3>
@@ -426,7 +426,7 @@ export default function TeamInfo() {
                   </Item2>
                   <Item2>
                     <IconWrapper>
-                      <Icon2>🧑‍💻</Icon2>
+                      <Icon2>🐾</Icon2>
                     </IconWrapper>
                     <Frame2>
                       <Title3>Team Members</Title3>

@@ -362,7 +362,7 @@ export default function TeamList(props) {
               backgroundColor={"white"}
             >
               <Frame>
-                <Icon>🐾</Icon>
+                <Icon>💼</Icon>
               </Frame>
               <Title>Team List</Title>
             </Item>
