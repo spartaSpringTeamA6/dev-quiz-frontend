@@ -12,6 +12,7 @@ import {
 import { userGetMyInfoApi } from "../../apis/userApis";
 import { PATH_HOME, PATH_QUIZ_BOARD_INFO } from "../../constants";
 import useUserStore from "../../stores/user.store";
+import { useCookies } from "react-cookie";
 
 const IndexWrapper = styled.div`
   align-items: center;
@@ -381,9 +382,10 @@ const Contentfield = styled.textarea`
 
 export default function QuizBoardInfo() {
   const navigate = useNavigate();
+  const cookies = useCookies();
   const { quizId, boardId } = useParams();
 
-  const { user, setUser } = useUserStore();
+  const { user } = useUserStore();
   const [userInfo, setUserInfo] = useState();
 
   const [boardInfo, setBoardInfo] = useState();
@@ -443,17 +445,6 @@ export default function QuizBoardInfo() {
     setNewCommentContent(e.target.value);
   };
 
-  const getUserInfoHandler = async () => {
-    const response = await userGetMyInfoApi();
-
-    if (response.status === 200) {
-      setUser(response.data);
-    } else {
-      alert(response.message);
-      navigate(PATH_HOME);
-    }
-  };
-
   const getBoardInfoHandler = async () => {
     const response = await boardGetApi(boardId);
 
@@ -477,9 +468,12 @@ export default function QuizBoardInfo() {
   };
 
   useEffect(() => {
+    setUserInfo(user);
+  }, [user]);
+
+  useEffect(() => {
     getBoardInfoHandler();
     getCommentsHandler();
-    getUserInfoHandler();
   }, []);
 
   return (
@@ -527,29 +521,31 @@ export default function QuizBoardInfo() {
                   </Card>
                 ))}
             </List>
-            <Card>
-              <Avatar>
-                <DivWrapper>
-                  <TextWrapper2>🐶</TextWrapper2>
-                </DivWrapper>
-                <TitleWrapper>
-                  <Title3>{user.username}</Title3>
-                </TitleWrapper>
-                <Frame2 />
-              </Avatar>
-              <Avatar2>
-                <Input2>
-                  <Contentfield
-                    value={newCommentContent}
-                    onChange={setNewCommentContentHandler}
-                    placeholder="Please enter your comment."
-                  />
-                </Input2>
-              </Avatar2>
-              <Frame4>
-                <Title6 onClick={() => createCommentHandler()}>Write</Title6>
-              </Frame4>
-            </Card>
+            {userInfo && (
+              <Card>
+                <Avatar>
+                  <DivWrapper>
+                    <TextWrapper2>🐶</TextWrapper2>
+                  </DivWrapper>
+                  <TitleWrapper>
+                    <Title3>{user.username}</Title3>
+                  </TitleWrapper>
+                  <Frame2 />
+                </Avatar>
+                <Avatar2>
+                  <Input2>
+                    <Contentfield
+                      value={newCommentContent}
+                      onChange={setNewCommentContentHandler}
+                      placeholder="Please enter your comment."
+                    />
+                  </Input2>
+                </Avatar2>
+                <Frame4>
+                  <Title6 onClick={() => createCommentHandler()}>Write</Title6>
+                </Frame4>
+              </Card>
+            )}
           </Div>
         </IndexWrapper>
       )}

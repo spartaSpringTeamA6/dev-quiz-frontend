@@ -62,14 +62,13 @@ const Input2 = styled.div`
 const Textfield = styled.input`
   align-items: center;
   background-color: #ffffff;
-  border: 1px solid;
-  border-color: #0000001a;
   border-radius: 6px;
   display: flex;
   flex: 1;
   flex-grow: 1;
-  gap: 4px;
-  padding: 8px 12px;
+  border: none;
+  font-size: 34px;
+  font-weight: 600;
   position: relative;
   &:focus {
     outline: none;

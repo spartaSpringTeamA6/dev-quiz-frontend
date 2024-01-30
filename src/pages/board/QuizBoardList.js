@@ -397,10 +397,10 @@ export default function QuizBoardList() {
               <Title>문제 {quiz.id}번</Title>
               <Title3>{quiz.question}</Title3>
               <Div>
-                <Description>1. {quiz.example[0]}</Description>
-                <Description>2. {quiz.example[1]}</Description>
-                <Description>3. {quiz.example[2]}</Description>
-                <Description>4. {quiz.example[3]}</Description>
+                <Description>{quiz.example[0]}</Description>
+                <Description>{quiz.example[1]}</Description>
+                <Description>{quiz.example[2]}</Description>
+                <Description>{quiz.example[3]}</Description>
               </Div>
               <Button onClick={() => moveToCreateBoard()}>
                 <Primary>
