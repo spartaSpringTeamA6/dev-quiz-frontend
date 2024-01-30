@@ -8,6 +8,7 @@ import {
   PATH_LOGIN,
   PATH_TEAM,
   PATH_TEAM_INFO,
+  PATH_TEAM_INVITATION,
   PATH_TEAM_SETTING,
 } from "../../constants";
 
@@ -312,6 +313,10 @@ export default function TeamInfo() {
     navigate(PATH_TEAM_SETTING.replace(":teamId", id));
   };
 
+  const moveTeamInvitationsHandler = () => {
+    navigate(PATH_TEAM_INVITATION);
+  };
+
   const getTeamListHandler = async () => {
     const response = await teamGetTeamsApi(user.userId);
     if (response.status === 200) {
@@ -383,6 +388,12 @@ export default function TeamInfo() {
                 <Icon>⚙️</Icon>
               </Frame>
               <Title>Settings</Title>
+            </Item>
+            <Item onClick={() => moveTeamInvitationsHandler()}>
+              <Frame>
+                <Icon>🔔</Icon>
+              </Frame>
+              <Title>Invitation</Title>
             </Item>
           </Sidebar>
           <Wrap>

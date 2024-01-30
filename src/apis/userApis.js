@@ -10,9 +10,43 @@ export const userGetMyInfoApi = async () => {
 };
 
 // USER-001
-export const userUpdateInfoApi = async (userId, data) => {
+export const userUpdateUsernameApi = async (userId, data) => {
   const response = await api
-    .put(`${API_BASE_URL}/api/users/${userId}`, data)
+    .patch(`${API_BASE_URL}/api/users/${userId}/username`, data)
+    .catch((error) => error.response);
+  return response.data;
+};
+
+// USER-016
+export const userUpdateSkillsApi = async (userId, data) => {
+  const response = await api
+    .patch(`${API_BASE_URL}/api/users/${userId}/skills`, data)
+    .catch((error) => error.response);
+  return response.data;
+};
+
+// USER-003
+export const userAcceptTeamInvitationApi = async (userId, teamId) => {
+  const response = await api
+    .post(`${API_BASE_URL}/api/users/${userId}/teams/${teamId}/accept`)
+    .catch((error) => error.response);
+  console.log(response);
+  console.log(response.data);
+  return response.data;
+};
+
+// USER-004
+export const userRejectTeamInvitationApi = async (userId, teamId) => {
+  const response = await api
+    .delete(`${API_BASE_URL}/api/users/${userId}/teams/${teamId}/reject`)
+    .catch((error) => error.response);
+  return response.data;
+};
+
+// USER-008
+export const userGetTeamInvitationApi = async (userId) => {
+  const response = await api
+    .get(`${API_BASE_URL}/api/users/${userId}/teams/invitations`)
     .catch((error) => error.response);
   return response.data;
 };

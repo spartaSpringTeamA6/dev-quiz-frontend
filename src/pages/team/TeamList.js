@@ -13,6 +13,7 @@ import {
   PATH_LOGIN,
   PATH_TEAM,
   PATH_TEAM_INFO,
+  PATH_TEAM_INVITATION,
 } from "../../constants";
 
 const Wrap = styled.div`
@@ -309,6 +310,10 @@ export default function TeamList(props) {
     navigate(PATH_TEAM_INFO.replace(":teamId", id));
   };
 
+  const moveTeamInvitationsHandler = () => {
+    navigate(PATH_TEAM_INVITATION);
+  };
+
   const setCreateTeamNameHandler = async (event) => {
     await setCreateTeamName(event.target.value);
   };
@@ -373,6 +378,12 @@ export default function TeamList(props) {
                   <Title>{team.name}</Title>
                 </Item>
               ))}
+            <Item onClick={() => moveTeamInvitationsHandler()}>
+              <Frame>
+                <Icon>🔔</Icon>
+              </Frame>
+              <Title>Invitation</Title>
+            </Item>
           </Sidebar>
           <Wrap>
             <Section>

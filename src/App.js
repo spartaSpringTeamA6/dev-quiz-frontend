@@ -26,6 +26,7 @@ import {
   PATH_QUIZ_BOARD_POST,
   PATH_MYPAGE_SETTING,
   PUBLIC_URL,
+  PATH_TEAM_INVITATION,
 } from "./constants";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/home/Home";
@@ -45,6 +46,7 @@ import QuizBoardInfo from "./pages/board/QuizBoardInfo";
 import QuizBoardPost from "./pages/board/QuizBoardPost";
 import { userGetMyInfoApi } from "./apis/userApis";
 import { authReissueApi } from "./apis/authApis";
+import TeamInvitation from "./pages/team/TeamInvitation.js";
 
 function App() {
   // const [connection, setConnection] = useState("");
@@ -102,6 +104,10 @@ function App() {
                 <Route path={PATH_TEAM} element={<TeamList />} />
                 <Route path={PATH_TEAM_INFO} element={<TeamInfo />} />
                 <Route path={PATH_TEAM_SETTING} element={<TeamSetting />} />
+                <Route
+                  path={PATH_TEAM_INVITATION}
+                  element={<TeamInvitation />}
+                />
               </Route>
 
               {/* Admin 관련 라우트도 이곳에 추가 */}

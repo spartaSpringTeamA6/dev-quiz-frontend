@@ -3,7 +3,11 @@ import styled from "styled-components";
 import useUserStore from "../../stores/user.store";
 import { useNavigate } from "react-router-dom";
 import { PATH_MYPAGE } from "../../constants";
-import { userGetMyInfoApi, userUpdateInfoApi } from "../../apis/userApis";
+import {
+  userGetMyInfoApi,
+  userUpdateSkillsApi,
+  userUpdateUsernameApi,
+} from "../../apis/userApis";
 import { skillGetSkillsApi } from "../../apis/skillApis";
 
 const IndexWrapper = styled.div`
@@ -473,9 +477,8 @@ export default function MyPageSetting() {
   const updateMyNameHandler = async () => {
     const data = {
       username: updateMyName,
-      skillList: changeSkills,
     };
-    const response = await userUpdateInfoApi(userInfo.userId, data);
+    const response = await userUpdateUsernameApi(userInfo.userId, data);
 
     if (response.status === 200) {
       const getMyInfo = await userGetMyInfoApi();
@@ -486,6 +489,22 @@ export default function MyPageSetting() {
       alert(response.message);
     }
     setUpdateMyName("");
+  };
+
+  const updateMySkillsHandler = async () => {
+    const data = {
+      skillList: changeSkills,
+    };
+    const response = await userUpdateSkillsApi(userInfo.userId, data);
+
+    if (response.status === 200) {
+      const getMyInfo = await userGetMyInfoApi();
+      if (response.status === 200) {
+        setUser(getMyInfo.data);
+      }
+    } else {
+      alert(response.message);
+    }
   };
 
   const getSkillsHandler = async () => {
@@ -595,7 +614,7 @@ export default function MyPageSetting() {
                 </ChipGroup2>
               </Selection>
               <Button2>
-                <Primary onClick={() => updateMyNameHandler()}>
+                <Primary onClick={() => updateMySkillsHandler()}>
                   <Title5>Save</Title5>
                 </Primary>
               </Button2>
