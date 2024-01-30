@@ -12,7 +12,7 @@ import { quizSubmitAnswerApi } from "../../apis/quizApis";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 const Wrap = styled.div`
-  padding: 80px 0 0 0;
+  padding: 80px 0;
 `;
 
 const MainContainer = styled.div`
@@ -234,9 +234,9 @@ export default function QuizList(props) {
   };
 
   const clickSolveHandler = async (answer) => {
-     if (selectAnswer === "") {
-       return;
-     }
+    if (selectAnswer === "") {
+      return;
+    }
     const data = {
       answer: answer,
     };

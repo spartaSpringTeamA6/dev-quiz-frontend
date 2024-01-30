@@ -9,7 +9,7 @@ const StyledPage = styled.div`
   display: flex;
   flex-direction: column;
   height: 1072px;
-  padding: 80px 0px 0px;
+  padding: 80px 0px;
   position: relative;
 `;
 

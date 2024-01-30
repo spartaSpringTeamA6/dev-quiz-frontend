@@ -12,7 +12,7 @@ import useUserStore from "../../stores/user.store";
 import { quizGetQuizApi, quizSubmitAnswerApi } from "../../apis/quizApis";
 
 const Wrap = styled.div`
-  padding: 80px 0 0 0;
+  padding: 80px 0;
 `;
 
 const MainContainer = styled.div`

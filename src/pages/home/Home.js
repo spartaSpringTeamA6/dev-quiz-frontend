@@ -10,8 +10,7 @@ const IndexWrapper = styled.div`
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  height: 600px;
-  padding: 80px 0px 0px;
+  padding: 80px 0px;
   position: relative;
 `;
 
