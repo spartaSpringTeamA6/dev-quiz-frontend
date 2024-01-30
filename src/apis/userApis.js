@@ -40,3 +40,11 @@ export const userGetPassQuizApi = async (userId) => {
     .catch((error) => error.response);
   return response.data;
 };
+
+// USER-015
+export const userGetGrassApi = async (userId) => {
+  const response = await api
+    .get(`${API_BASE_URL}/api/users/${userId}/grasses`)
+    .catch((error) => error.response);
+  return response.data;
+};

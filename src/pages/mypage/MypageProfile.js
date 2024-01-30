@@ -4,10 +4,12 @@ import { authLogoutApi } from "../../apis/authApis";
 import useUserStore from "../../stores/user.store";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { Calendar, ResponsiveCalendar } from "@nivo/calendar";
 import { PATH_HOME, PATH_MYPAGE_SETTING, PATH_QUIZ_GET } from "../../constants";
 import {
   userGetCorrectQuizApi,
   userGetFailQuizApi,
+  userGetGrassApi,
   userGetPassQuizApi,
 } from "../../apis/userApis";
 
@@ -233,6 +235,16 @@ const Title3 = styled.div`
   width: fit-content;
 `;
 
+const CalendarWrapper = styled.div`
+  align-self: stretch;
+  align-items: center;
+  height: 200px;
+  padding: 0px 50px;
+  display: flex;
+  width: 100%;
+  position: relative;
+`;
+
 const Section2 = styled.div`
   align-items: center;
   align-self: stretch;
@@ -435,6 +447,7 @@ export default function MyPageProfile() {
   const [correctQuizList, setCorrectQuizList] = useState();
   const [failQuizList, setFailQuizList] = useState();
   const [passQuizList, setPassQuizList] = useState();
+  const [calendarData, setCalendarData] = useState();
 
   const logoutHandler = async () => {
     const response = await authLogoutApi();
@@ -449,6 +462,17 @@ export default function MyPageProfile() {
 
   const moveQuizGetHandler = (id) => {
     navigate(PATH_QUIZ_GET.replace(":quizId", id));
+  };
+
+  const getMyGrassHandler = async () => {
+    const response = await userGetGrassApi(userInfo.userId);
+    if (response) {
+      if (response.status === 200) {
+        setCalendarData(response.data);
+      } else {
+        alert(response.message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -489,12 +513,17 @@ export default function MyPageProfile() {
       getCorrectQuizListHandler();
       getFailQuizListHandler();
       getPassQuizListHandler();
+      getMyGrassHandler();
     }
   }, [userInfo]);
 
   useEffect(() => {
     setUserInfo(user);
   }, [user]);
+
+  useEffect(() => {
+    console.log(calendarData);
+  }, [calendarData]);
 
   return (
     <>
@@ -528,6 +557,34 @@ export default function MyPageProfile() {
               </Button2>
             </Button>
           </Div>
+          {calendarData && (
+            <CalendarWrapper>
+              <ResponsiveCalendar
+                data={calendarData}
+                from="2024-01-01"
+                to="2024-12-31"
+                emptyColor="#eeeeee"
+                colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
+                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+                yearSpacing={40}
+                monthBorderColor="#ffffff"
+                dayBorderWidth={2}
+                dayBorderColor="#ffffff"
+                legends={[
+                  {
+                    anchor: "bottom-right",
+                    direction: "row",
+                    translateY: 36,
+                    itemCount: 4,
+                    itemWidth: 42,
+                    itemHeight: 36,
+                    itemsSpacing: 14,
+                    itemDirection: "right-to-left",
+                  },
+                ]}
+              />
+            </CalendarWrapper>
+          )}
           {correctQuizList && failQuizList && passQuizList && (
             <>
               <Section2>
@@ -557,6 +614,7 @@ export default function MyPageProfile() {
                       {correctQuizList !== undefined &&
                         correctQuizList.quizList.map((quiz, index) => (
                           <TextWrapper2
+                            key={index}
                             onClick={() => moveQuizGetHandler(quiz.id)}
                           >
                             {quiz.id}
@@ -573,6 +631,7 @@ export default function MyPageProfile() {
                     {failQuizList !== undefined &&
                       failQuizList.quizList.map((quiz, index) => (
                         <TextWrapper2
+                          key={index}
                           onClick={() => moveQuizGetHandler(quiz.id)}
                         >
                           {quiz.id}
@@ -589,6 +648,7 @@ export default function MyPageProfile() {
                       {passQuizList !== undefined &&
                         passQuizList.quizList.map((quiz, index) => (
                           <TextWrapper2
+                            key={index}
                             onClick={() => moveQuizGetHandler(quiz.id)}
                           >
                             {quiz.id}

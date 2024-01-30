@@ -4,6 +4,7 @@ import useUserStore from "../../stores/user.store";
 import { useNavigate } from "react-router-dom";
 import { PATH_MYPAGE } from "../../constants";
 import { userGetMyInfoApi, userUpdateInfoApi } from "../../apis/userApis";
+import { skillGetSkillsApi } from "../../apis/skillApis";
 
 const IndexWrapper = styled.div`
   align-items: center;
@@ -453,6 +454,7 @@ export default function MyPageSetting() {
   const navigate = useNavigate();
 
   const [updateMyName, setUpdateMyName] = useState("");
+  const [skills, setSkills] = useState("");
 
   const moveMypageHandler = () => {
     navigate(PATH_MYPAGE);
@@ -480,6 +482,19 @@ export default function MyPageSetting() {
     setUpdateMyName("");
   };
 
+  const getSkillsHandler = async () => {
+    const response = await skillGetSkillsApi();
+    if (response.status === 200) {
+      setSkills(response.data);
+    } else {
+      alert(response.message);
+    }
+  };
+
+  useEffect(() => {
+    getSkillsHandler();
+  }, [userInfo]);
+
   useEffect(() => {
     setUserInfo(user);
   }, [user]);
@@ -500,18 +515,9 @@ export default function MyPageSetting() {
             <Container2>
               <TextWrapper>{userInfo.username}</TextWrapper>
               <ChipGroup>
-                {/* <Chip>
-                  <Text>Programming</Text>
-                </Chip>
-                <DivWrapper>
-                  <Text>Design</Text>
-                </DivWrapper>
-                <DivWrapper>
-                  <Text>Writing</Text>
-                </DivWrapper>
-                <Chip>
-                  <Text>Marketing</Text>
-                </Chip> */}
+                {/* <Chip >
+                    <Text>Programming</Text>
+                  </Chip> */}
               </ChipGroup>
             </Container2>
             <Button>
