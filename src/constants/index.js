@@ -27,3 +27,4 @@ export const PATH_BOARD_POST = "/board/:boardId";
 export const PATH_TEAM = "/team";
 export const PATH_TEAM_INFO = "/team/:teamId";
 export const PATH_TEAM_SETTING = "/team/:teamId/setting";
+export const PATH_TEAM_INVITATION = "/team/invitation";
