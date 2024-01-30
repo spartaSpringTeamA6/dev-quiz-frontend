@@ -93,6 +93,26 @@ const TextWrapper = styled.div`
   position: relative;
 `;
 
+const CoinWrapper = styled.div`
+  min-width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 8px;
+`;
+
+const CoinIcon = styled.div`
+  font-size: 24px;
+  line-height: 24px;
+`;
+const CoinText = styled.text`
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+`;
+
 const PrimaryButton = styled.button`
   align-items: center;
   background-color: #000000;
@@ -178,6 +198,12 @@ export default function Header() {
         )}
       </NavBar>
       <TextWrapper></TextWrapper>
+      {loginUser && (
+        <CoinWrapper>
+          <CoinIcon>🐾</CoinIcon>
+          <CoinText>{loginUser.totalCoin} coin</CoinText>
+        </CoinWrapper>
+      )}
       {!loginUser ? (
         <ToLink to={PATH_LOGIN}>
           <PrimaryButton>
