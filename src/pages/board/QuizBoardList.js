@@ -36,7 +36,7 @@ const Container = styled.div`
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 24px;
+  gap: 30px;
   position: relative;
   width: 800px;
 `;
@@ -44,10 +44,10 @@ const Container = styled.div`
 const Title = styled.div`
   color: #000000;
   font-family: "Roboto", Helvetica;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 0;
-  line-height: 48px;
+  line-height: 24px;
   margin-top: -1px;
   position: relative;
   text-align: center;
@@ -57,10 +57,10 @@ const Title = styled.div`
 const Title3 = styled.div`
   color: #000000;
   font-family: "Roboto", Helvetica;
-  font-size: 30px;
-  font-weight: 500;
+  font-size: 28px;
+  font-weight: 600;
   letter-spacing: 0;
-  line-height: 48px;
+  line-height: 36px;
   margin-top: -1px;
   position: relative;
   text-align: center;
@@ -85,7 +85,7 @@ const Div = styled.div`
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   position: relative;
   width: 100%;
 `;
@@ -329,13 +329,17 @@ const Icon2 = styled.div`
   width: fit-content;
 `;
 
-const Img = styled.img`
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 360px;
-  width: 1440px;
+const BoardTitle2 = styled.div`
+  color: #000000;
+  font-family: "Roboto", Helvetica;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 48px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 `;
 
 export default function QuizBoardList() {
@@ -353,8 +357,8 @@ export default function QuizBoardList() {
     navigate(
       PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
         ":boardId",
-        boardId
-      )
+        boardId,
+      ),
     );
   };
 
@@ -415,6 +419,7 @@ export default function QuizBoardList() {
           <Section>
             <ListWrapper>
               <List>
+                <BoardTitle2>Board</BoardTitle2>
                 <Row>
                   <Article>
                     <Frame>

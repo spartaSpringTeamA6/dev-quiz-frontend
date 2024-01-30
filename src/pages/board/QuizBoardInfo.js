@@ -178,10 +178,12 @@ const TextWrapper2 = styled.div`
   font-weight: 400;
   left: 4px;
   letter-spacing: 0;
-  position: absolute;
   text-align: center;
   top: 3px;
   white-space: nowrap;
+  line-height: 24px;
+  width: 100%;
+  height: 100%;
 `;
 
 const TitleWrapper = styled.div`
@@ -236,6 +238,14 @@ const Icon = styled.button`
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 24px;
+  border: none;
+  background-color: transparent;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 const Title4 = styled.div`
@@ -331,7 +341,7 @@ const List = styled.div`
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
   justify-content: center;
   position: relative;
   width: 800px;
@@ -374,6 +384,8 @@ export default function QuizBoardInfo() {
   const { quizId, boardId } = useParams();
 
   const { user, setUser } = useUserStore();
+  const [userInfo, setUserInfo] = useState();
+
   const [boardInfo, setBoardInfo] = useState();
   const [comments, setComments] = useState();
   const [newCommentContent, setNewCommentContent] = useState();
@@ -385,16 +397,16 @@ export default function QuizBoardInfo() {
       window.location.replace(
         PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
           ":boardId",
-          boardId
-        )
+          boardId,
+        ),
       );
     } else if (response.status === 400) {
       await commentUnlikeApi(commentId);
       window.location.replace(
         PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
           ":boardId",
-          boardId
-        )
+          boardId,
+        ),
       );
     } else if (response.status === 404) {
       alert(response.message);
@@ -417,8 +429,8 @@ export default function QuizBoardInfo() {
       window.location.replace(
         PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
           ":boardId",
-          boardId
-        )
+          boardId,
+        ),
       );
     } else if (response.status === 404) {
       alert(response.message);
