@@ -34,7 +34,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 24px;
   position: relative;
-  width: 470px;
+  width: 400px;
 `;
 
 const Title = styled.div`
@@ -101,7 +101,7 @@ const ImageContainer = styled.div`
   height: 400px;
   padding: 4px 0px;
   position: relative;
-  width: 470px;
+  width: 400px;
 `;
 
 const Image = styled.img`
