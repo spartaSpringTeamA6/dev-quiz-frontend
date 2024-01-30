@@ -124,7 +124,7 @@ const TextWrapper = styled.div`
   margin-top: -1px;
   position: relative;
   text-align: center;
-  width: 520px;
+  width: 560px;
 `;
 
 const Description = styled.p`
@@ -135,7 +135,7 @@ const Description = styled.p`
   line-height: 24px;
   position: relative;
   text-align: center;
-  width: 520px;
+  width: 560px;
 `;
 
 const List = styled.div`
@@ -159,7 +159,7 @@ const Div = styled.div`
   gap: 40px 40px;
   padding: 20px 0px;
   position: relative;
-  width: 100%;
+  width: 560px;
 `;
 
 const Item2 = styled.div`
