@@ -22,6 +22,7 @@ import {
   PATH_QUIZ_GET,
   PATH_QUIZ_LIST,
   PATH_QUIZ_BOARD,
+  PATH_QUIZ_BOARD_INFO,
   PATH_QUIZ_BOARD_POST,
   PATH_MYPAGE_SETTING,
   PUBLIC_URL,
@@ -40,7 +41,8 @@ import { useUserStore } from "./stores/user.store";
 import QuizResult from "./pages/quiz/QuizResult";
 import QuizGet from "./pages/quiz/QuizGet";
 import QuizBoardList from "./pages/board/QuizBoardList";
-import QuizBoardPost from "./pages/board/QuizBaordPost";
+import QuizBoardInfo from "./pages/board/QuizBoardInfo";
+import QuizBoardPost from "./pages/board/QuizBoardPost";
 import { userGetMyInfoApi } from "./apis/userApis";
 import { authReissueApi } from "./apis/authApis";
 
@@ -86,10 +88,14 @@ function App() {
                 <Route path={PATH_QUIZ_RESULT} element={<QuizResult />} />
 
                 {/* Board */}
-                <Route path={PATH_QUIZ_BOARD} element={<QuizBoardList />} />
                 <Route
                   path={PATH_QUIZ_BOARD_POST}
                   element={<QuizBoardPost />}
+                />
+                <Route path={PATH_QUIZ_BOARD} element={<QuizBoardList />} />
+                <Route
+                  path={PATH_QUIZ_BOARD_INFO}
+                  element={<QuizBoardInfo />}
                 />
 
                 {/* Team */}

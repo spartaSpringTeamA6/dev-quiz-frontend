@@ -3,6 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { quizGetQuizApi } from "../../apis/quizApis";
 import { boardGetListApi } from "../../apis/boardApis";
+import {
+  PATH_HOME,
+  PATH_QUIZ_BOARD_INFO,
+  PATH_QUIZ_BOARD_POST,
+} from "../../constants";
 
 const IndexWrapper = styled.div`
   align-items: center;
@@ -47,6 +52,19 @@ const Title = styled.div`
   position: relative;
   text-align: center;
   width: 520px;
+`;
+
+const Title3 = styled.div`
+  color: #000000;
+  font-family: "Roboto", Helvetica;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 48px;
+  margin-top: -1px;
+  position: relative;
+  text-align: center;
+  width: 1000px;
 `;
 
 const Description = styled.div`
@@ -150,7 +168,7 @@ const List = styled.div`
   justify-content: center;
   padding: 20px 0px;
   position: relative;
-  width: 800px;
+  width: 1000px;
 `;
 
 const Row = styled.div`
@@ -186,7 +204,7 @@ const Frame = styled.div`
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
   position: relative;
   width: 100%;
 `;
@@ -216,7 +234,7 @@ const Subtitle = styled.div`
   width: fit-content;
 `;
 
-const Title3 = styled.div`
+const BoardTitle = styled.button`
   color: #000000;
   font-family: "Roboto", Helvetica;
   font-size: 20px;
@@ -225,7 +243,15 @@ const Title3 = styled.div`
   line-height: 34px;
   margin-top: -1px;
   position: relative;
-  width: 515px;
+  width: 850px;
+  border: none;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+  &:focus {
+    outline: none;
+    border-color: black;
+    color: black;
+  }
+  text-align: left;
 `;
 
 const User = styled.div`
@@ -319,84 +345,97 @@ export default function QuizBoardList() {
   const [quiz, setQuiz] = useState();
   const [boards, setBoards] = useState();
 
+  const moveToCreateBoard = () => {
+    navigate(PATH_QUIZ_BOARD_POST.replace(":quizId", quizId));
+  };
+
+  const moveToBoardInfo = (boardId) => {
+    navigate(
+      PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
+        ":boardId",
+        boardId
+      )
+    );
+  };
+
   const getQuizHandler = async () => {
-    return await quizGetQuizApi(quizId).data;
+    const response = await quizGetQuizApi(quizId);
+
+    if (response.status === 200) {
+      setQuiz(response.data);
+    } else {
+      alert(response.message);
+      navigate(PATH_HOME);
+    }
   };
 
   const getBoardsHandler = async () => {
-    return await boardGetListApi(quizId).data;
+    const response = await boardGetListApi(quizId);
+    if (response.status === 200) {
+      setBoards(response.data);
+    } else {
+      alert(response.message);
+      navigate(PATH_HOME);
+    }
   };
 
   useEffect(() => {
-    setQuiz(getQuizHandler);
-    setBoards(getBoardsHandler);
+    getQuizHandler();
+    getBoardsHandler();
   }, []);
 
   return (
     <>
-      {quiz && boards && (
+      {quiz && (
         <IndexWrapper>
           <Section>
             <Container>
               <Title>문제 {quiz.id}번</Title>
-              <Description>문제 내용</Description>
+              <Title3>{quiz.question}</Title3>
               <Div>
-                <TextWrapper>문항</TextWrapper>
-                <Description>문항</Description>
-                <Description>문항</Description>
-                <Description>문항</Description>
+                <Description>1. {quiz.example[0]}</Description>
+                <Description>2. {quiz.example[1]}</Description>
+                <Description>3. {quiz.example[2]}</Description>
+                <Description>4. {quiz.example[3]}</Description>
               </Div>
-              <Button>
+              <Button onClick={() => moveToCreateBoard()}>
                 <Primary>
                   <Title2>게시글 생성</Title2>
                 </Primary>
               </Button>
             </Container>
           </Section>
+          <div
+            style={{
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#0000001f",
+            }}
+          ></div>
           <Section>
             <ListWrapper>
               <List>
                 <Row>
                   <Article>
                     <Frame>
-                      <Frame2>
-                        <Subtitle>1231</Subtitle>
-                        <Title3>
-                          ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                        </Title3>
-                        <User />
-                        <Subtitle2>김철수</Subtitle2>
-                        <User2>
-                          <IconButtons>
-                            <Icon>👍</Icon>
-                            <Icon2>111</Icon2>
-                          </IconButtons>
-                          <IconButtons>
-                            <Icon>💬</Icon>
-                            <Icon2>111</Icon2>
-                          </IconButtons>
-                        </User2>
-                      </Frame2>
-                    </Frame>
-                    <Frame>
-                      <Frame2>
-                        <Subtitle>1231</Subtitle>
-                        <Title3>
-                          ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                        </Title3>
-                        <User />
-                        <Subtitle2>김철수</Subtitle2>
-                        <User2>
-                          <IconButtons>
-                            <Icon>👍</Icon>
-                            <Icon2>111</Icon2>
-                          </IconButtons>
-                          <IconButtons>
-                            <Icon>💬</Icon>
-                            <Icon2>111</Icon2>
-                          </IconButtons>
-                        </User2>
-                      </Frame2>
+                      {boards &&
+                        boards.map((board, idx) => (
+                          <Frame2
+                            key={board.id}
+                            onClick={() => moveToBoardInfo(board.boardId)}
+                          >
+                            <Subtitle>{idx + 1}</Subtitle>
+                            <BoardTitle>{board.title}</BoardTitle>
+                            <User />
+                            <Subtitle2>{board.username}</Subtitle2>
+                            <User2>
+                              <IconButtons>
+                                <Icon>💬</Icon>
+                                <Icon2>{board.countComment}</Icon2>
+                              </IconButtons>
+                            </User2>
+                          </Frame2>
+                        ))}
                     </Frame>
                   </Article>
                 </Row>

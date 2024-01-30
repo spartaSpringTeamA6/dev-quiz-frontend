@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "../constants/index";
+import { API_BASE_URL, PATH_LOGIN } from "../constants/index";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -31,12 +31,12 @@ api.interceptors.response.use(
             return axios(originalRequest);
           }
         } catch (error) {
-          window.location.replace("/login");
+          window.location.replace(PATH_LOGIN);
         }
       }
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;
