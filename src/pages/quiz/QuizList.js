@@ -234,6 +234,9 @@ export default function QuizList(props) {
   };
 
   const clickSolveHandler = async (answer) => {
+     if (selectAnswer === "") {
+       return;
+     }
     const data = {
       answer: answer,
     };

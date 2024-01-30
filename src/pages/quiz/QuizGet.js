@@ -233,6 +233,9 @@ export default function QuizGet(props) {
   };
 
   const clickSolveHandler = async (answer) => {
+    if (selectAnswer === "") {
+      return;
+    }
     const data = {
       answer: answer,
     };
