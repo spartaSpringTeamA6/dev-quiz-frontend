@@ -6,17 +6,17 @@ import { API_BASE_URL, PATH_HOME } from "../../constants";
 const Wrap = styled.div`
   width: 600px;
   margin: 0 auto;
-  padding: 80px 0 0 0;
+  padding: 80px 0 80px;
 `;
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 60px;
+  padding: 160px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   display: inline-flex;
 `;
 
@@ -108,7 +108,12 @@ export default function Login() {
           <Title>Login</Title>
           <Description>Welcome to our login page!</Description>
           <ButtonContainer>
-            {/* <ALink href={API_BASE_URL + "/oauth2/authorization/google"}>
+            {/* <ALink
+              href={
+                API_BASE_URL +
+                "/oauth2/authorization/google?redirect_uri=https://devquiz.pro"
+              }
+            >
               <Button>
                 <ButtonText>Google</ButtonText>
               </Button>
