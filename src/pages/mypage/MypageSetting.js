@@ -551,7 +551,7 @@ export default function MyPageSetting() {
           </Section>
           <Div>
             <Avatar>
-              <Icon>🧑🏻‍💻</Icon>
+              <Icon>🐶</Icon>
             </Avatar>
             <Container2>
               <TextWrapper>{userInfo.username}</TextWrapper>

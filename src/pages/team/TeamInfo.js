@@ -446,11 +446,11 @@ export default function TeamInfo() {
                   teamInfo.userList.map((user, index) => (
                     <Item3>
                       <IconWrapper>
-                        <Icon2>🧑🏻‍💻</Icon2>
+                        <Icon2>🐶</Icon2>
                       </IconWrapper>
                       <Frame2>
                         <Title3>{user.username}</Title3>
-                        {/* <Subtitle>score: 0</Subtitle> */}
+                        <Subtitle>score: {user.totalCoin}</Subtitle>
                       </Frame2>
                     </Item3>
                   ))
