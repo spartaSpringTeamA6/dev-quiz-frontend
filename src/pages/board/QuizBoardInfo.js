@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { quizGetQuizApi } from "../../apis/quizApis";
 import { boardGetApi } from "../../apis/boardApis";
 import {
   commentCreateApi,
@@ -9,10 +8,8 @@ import {
   commentLikeApi,
   commentUnlikeApi,
 } from "../../apis/commentApis";
-import { userGetMyInfoApi } from "../../apis/userApis";
 import { PATH_HOME, PATH_QUIZ_BOARD_INFO } from "../../constants";
 import useUserStore from "../../stores/user.store";
-import { useCookies } from "react-cookie";
 
 const IndexWrapper = styled.div`
   align-items: center;
@@ -90,6 +87,7 @@ const TextWrapper = styled.div`
   margin-top: -1px;
   position: relative;
   text-align: left;
+  word-break: break-word;
 `;
 
 const Div = styled.div`
@@ -382,11 +380,9 @@ const Contentfield = styled.textarea`
 
 export default function QuizBoardInfo() {
   const navigate = useNavigate();
-  const cookies = useCookies();
   const { quizId, boardId } = useParams();
 
   const { user } = useUserStore();
-  const [userInfo, setUserInfo] = useState();
 
   const [boardInfo, setBoardInfo] = useState();
   const [comments, setComments] = useState();
@@ -399,16 +395,16 @@ export default function QuizBoardInfo() {
       window.location.replace(
         PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
           ":boardId",
-          boardId,
-        ),
+          boardId
+        )
       );
     } else if (response.status === 400) {
       await commentUnlikeApi(commentId);
       window.location.replace(
         PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
           ":boardId",
-          boardId,
-        ),
+          boardId
+        )
       );
     } else if (response.status === 404) {
       alert(response.message);
@@ -418,6 +414,11 @@ export default function QuizBoardInfo() {
   const createCommentHandler = async () => {
     if (newCommentContent.length === 0) {
       alert("Please enter your comment.");
+      return;
+    }
+
+    if (newCommentContent.length > 255) {
+      alert("Please enter your comment less than 256.");
       return;
     }
 
@@ -431,8 +432,8 @@ export default function QuizBoardInfo() {
       window.location.replace(
         PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
           ":boardId",
-          boardId,
-        ),
+          boardId
+        )
       );
     } else if (response.status === 404) {
       alert(response.message);
@@ -466,10 +467,6 @@ export default function QuizBoardInfo() {
       navigate(PATH_HOME);
     }
   };
-
-  useEffect(() => {
-    setUserInfo(user);
-  }, [user]);
 
   useEffect(() => {
     getBoardInfoHandler();
@@ -521,7 +518,7 @@ export default function QuizBoardInfo() {
                   </Card>
                 ))}
             </List>
-            {userInfo && (
+            {user && (
               <Card>
                 <Avatar>
                   <DivWrapper>

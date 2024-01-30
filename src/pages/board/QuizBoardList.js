@@ -8,6 +8,7 @@ import {
   PATH_QUIZ_BOARD_INFO,
   PATH_QUIZ_BOARD_POST,
 } from "../../constants";
+import useUserStore from "../../stores/user.store";
 
 const IndexWrapper = styled.div`
   align-items: center;
@@ -344,10 +345,13 @@ const BoardTitle2 = styled.div`
 
 export default function QuizBoardList() {
   const navigate = useNavigate();
+
   const { quizId } = useParams();
 
   const [quiz, setQuiz] = useState();
   const [boards, setBoards] = useState();
+
+  const { user } = useUserStore();
 
   const moveToCreateBoard = () => {
     navigate(PATH_QUIZ_BOARD_POST.replace(":quizId", quizId));
@@ -357,8 +361,8 @@ export default function QuizBoardList() {
     navigate(
       PATH_QUIZ_BOARD_INFO.replace(":quizId", quizId).replace(
         ":boardId",
-        boardId,
-      ),
+        boardId
+      )
     );
   };
 
@@ -402,11 +406,13 @@ export default function QuizBoardList() {
                 <Description>{quiz.example[2]}</Description>
                 <Description>{quiz.example[3]}</Description>
               </Div>
-              <Button onClick={() => moveToCreateBoard()}>
-                <Primary>
-                  <Title2>게시글 생성</Title2>
-                </Primary>
-              </Button>
+              {user && (
+                <Button onClick={() => moveToCreateBoard()}>
+                  <Primary>
+                    <Title2>Create Board</Title2>
+                  </Primary>
+                </Button>
+              )}
             </Container>
           </Section>
           <div
