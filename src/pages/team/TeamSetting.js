@@ -459,6 +459,11 @@ export default function TeamSetting(props) {
   };
 
   const updateTeamNameHandler = async (id) => {
+    if (updateTeamName.length > 9) {
+      alert("팀 이름은 9글자까지 가능합니다.");
+      setUpdateTeamName("");
+      return;
+    }
     const data = {
       name: updateTeamName,
     };
