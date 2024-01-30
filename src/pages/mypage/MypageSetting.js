@@ -117,16 +117,17 @@ const TextWrapper = styled.div`
 const ChipGroup = styled.div`
   align-items: flex-start;
   align-self: stretch;
-  display: flex;
+  display: inline-flex;
+  flex-wrap: wrap;
   flex: 0 0 auto;
   gap: 8px;
   position: relative;
   width: 100%;
 `;
 
-const Chip = styled.div`
+const Chip = styled.button`
   align-items: center;
-  background-color: #0000000d;
+  background-color: ${(props) => props.backgroundColor || "#0000000d"};
   border-radius: 6px;
   display: inline-flex;
   flex: 0 0 auto;
@@ -134,10 +135,14 @@ const Chip = styled.div`
   justify-content: center;
   padding: 8px;
   position: relative;
+  border: none;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Text = styled.div`
-  color: #000000;
+  color: ${(props) => props.color || "#000000"};
   font-family: "Roboto", Helvetica;
   font-size: 14px;
   font-weight: 400;
@@ -183,7 +188,7 @@ const Button2 = styled.div`
   position: relative;
 `;
 
-const Seconday = styled.button`
+const Secondary = styled.button`
   align-items: center;
   border: 1px solid;
   border-color: #000000;
@@ -455,6 +460,7 @@ export default function MyPageSetting() {
 
   const [updateMyName, setUpdateMyName] = useState("");
   const [skills, setSkills] = useState("");
+  const [changeSkills, setChangeSkills] = useState([]);
 
   const moveMypageHandler = () => {
     navigate(PATH_MYPAGE);
@@ -467,7 +473,7 @@ export default function MyPageSetting() {
   const updateMyNameHandler = async () => {
     const data = {
       username: updateMyName,
-      skillList: [],
+      skillList: changeSkills,
     };
     const response = await userUpdateInfoApi(userInfo.userId, data);
 
@@ -486,8 +492,24 @@ export default function MyPageSetting() {
     const response = await skillGetSkillsApi();
     if (response.status === 200) {
       setSkills(response.data);
+      if (userInfo) {
+        const mySkills = userInfo.skillList.map((skill) => skill.userSkill);
+        setChangeSkills(mySkills);
+      }
     } else {
       alert(response.message);
+    }
+  };
+
+  useEffect(() => {
+    console.log(changeSkills);
+  }, [changeSkills]);
+
+  const changeSkillHandler = (skill) => {
+    if (changeSkills.includes(skill)) {
+      setChangeSkills(changeSkills.filter((item) => item !== skill));
+    } else {
+      setChangeSkills([...changeSkills, skill]);
     }
   };
 
@@ -515,16 +537,19 @@ export default function MyPageSetting() {
             <Container2>
               <TextWrapper>{userInfo.username}</TextWrapper>
               <ChipGroup>
-                {/* <Chip >
-                    <Text>Programming</Text>
-                  </Chip> */}
+                {userInfo.skillList !== null &&
+                  userInfo.skillList.map((skill, index) => (
+                    <Chip key={index}>
+                      <Text>{skill.userSkill}</Text>
+                    </Chip>
+                  ))}
               </ChipGroup>
             </Container2>
             <Button>
               <Button2>
-                <Seconday onClick={() => moveMypageHandler()}>
+                <Secondary onClick={() => moveMypageHandler()}>
                   <Title2>Save</Title2>
-                </Seconday>
+                </Secondary>
               </Button2>
             </Button>
           </Div>
@@ -546,33 +571,36 @@ export default function MyPageSetting() {
               </Button2>
             </Container3>
           </Section2>
-          {/* <Section2>
+          <Section2>
             <Container3>
               <Title3>Choose Skills</Title3>
               <Description>Select your skills</Description>
               <Selection>
                 <ChipGroup2>
-                  <Chip>
-                    <Text>Programming</Text>
-                  </Chip>
-                  <DivWrapper>
-                    <Text>Design</Text>
-                  </DivWrapper>
-                  <DivWrapper>
-                    <Text>Writing</Text>
-                  </DivWrapper>
-                  <Chip2>
-                    <Text3>Marketing</Text3>
-                  </Chip2>
+                  {skills &&
+                    changeSkills &&
+                    skills.map((skill, index) => (
+                      <Chip
+                        key={index}
+                        backgroundColor={
+                          changeSkills.includes(skill) && "black"
+                        }
+                        onClick={() => changeSkillHandler(skill)}
+                      >
+                        <Text color={changeSkills.includes(skill) && "white"}>
+                          {skill}
+                        </Text>
+                      </Chip>
+                    ))}
                 </ChipGroup2>
               </Selection>
               <Button2>
-                <Primary>
+                <Primary onClick={() => updateMyNameHandler()}>
                   <Title5>Save</Title5>
                 </Primary>
               </Button2>
             </Container3>
-          </Section2> */}
+          </Section2>
         </IndexWrapper>
       )}
     </>

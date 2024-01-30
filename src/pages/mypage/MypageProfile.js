@@ -115,7 +115,8 @@ const TextWrapper = styled.div`
 const ChipGroup = styled.div`
   align-items: flex-start;
   align-self: stretch;
-  display: flex;
+  display: inline-flex;
+  flex-wrap: wrap;
   flex: 0 0 auto;
   gap: 8px;
   position: relative;
@@ -541,9 +542,12 @@ export default function MyPageProfile() {
             <Container2>
               <TextWrapper>{userInfo.username}</TextWrapper>
               <ChipGroup>
-                {/* <Chip>
-                  <Text>Programming</Text>
-                </Chip> */}
+                {userInfo.skillList !== null &&
+                  userInfo.skillList.map((skill, index) => (
+                    <Chip key={index}>
+                      <Text>{skill.userSkill}</Text>
+                    </Chip>
+                  ))}
               </ChipGroup>
             </Container2>
             <Button>
