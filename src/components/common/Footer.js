@@ -1,5 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import {
+  PATH_PRIVACY,
+  PATH_TERMS,
+  PATH_LICENSE,
+  PATH_REPOSITORY,
+} from "../../constants";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -49,6 +56,13 @@ const Div = styled.div`
   line-height: 20px;
   position: relative;
   text-align: center;
+
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: black;
+  }
 `;
 
 const Div2 = styled.div`
@@ -63,22 +77,49 @@ const Div2 = styled.div`
   text-align: center;
 `;
 
+const Div3 = styled.div`
+  align-self: stretch;
+  color: #000000;
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 20px;
+  position: relative;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: gray;
+  }
+`;
+
 export default function Footer() {
   return (
     <Wrapper>
       <Section>
         <Container>
           <Container2>
-            <Div>개인정보 처리방침</Div>
-            <Div>홈페이지 이용약관</Div>
-            <Div>오픈소스 라이선스</Div>
+            <Link to={PATH_PRIVACY}>
+              <Div>개인정보 처리방침</Div>
+            </Link>
+            <Link to={PATH_TERMS}>
+              <Div>홈페이지 이용약관</Div>
+            </Link>
+            <Link to={PATH_LICENSE}>
+              <Div>오픈소스 라이선스</Div>
+            </Link>
           </Container2>
           <Container2>
-            <Div2>DevQuiz Github</Div2>
+            <Link to={PATH_REPOSITORY}>
+              <Div3>DevQuiz Github</Div3>
+            </Link>
             <Div2>Version 1.0.0</Div2>
           </Container2>
           <Container2>
-            <Div>Copyright © 2024 DevQiuz. All Right Reserved.</Div>
+            <Div>Copyright © 2024 DevQuiz. All Right Reserved.</Div>
           </Container2>
         </Container>
       </Section>

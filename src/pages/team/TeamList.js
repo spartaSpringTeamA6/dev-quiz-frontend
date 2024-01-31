@@ -317,6 +317,12 @@ export default function TeamList(props) {
   };
 
   const createTeamHandler = async () => {
+    if (createTeamName.length < 2) {
+      alert("팀 이름은 2글자부터 가능합니다.");
+      setCreateTeamName("");
+      return;
+    }
+
     if (createTeamName.length > 9) {
       alert("팀 이름은 9글자까지 가능합니다.");
       setCreateTeamName("");
