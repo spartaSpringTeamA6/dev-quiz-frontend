@@ -108,20 +108,9 @@ export default function Login() {
           <Title>Login</Title>
           <Description>Welcome to our login page!</Description>
           <ButtonContainer>
-            {/* <ALink
-              href={
-                API_BASE_URL +
-                "/oauth2/authorization/google?redirect_uri=https://devquiz.pro"
-              }
-            >
-              <Button>
-                <ButtonText>Google</ButtonText>
-              </Button>
-            </ALink> */}
             <ALink
               href={
                 API_BASE_URL +
-                // "/oauth2/authorization/github?redirect_uri=http://localhost:3000"
                 "/oauth2/authorization/github?redirect_uri=https://devquiz.pro"
               }
             >

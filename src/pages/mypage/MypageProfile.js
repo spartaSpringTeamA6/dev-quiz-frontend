@@ -522,10 +522,6 @@ export default function MyPageProfile() {
     setUserInfo(user);
   }, [user]);
 
-  useEffect(() => {
-    console.log(calendarData);
-  }, [calendarData]);
-
   return (
     <>
       {userInfo && (
