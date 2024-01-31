@@ -56,13 +56,6 @@ const Div = styled.div`
   line-height: 20px;
   position: relative;
   text-align: center;
-
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    color: black;
-  }
 `;
 
 const Div2 = styled.div`
@@ -96,6 +89,25 @@ const Div3 = styled.div`
   }
 `;
 
+const Div4 = styled.div`
+  align-self: stretch;
+  color: rgba(0, 0, 0, 0.7);
+  font-family: "Roboto-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 20px;
+  position: relative;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: black;
+  }
+`;
+
 export default function Footer() {
   return (
     <Wrapper>
@@ -103,13 +115,13 @@ export default function Footer() {
         <Container>
           <Container2>
             <Link to={PATH_PRIVACY}>
-              <Div>개인정보 처리방침</Div>
+              <Div4>개인정보 처리방침</Div4>
             </Link>
             <Link to={PATH_TERMS}>
-              <Div>홈페이지 이용약관</Div>
+              <Div4>홈페이지 이용약관</Div4>
             </Link>
             <Link to={PATH_LICENSE}>
-              <Div>오픈소스 라이선스</Div>
+              <Div4>오픈소스 라이선스</Div4>
             </Link>
           </Container2>
           <Container2>
