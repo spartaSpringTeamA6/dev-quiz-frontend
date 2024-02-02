@@ -520,10 +520,6 @@ export default function MyPageSetting() {
     }
   };
 
-  useEffect(() => {
-    console.log(changeSkills);
-  }, [changeSkills]);
-
   const changeSkillHandler = (skill) => {
     if (changeSkills.includes(skill)) {
       setChangeSkills(changeSkills.filter((item) => item !== skill));

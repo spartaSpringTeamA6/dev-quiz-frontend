@@ -30,8 +30,6 @@ export const userAcceptTeamInvitationApi = async (userId, teamId) => {
   const response = await api
     .post(`${API_BASE_URL}/api/users/${userId}/teams/${teamId}/accept`)
     .catch((error) => error.response);
-  console.log(response);
-  console.log(response.data);
   return response.data;
 };
 
