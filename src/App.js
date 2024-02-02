@@ -1,21 +1,69 @@
-import { CookiesProvider } from "react-cookie";
-import React from "react"; // useState와 useEffect가 사용되지 않으므로 import 제거
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./App.css";
 import theme from "./styles/themes/default";
+
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+import { useCookies } from "react-cookie";
+
+import {
+  API_BASE_URL,
+  PATH_ANY,
+  PATH_LOGIN,
+  PATH_MYPAGE,
+  PATH_QUIZ,
+  PATH_HOME,
+  PATH_TEAM,
+  PATH_TEAM_INFO,
+  PATH_TEAM_SETTING,
+  PATH_QUIZ_RESULT,
+  PATH_QUIZ_GET,
+  PATH_QUIZ_LIST,
+  PATH_QUIZ_BOARD,
+  PATH_QUIZ_BOARD_INFO,
+  PATH_QUIZ_BOARD_POST,
+  PATH_MYPAGE_SETTING,
+  PUBLIC_URL,
+  PATH_TEAM_INVITATION,
+} from "./constants";
 import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/home";
-import Login from "./pages/login";
-import Quiz from "./pages/quiz";
-import UserPage from "./pages/userPage";
-import TeamNameChane from "./pages/teamNameChange";
-import TeamSetup from "./pages/teamSetup";
-import TeamManagement from "./pages/teamManagement";
-import UserManagement from "./pages/userManagement";
-import { PATH_ANY, PATH_LOGIN, PATH_QUIZ, PATH_USERPAGE, PATH_TEAMNAMECHANGE, PATH_TEAMSETUP, PATH_TEAMMANAGEMENT, PATH_USERMANAGEMENT } from "./constants";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import QuizCategory from "./pages/quiz/QuizCategory";
+import QuizList from "./pages/quiz/QuizList";
+import MyPageProfile from "./pages/mypage/MypageProfile";
+import MyPageProfileSetting from "./pages/mypage/MypageSetting.js";
+import TeamList from "./pages/team/TeamList";
+import TeamInfo from "./pages/team/TeamInfo";
+import TeamSetting from "./pages/team/TeamSetting";
+import { useUserStore } from "./stores/user.store";
+import QuizResult from "./pages/quiz/QuizResult";
+import QuizGet from "./pages/quiz/QuizGet";
+import QuizBoardList from "./pages/board/QuizBoardList";
+import QuizBoardInfo from "./pages/board/QuizBoardInfo";
+import QuizBoardPost from "./pages/board/QuizBoardPost";
+import { userGetMyInfoApi } from "./apis/userApis";
+import { authReissueApi } from "./apis/authApis";
+import TeamInvitation from "./pages/team/TeamInvitation.js";
 
 function App() {
+  // const [connection, setConnection] = useState("");
+  // useEffect(() => {
+  //   const connectionTest = () => {
+  //     axios
+  //       .get(API_BASE_URL)
+  //       .then((response) => {
+  //         setConnection(response.data);
+  //       })
+  //       .catch((error) => {
+  //         setConnection(error.message);
+  //       });
+  //   };
+  //   connectionTest();
+  // }, []);
+
   return (
     <CookiesProvider>
       <ThemeProvider theme={theme}>
@@ -23,15 +71,45 @@ function App() {
           <div className="App">
             <Routes>
               <Route element={<MainLayout />}>
+                {/* Home */}
                 <Route path={PATH_ANY} element={<Home />} />
+                <Route path={PATH_HOME} element={<Home />} />
+
+                {/* User */}
                 <Route path={PATH_LOGIN} element={<Login />} />
-                <Route path={PATH_QUIZ} element={<Quiz />} />
-                <Route path={PATH_USERPAGE} element={<UserPage />} />
-                <Route path={PATH_TEAMNAMECHANGE} element={<TeamNameChane />} />
-                <Route path={PATH_TEAMSETUP} element={<TeamSetup />} />
-                <Route path={PATH_TEAMMANAGEMENT} element={<TeamManagement />} />
-                <Route path={PATH_USERMANAGEMENT} element={<UserManagement />} />
+                <Route path={PATH_MYPAGE} element={<MyPageProfile />} />
+                <Route
+                  path={PATH_MYPAGE_SETTING}
+                  element={<MyPageProfileSetting />}
+                />
+
+                {/* Quiz */}
+                <Route path={PATH_QUIZ} element={<QuizCategory />} />
+                <Route path={PATH_QUIZ_GET} element={<QuizGet />} />
+                <Route path={PATH_QUIZ_LIST} element={<QuizList />} />
+                <Route path={PATH_QUIZ_RESULT} element={<QuizResult />} />
+
+                {/* Board */}
+                <Route
+                  path={PATH_QUIZ_BOARD_POST}
+                  element={<QuizBoardPost />}
+                />
+                <Route path={PATH_QUIZ_BOARD} element={<QuizBoardList />} />
+                <Route
+                  path={PATH_QUIZ_BOARD_INFO}
+                  element={<QuizBoardInfo />}
+                />
+
+                {/* Team */}
+                <Route path={PATH_TEAM} element={<TeamList />} />
+                <Route path={PATH_TEAM_INFO} element={<TeamInfo />} />
+                <Route path={PATH_TEAM_SETTING} element={<TeamSetting />} />
+                <Route
+                  path={PATH_TEAM_INVITATION}
+                  element={<TeamInvitation />}
+                />
               </Route>
+
               {/* Admin 관련 라우트도 이곳에 추가 */}
             </Routes>
           </div>
