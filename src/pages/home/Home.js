@@ -125,7 +125,7 @@ export default function Home() {
     <IndexWrapper>
       <Section>
         <Container>
-          <Title>Welcome to DevQuiz🐶</Title>
+          <Title>Welcome to DevQuiz</Title>
           <TextWrapper>Computer Science Quizzes</TextWrapper>
           <ButtonGroup>
             <ToLink to={PATH_QUIZ}>
