@@ -279,11 +279,11 @@ export default function QuizBoardPost() {
   };
 
   const setNewBoardContentHandler = async (e) => {
-    setNewBoardContent(e.target.value);
+    setNewBoardContent(e.target.value.trim());
   };
 
   const setNewBoardTitleHandler = async (e) => {
-    setNewBoardTitle(e.target.value);
+    setNewBoardTitle(e.target.value.trim());
   };
 
   const getUserInfoHandler = async () => {

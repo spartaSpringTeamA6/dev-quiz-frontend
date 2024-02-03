@@ -313,7 +313,7 @@ export default function TeamList(props) {
   };
 
   const setCreateTeamNameHandler = async (event) => {
-    await setCreateTeamName(event.target.value);
+    await setCreateTeamName(event.target.value.trim());
   };
 
   const createTeamHandler = async () => {

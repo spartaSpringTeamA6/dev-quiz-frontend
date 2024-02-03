@@ -443,7 +443,7 @@ export default function QuizBoardInfo() {
   };
 
   const setNewCommentContentHandler = async (e) => {
-    setNewCommentContent(e.target.value);
+    setNewCommentContent(e.target.value.trim());
   };
 
   const getBoardInfoHandler = async () => {
