@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {
   PATH_BOARD,
   PATH_MYPAGE,
+  PATH_QUIZ_BOARD,
   PATH_QUIZ_LIST,
   PATH_QUIZ_RESULT,
 } from "../../constants";
@@ -274,6 +275,10 @@ export default function QuizGet(props) {
     }
   };
 
+  const moveBoardHandler = () => {
+    navigate(PATH_QUIZ_BOARD.replace(":quizId", quizId));
+  };
+
   useEffect(() => {
     const token = cookies.access_token;
     if (token) {
@@ -425,9 +430,9 @@ export default function QuizGet(props) {
                   </>
                 )}
               </ButtonContainer>
-              <ToLink to={PATH_BOARD}>
-                <BoardTextButton>Ask on the Board</BoardTextButton>
-              </ToLink>
+              <BoardTextButton onClick={() => moveBoardHandler()}>
+                Ask on the Board
+              </BoardTextButton>
             </ContentContainer>
           </MainContainer>
         </Wrap>
