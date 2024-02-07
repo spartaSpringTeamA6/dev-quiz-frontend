@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import {
+  img_c,
   img_computer_science,
   img_database,
+  img_django,
   img_java,
   img_javascript,
   img_jpa,
+  img_linux,
+  img_network,
+  img_python,
+  img_react,
   img_spring,
 } from "../../assets/images";
 import { PATH_QUIZ_LIST } from "../../constants";
@@ -204,6 +210,67 @@ export default function QuizCategory() {
                   <Subtitle>Test your Computer Science knowledge</Subtitle>
                 </Frame>
               </Article>
+              <Article onClick={() => getQuizHandler("C")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="C" src={img_c} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>C</Title2>
+                  <Subtitle>Test your C knowledge</Subtitle>
+                </Frame>
+              </Article>
+            </Row>
+            <Row>
+              <Article onClick={() => getQuizHandler("JAVA")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Java" src={img_java} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Java</Title2>
+                  <Subtitle>Test your Java knowledge</Subtitle>
+                </Frame>
+              </Article>
+              <Article onClick={() => getQuizHandler("SPRING")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Spring" src={img_spring} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Spring</Title2>
+                  <Subtitle>Test your Spring knowledge</Subtitle>
+                </Frame>
+              </Article>
+            </Row>
+            <Row>
+              <Article onClick={() => getQuizHandler("PYTHON")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Python" src={img_python} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Python</Title2>
+                  <Subtitle>Test your Python knowledge</Subtitle>
+                </Frame>
+              </Article>
+              <Article onClick={() => getQuizHandler("DJANGO")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Django" src={img_django} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Django</Title2>
+                  <Subtitle>Test your Django knowledge</Subtitle>
+                </Frame>
+              </Article>
+            </Row>
+            <Row>
               <Article onClick={() => getQuizHandler("JAVASCRIPT")}>
                 <ImageContainer>
                   <Image>
@@ -213,6 +280,17 @@ export default function QuizCategory() {
                 <Frame>
                   <Title2>JavaScript</Title2>
                   <Subtitle>Test your JavaScript knowledge</Subtitle>
+                </Frame>
+              </Article>
+              <Article onClick={() => getQuizHandler("REACT")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="React" src={img_react} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>React</Title2>
+                  <Subtitle>Test your React knowledge</Subtitle>
                 </Frame>
               </Article>
             </Row>
@@ -228,30 +306,6 @@ export default function QuizCategory() {
                   <Subtitle>Test your Database knowledge</Subtitle>
                 </Frame>
               </Article>
-              <Article onClick={() => getQuizHandler("JAVA")}>
-                <ImageContainer>
-                  <Image>
-                    <Img alt="Java" src={img_java} />
-                  </Image>
-                </ImageContainer>
-                <Frame>
-                  <Title2>Java</Title2>
-                  <Subtitle>Test your Java knowledge</Subtitle>
-                </Frame>
-              </Article>
-            </Row>
-            <Row>
-              <Article onClick={() => getQuizHandler("SPRING")}>
-                <ImageContainer>
-                  <Image>
-                    <Img alt="Spring" src={img_spring} />
-                  </Image>
-                </ImageContainer>
-                <Frame>
-                  <Title2>Spring</Title2>
-                  <Subtitle>Test your Spring knowledge</Subtitle>
-                </Frame>
-              </Article>
               <Article onClick={() => getQuizHandler("JPA")}>
                 <ImageContainer2>
                   <Image>
@@ -261,6 +315,30 @@ export default function QuizCategory() {
                 <Frame>
                   <Title2>JPA</Title2>
                   <Subtitle>Test your JPA knowledge</Subtitle>
+                </Frame>
+              </Article>
+            </Row>
+            <Row>
+              <Article onClick={() => getQuizHandler("LINUX")}>
+                <ImageContainer>
+                  <Image>
+                    <Img alt="Linux" src={img_linux} />
+                  </Image>
+                </ImageContainer>
+                <Frame>
+                  <Title2>Linux</Title2>
+                  <Subtitle>Test your Linux knowledge</Subtitle>
+                </Frame>
+              </Article>
+              <Article onClick={() => getQuizHandler("NETWORK")}>
+                <ImageContainer2>
+                  <Image>
+                    <Img alt="Network" src={img_network} />
+                  </Image>
+                </ImageContainer2>
+                <Frame>
+                  <Title2>Network</Title2>
+                  <Subtitle>Test your Network knowledge</Subtitle>
                 </Frame>
               </Article>
             </Row>

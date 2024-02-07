@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { teamGetTeamInfoApi, teamGetTeamsApi } from "../../apis/teamApis";
+import { teamGetTeamInfoApi } from "../../apis/teamApis";
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
 import {
@@ -11,6 +11,7 @@ import {
   PATH_TEAM_INVITATION,
   PATH_TEAM_SETTING,
 } from "../../constants";
+import { teamGetTeamsApi } from "../../apis/userApis";
 
 const Wrap = styled.div`
   padding: 0px 0 80px 0;

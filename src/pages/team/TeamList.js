@@ -3,17 +3,14 @@ import { useCookies } from "react-cookie";
 import styled from "styled-components";
 import useUserStore from "../../stores/user.store";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  teamCreateTeamApi,
-  teamGetTeamInfoApi,
-  teamGetTeamsApi,
-} from "../../apis/teamApis";
+import { teamCreateTeamApi } from "../../apis/teamApis";
 import {
   PATH_LOGIN,
   PATH_TEAM,
   PATH_TEAM_INFO,
   PATH_TEAM_INVITATION,
 } from "../../constants";
+import { teamGetTeamsApi } from "../../apis/userApis";
 
 const Wrapper = styled.div`
   padding: 80px 0;
