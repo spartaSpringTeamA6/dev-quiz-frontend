@@ -254,8 +254,8 @@ export default function QuizList(props) {
   };
 
   const moveNextPageHandler = (c, p) => {
-    setSelectAnswer("");
-    setCorrectAnswer("");
+    setSelectAnswer(0);
+    setCorrectAnswer(0);
     if (index + 1 >= 10) {
       navigate(PATH_QUIZ_RESULT, { state: { correct: c, pass: p } });
     } else {
