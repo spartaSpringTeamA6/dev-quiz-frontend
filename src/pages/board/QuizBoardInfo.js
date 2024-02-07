@@ -412,18 +412,20 @@ export default function QuizBoardInfo() {
   };
 
   const createCommentHandler = async () => {
-    if (newCommentContent.length === 0) {
+    let commentContent = newCommentContent.trim();
+
+    if (commentContent.length === 0) {
       alert("Please enter your comment.");
       return;
     }
 
-    if (newCommentContent.length > 255) {
+    if (commentContent.length > 255) {
       alert("Please enter your comment less than 256.");
       return;
     }
 
     const data = {
-      content: newCommentContent,
+      content: commentContent,
     };
 
     const response = await commentCreateApi(boardId, data);
@@ -443,7 +445,7 @@ export default function QuizBoardInfo() {
   };
 
   const setNewCommentContentHandler = async (e) => {
-    setNewCommentContent(e.target.value.trim());
+    setNewCommentContent(e.target.value);
   };
 
   const getBoardInfoHandler = async () => {

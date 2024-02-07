@@ -310,23 +310,25 @@ export default function TeamList(props) {
   };
 
   const setCreateTeamNameHandler = async (event) => {
-    await setCreateTeamName(event.target.value.trim());
+    await setCreateTeamName(event.target.value);
   };
 
   const createTeamHandler = async () => {
-    if (createTeamName.length < 2) {
+    let teamName = createTeamName.trim();
+
+    if (teamName.length < 2) {
       alert("팀 이름은 2글자부터 가능합니다.");
       setCreateTeamName("");
       return;
     }
 
-    if (createTeamName.length > 9) {
+    if (teamName.length > 9) {
       alert("팀 이름은 9글자까지 가능합니다.");
       setCreateTeamName("");
       return;
     }
     const data = {
-      name: createTeamName,
+      name: teamName,
     };
     const response = await teamCreateTeamApi(data);
 

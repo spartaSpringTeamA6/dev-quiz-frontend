@@ -419,7 +419,7 @@ export default function TeamSetting(props) {
   };
 
   const setInviteTeamUserHandler = async (event) => {
-    await setInviteTeamUser(event.target.value.trim());
+    await setInviteTeamUser(event.target.value);
   };
 
   const inviteTeamUserHandler = async (id) => {
@@ -439,7 +439,7 @@ export default function TeamSetting(props) {
   };
 
   const setDeleteTeamUserHandler = async (event) => {
-    await setDeleteTeamUser(event.target.value.trim());
+    await setDeleteTeamUser(event.target.value);
   };
 
   const deleteTeamUserHandler = async (id) => {
@@ -459,7 +459,7 @@ export default function TeamSetting(props) {
   };
 
   const setUpdateTeamNameHandler = async (event) => {
-    await setUpdateTeamName(event.target.value.trim());
+    await setUpdateTeamName(event.target.value);
   };
 
   const updateTeamNameHandler = async (id) => {
@@ -490,7 +490,7 @@ export default function TeamSetting(props) {
   };
 
   const setUpdateTeamAdminHandler = async (event) => {
-    await setUpdateTeamAdmin(event.target.value.trim());
+    await setUpdateTeamAdmin(event.target.value);
   };
 
   const updateTeamAdminHandler = async (id) => {

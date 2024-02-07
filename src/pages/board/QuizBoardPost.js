@@ -241,34 +241,42 @@ export default function QuizBoardPost() {
   const { user, setUser } = useUserStore();
 
   const createBoardHandler = async () => {
-    if (newBoardTitle.length === 0) {
+    let boardTitle = newBoardTitle.trim();
+    let boardContent = newBoardContent.trim();
+
+    if (boardTitle.length === 0) {
       alert("Please enter your title.");
       return;
     }
 
-    if (newBoardTitle.length < 5) {
+    if (boardTitle.length < 5) {
       alert("Please enter your title at least 5.");
       return;
     }
 
-    if (newBoardTitle.length > 50) {
+    if (boardTitle.length > 50) {
       alert("Please enter your title less than 51.");
       return;
     }
 
-    if (newBoardContent.length === 0) {
+    if (boardContent.length === 0) {
       alert("Please enter your content.");
       return;
     }
 
-    if (newBoardContent.length > 255) {
+    if (boardContent.length < 5) {
+      alert("Please enter your content at least 5.");
+      return;
+    }
+
+    if (boardContent.length > 255) {
       alert("Please enter your content less than 256.");
       return;
     }
 
     const data = {
-      title: newBoardTitle,
-      content: newBoardContent,
+      title: boardTitle,
+      content: boardContent,
     };
 
     const response = await boardCreateApi(quizId, data);
@@ -284,11 +292,11 @@ export default function QuizBoardPost() {
   };
 
   const setNewBoardContentHandler = async (e) => {
-    setNewBoardContent(e.target.value.trim());
+    setNewBoardContent(e.target.value);
   };
 
   const setNewBoardTitleHandler = async (e) => {
-    setNewBoardTitle(e.target.value.trim());
+    setNewBoardTitle(e.target.value);
   };
 
   const getUserInfoHandler = async () => {
