@@ -246,6 +246,11 @@ export default function QuizBoardPost() {
       return;
     }
 
+    if (newBoardTitle.length < 5) {
+      alert("Please enter your title at least 5.");
+      return;
+    }
+
     if (newBoardTitle.length > 50) {
       alert("Please enter your title less than 51.");
       return;

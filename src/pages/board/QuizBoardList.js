@@ -77,7 +77,6 @@ const Description = styled.div`
   line-height: 24px;
   position: relative;
   text-align: center;
-  width: 520px;
 `;
 
 const Div = styled.div`
@@ -401,10 +400,10 @@ export default function QuizBoardList() {
               <Title>문제 {quiz.id}번</Title>
               <Title3>{quiz.question}</Title3>
               <Div>
-                <Description>{quiz.example[0]}</Description>
-                <Description>{quiz.example[1]}</Description>
-                <Description>{quiz.example[2]}</Description>
-                <Description>{quiz.example[3]}</Description>
+                <Description>{quiz.quizChoices[0].choiceContent}</Description>
+                <Description>{quiz.quizChoices[1].choiceContent}</Description>
+                <Description>{quiz.quizChoices[2].choiceContent}</Description>
+                <Description>{quiz.quizChoices[3].choiceContent}</Description>
               </Div>
               {user && (
                 <Button onClick={() => moveToCreateBoard()}>
