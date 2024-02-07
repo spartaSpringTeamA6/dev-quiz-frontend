@@ -10,7 +10,11 @@ import {
 } from "../../constants";
 import { useCookies } from "react-cookie";
 import useUserStore from "../../stores/user.store";
-import { quizGetQuizApi, quizSubmitAnswerApi } from "../../apis/quizApis";
+import {
+  quizGetQuizApi,
+  quizSubmitAnswerApi,
+  quizSubmitPassApi,
+} from "../../apis/quizApis";
 
 const Wrap = styled.div`
   padding: 80px 0;
@@ -220,25 +224,22 @@ export default function QuizGet(props) {
 
   const [quiz, setQuiz] = useState();
   const [submitAnswer, setSubmitAnswer] = useState(false);
-  const [selectAnswer, setSelectAnswer] = useState("");
-  const [correctAnswer, setCorrectAnswer] = useState("");
+  const [selectAnswer, setSelectAnswer] = useState(0);
+  const [correctAnswer, setCorrectAnswer] = useState();
 
   const clickPassHandler = async () => {
-    setSelectAnswer("0");
-    const data = {
-      answer: "0",
-    };
-    const response = await quizSubmitAnswerApi(quiz.id, data);
+    setSelectAnswer(0);
+    const response = await quizSubmitPassApi(quiz.id);
     setCorrectAnswer(response.data.correctAnswer);
     setSubmitAnswer(true);
   };
 
   const clickSolveHandler = async (answer) => {
-    if (selectAnswer === "") {
+    if (selectAnswer === 0) {
       return;
     }
     const data = {
-      answer: answer,
+      choiceSequence: answer,
     };
     const response = await quizSubmitAnswerApi(quiz.id, data);
     setCorrectAnswer(response.data.correctAnswer);
@@ -307,78 +308,78 @@ export default function QuizGet(props) {
           <MainContainer>
             <ContentContainer>
               <SubTitle>문제 {quiz.id}번</SubTitle>
-              <Title>{quiz.question}</Title>
+              <Title>{quiz.quizTitle}</Title>
               <Description>Choose the correct answer</Description>
               <AnswerContainer>
                 <Answer>
                   {!submitAnswer ? (
                     <AnswerText
-                      onClick={() => setSelectAnswer("1")}
-                      color={selectAnswer === "1" && "blue"}
-                      fontWeight={selectAnswer === "1" && "600"}
+                      onClick={() => setSelectAnswer(1)}
+                      color={selectAnswer === 1 && "blue"}
+                      fontWeight={selectAnswer === 1 && "600"}
                     >
-                      {quiz.example[0]}
+                      {quiz.quizChoices[0].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
-                      color={() => customColor("1")}
-                      fontWeight={() => customFontWeight("1")}
+                      color={() => customColor(1)}
+                      fontWeight={() => customFontWeight(1)}
                     >
-                      {quiz.example[0]}
+                      {quiz.quizChoices[0].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
                 <Answer>
                   {!submitAnswer ? (
                     <AnswerText
-                      onClick={() => setSelectAnswer("2")}
-                      color={selectAnswer === "2" && "blue"}
-                      fontWeight={selectAnswer === "2" && "600"}
+                      onClick={() => setSelectAnswer(2)}
+                      color={selectAnswer === 2 && "blue"}
+                      fontWeight={selectAnswer === 2 && "600"}
                     >
-                      {quiz.example[1]}
+                      {quiz.quizChoices[1].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
-                      color={() => customColor("2")}
-                      fontWeight={() => customFontWeight("2")}
+                      color={() => customColor(2)}
+                      fontWeight={() => customFontWeight(2)}
                     >
-                      {quiz.example[1]}
+                      {quiz.quizChoices[1].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
                 <Answer>
                   {!submitAnswer ? (
                     <AnswerText
-                      onClick={() => setSelectAnswer("3")}
-                      color={selectAnswer === "3" && "blue"}
-                      fontWeight={selectAnswer === "3" && "600"}
+                      onClick={() => setSelectAnswer(3)}
+                      color={selectAnswer === 3 && "blue"}
+                      fontWeight={selectAnswer === 3 && "600"}
                     >
-                      {quiz.example[2]}
+                      {quiz.quizChoices[2].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
-                      color={() => customColor("3")}
-                      fontWeight={() => customFontWeight("3")}
+                      color={() => customColor(3)}
+                      fontWeight={() => customFontWeight(3)}
                     >
-                      {quiz.example[2]}
+                      {quiz.quizChoices[2].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
                 <Answer>
                   {!submitAnswer ? (
                     <AnswerText
-                      onClick={() => setSelectAnswer("4")}
-                      color={selectAnswer === "4" && "blue"}
-                      fontWeight={selectAnswer === "4" && "600"}
+                      onClick={() => setSelectAnswer(4)}
+                      color={selectAnswer === 4 && "blue"}
+                      fontWeight={selectAnswer === 4 && "600"}
                     >
-                      {quiz.example[3]}
+                      {quiz.quizChoices[3].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
-                      color={() => customColor("4")}
-                      fontWeight={() => customFontWeight("4")}
+                      color={() => customColor(4)}
+                      fontWeight={() => customFontWeight(4)}
                     >
-                      {quiz.example[3]}
+                      {quiz.quizChoices[3].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -386,7 +387,7 @@ export default function QuizGet(props) {
               <Confirmation>
                 {submitAnswer && (
                   <>
-                    {selectAnswer === "0" ? (
+                    {selectAnswer === 0 ? (
                       <ConfirmationText color="green">
                         넘어갑니다!
                       </ConfirmationText>
