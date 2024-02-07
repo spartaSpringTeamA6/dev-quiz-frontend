@@ -8,12 +8,11 @@ import {
   PATH_TEAM_INFO,
   PATH_TEAM_INVITATION,
 } from "../../constants";
-import { teamGetTeamsApi } from "../../apis/teamApis";
 import {
-  userAcceptTeamInvitationApi,
-  userGetTeamInvitationApi,
-  userRejectTeamInvitationApi,
-} from "../../apis/userApis";
+  teamAcceptTeamInvitationApi,
+  teamRejectTeamInvitationApi,
+} from "../../apis/teamApis";
+import { teamGetTeamsApi, userGetTeamInvitationApi } from "../../apis/userApis";
 
 const Wrapper = styled.div`
   padding: 80px 0;
@@ -341,7 +340,7 @@ export default function TeamInvitation() {
   };
 
   const acceptTeamInvitationHandler = async (id) => {
-    const response = await userAcceptTeamInvitationApi(userInfo.userId, id);
+    const response = await teamAcceptTeamInvitationApi(userInfo.userId, id);
     const confirmed = window.confirm("초대를 수락하시겠습니까?");
     if (confirmed) {
       if (response.status === 200) {
@@ -353,7 +352,7 @@ export default function TeamInvitation() {
   };
 
   const rejectTeamInvitationHandler = async (id) => {
-    const response = await userRejectTeamInvitationApi(userInfo.userId, id);
+    const response = await teamRejectTeamInvitationApi(userInfo.userId, id);
     const confirmed = window.confirm("초대를 거절하시겠습니까?");
     if (confirmed) {
       if (response.status === 200) {

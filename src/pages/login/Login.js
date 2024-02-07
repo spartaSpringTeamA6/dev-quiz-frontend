@@ -112,6 +112,7 @@ export default function Login() {
               href={
                 API_BASE_URL +
                 "/oauth2/authorization/github?redirect_uri=https://devquiz.pro"
+                // "/oauth2/authorization/github?redirect_uri=http://localhost:3000"
               }
             >
               <Button>

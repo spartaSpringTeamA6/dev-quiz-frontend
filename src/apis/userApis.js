@@ -1,10 +1,10 @@
 import { API_BASE_URL } from "../constants/index";
 import api from "../helper/jwtInterceptor";
 
-//USER-005
+//USER-006
 export const userGetMyInfoApi = async () => {
   const response = await api
-    .get(`${API_BASE_URL}/api/users`)
+    .get(`${API_BASE_URL}/api/users/mypage`)
     .catch((error) => error.response);
   return response.data;
 };
@@ -25,26 +25,10 @@ export const userUpdateSkillsApi = async (userId, data) => {
   return response.data;
 };
 
-// USER-003
-export const userAcceptTeamInvitationApi = async (userId, teamId) => {
-  const response = await api
-    .post(`${API_BASE_URL}/api/users/${userId}/teams/${teamId}/accept`)
-    .catch((error) => error.response);
-  return response.data;
-};
-
-// USER-004
-export const userRejectTeamInvitationApi = async (userId, teamId) => {
-  const response = await api
-    .delete(`${API_BASE_URL}/api/users/${userId}/teams/${teamId}/reject`)
-    .catch((error) => error.response);
-  return response.data;
-};
-
 // USER-008
 export const userGetTeamInvitationApi = async (userId) => {
   const response = await api
-    .get(`${API_BASE_URL}/api/users/${userId}/teams/invitations`)
+    .get(`${API_BASE_URL}/api/users/${userId}/invitations`)
     .catch((error) => error.response);
   return response.data;
 };
@@ -77,6 +61,14 @@ export const userGetPassQuizApi = async (userId) => {
 export const userGetGrassApi = async (userId) => {
   const response = await api
     .get(`${API_BASE_URL}/api/users/${userId}/grasses`)
+    .catch((error) => error.response);
+  return response.data;
+};
+
+// USER-009
+export const teamGetTeamsApi = async (userId) => {
+  const response = await api
+    .get(`${API_BASE_URL}/api/users/${userId}/teams`)
     .catch((error) => error.response);
   return response.data;
 };

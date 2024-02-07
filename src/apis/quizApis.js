@@ -23,3 +23,10 @@ export const quizSubmitAnswerApi = async (quizId, data) => {
     .catch((error) => error.response);
   return response.data;
 };
+
+export const quizSubmitPassApi = async (quizId) => {
+  const response = await api
+    .post(`${API_BASE_URL}/api/quizzes/${quizId}/pass`)
+    .catch((error) => error.response);
+  return response.data;
+};
