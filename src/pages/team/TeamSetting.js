@@ -13,12 +13,12 @@ import {
   teamDeleteTeamApi,
   teamDeleteTeamUserApi,
   teamGetTeamInfoApi,
-  teamGetTeamsApi,
   teamInviteUserApi,
   teamUpdateTeamAdminApi,
   teamUpdateTeamNameApi,
   teamWithdrawTeamApi,
 } from "../../apis/teamApis";
+import { teamGetTeamsApi } from "../../apis/userApis";
 
 const Wrapper = styled.div`
   padding: 80px 0;

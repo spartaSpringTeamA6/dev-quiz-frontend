@@ -1,4 +1,5 @@
 export const API_BASE_URL = "https://devquiz.pro";
+// export const API_BASE_URL = "http://localhost:8080";
 export const ACCESS_TOKEN = "accessToken";
 
 /* PATH ROOT */

@@ -238,7 +238,7 @@ export default function QuizList(props) {
       return;
     }
     const data = {
-      answer: answer,
+      choiceSequence: answer,
     };
     const response = await quizSubmitAnswerApi(quizzes[index].id, data);
     setCorrectAnswer(response.data.correctAnswer);
@@ -330,7 +330,7 @@ export default function QuizList(props) {
                 />
               </ProgressWrapper>
               <SubTitle>문제 {quizzes[index].id}번</SubTitle>
-              <Title>{quizzes[index].question}</Title>
+              <Title>{quizzes[index].quizTitle}</Title>
               <Description>Choose the correct answer</Description>
               <AnswerContainer>
                 <Answer>
@@ -340,14 +340,14 @@ export default function QuizList(props) {
                       color={selectAnswer === "1" && "blue"}
                       fontWeight={selectAnswer === "1" && "600"}
                     >
-                      {quizzes[index].example[0]}
+                      {quizzes[index].quizChoices[0].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("1")}
                       fontWeight={() => customFontWeight("1")}
                     >
-                      {quizzes[index].example[0]}
+                      {quizzes[index].quizChoices[0].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -358,14 +358,14 @@ export default function QuizList(props) {
                       color={selectAnswer === "2" && "blue"}
                       fontWeight={selectAnswer === "2" && "600"}
                     >
-                      {quizzes[index].example[1]}
+                      {quizzes[index].quizChoices[1].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("2")}
                       fontWeight={() => customFontWeight("2")}
                     >
-                      {quizzes[index].example[1]}
+                      {quizzes[index].quizChoices[1].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -376,14 +376,14 @@ export default function QuizList(props) {
                       color={selectAnswer === "3" && "blue"}
                       fontWeight={selectAnswer === "3" && "600"}
                     >
-                      {quizzes[index].example[2]}
+                      {quizzes[index].quizChoices[2].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("3")}
                       fontWeight={() => customFontWeight("3")}
                     >
-                      {quizzes[index].example[2]}
+                      {quizzes[index].quizChoices[2].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
@@ -394,14 +394,14 @@ export default function QuizList(props) {
                       color={selectAnswer === "4" && "blue"}
                       fontWeight={selectAnswer === "4" && "600"}
                     >
-                      {quizzes[index].example[3]}
+                      {quizzes[index].quizChoices[3].choiceContent}
                     </AnswerText>
                   ) : (
                     <SubmitAnswerText
                       color={() => customColor("4")}
                       fontWeight={() => customFontWeight("4")}
                     >
-                      {quizzes[index].example[3]}
+                      {quizzes[index].quizChoices[3].choiceContent}
                     </SubmitAnswerText>
                   )}
                 </Answer>
